@@ -1,0 +1,96 @@
+//
+//  Aggregates.swift
+//  
+//
+//  Created by Antoni Remeseiro Alfonso on 9/9/20.
+//
+
+import Foundation
+
+public struct AggregatesRequest : ApiRequest {
+    typealias Response = AggregatesResponse
+    
+    // time span enum
+    public enum TimeSpan: String {
+        case minute = "minute"
+        case hour = "hour"
+        case day = "day"
+        case week = "week"
+        case month = "month"
+        case quarter = "quarter"
+        case year = "year"
+    }
+    
+    public enum Sorting: String {
+        case ascending = "asc"
+        case descending = "desc"
+    }
+    
+    // path variables
+    let ticker: String
+    let multiplier: Int
+    let timespan: TimeSpan
+    let from: String // date format yyyy-MM-DD or Timestamp in milliseconds
+    let to: String
+    
+    // query item variabels
+    let unadjusted: Bool // default is false
+    let sort: Sorting // default is ascending
+    
+    // the path for the query
+    var path : String {
+        return "/v2/aggs/ticker/\(ticker)/range/\(multiplier)/\(timespan)/\(from)/\(to)"
+    }
+    
+    // the query parameters
+    var queryItems: [URLQueryItem] {
+        return [
+            URLQueryItem(name: "unadjusted", value: unadjusted.description),
+            URLQueryItem(name: "sort", value: sort.rawValue),
+        ]
+    }
+}
+
+public struct AggregatesResponse : Decodable {
+    
+    public var ticker: String
+    public var status: String
+    public var adjusted: Bool
+    public var queryCount: Int
+    public var resultsCount: Int
+    public var results: [Candle]
+    public var requestid: String
+
+    private enum CodingKeys: String, CodingKey {
+        case ticker = "ticker"
+        case status = "status"
+        case adjusted = "adjusted"
+        case queryCount = "queryCount"
+        case resultsCount = "resultsCount"
+        case results = "results"
+        case requestid = "request_id"
+    }
+    
+    public struct Candle : Codable {
+        public var volume: Int
+        public var volumeWeighted: Decimal
+        public var open: Decimal
+        public var close: Decimal
+        public var high: Decimal
+        public var low: Decimal
+        public var timestamp: Int
+        public var n: Int
+        
+        private enum CodingKeys: String, CodingKey {
+            case volume = "v"
+            case volumeWeighted = "vw"
+            case open = "o"
+            case close = "c"
+            case high = "h"
+            case low = "l"
+            case timestamp = "t"
+            case n = "n"
+        }
+    }
+}
+

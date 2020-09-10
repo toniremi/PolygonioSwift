@@ -1,0 +1,97 @@
+{
+    "page": 1,
+    "perPage": 50,
+    "count": 5,
+    "status": "OK",
+    "tickers": [
+        {
+            "ticker": "APPS",
+            "name": "Digital Turbine, Inc. Common Stock",
+            "market": "STOCKS",
+            "locale": "US",
+            "currency": "USD",
+            "active": true,
+            "primaryExch": "NASDAQ",
+            "updated": "2020-06-23",
+            "codes": {
+                "cik": "0000317788",
+                "figiuid": "EQ0000000001902865",
+                "scfigi": "BBG001SPBG12",
+                "cfigi": "BBG000HZ3562",
+                "figi": "BBG000HZ4P30"
+            },
+            "url": "https://api.polygon.io/v2/tickers/APPS"
+        },
+        {
+            "ticker": "CETC",
+            "name": "Cyber Apps World Inc",
+            "market": "STOCKS",
+            "locale": "US",
+            "currency": "USD",
+            "active": false,
+            "primaryExch": "NSC",
+            "updated": "2020-06-23",
+            "codes": {
+                "cik": "0001230524",
+                "figiuid": "EQ0000000001472684",
+                "scfigi": "BBG001SDG885",
+                "cfigi": "BBG000C11MG6",
+                "figi": "BBG000C11VG6"
+            },
+            "url": "https://api.polygon.io/v2/tickers/CETC"
+        },
+        {
+            "ticker": "CYAPD",
+            "name": "Cyber Apps World Inc",
+            "market": "STOCKS",
+            "locale": "US",
+            "currency": "USD",
+            "active": true,
+            "primaryExch": "OTO",
+            "updated": "2020-06-23",
+            "codes": {
+                "cik": "0001230524",
+                "figiuid": "EQ0000000001472684",
+                "scfigi": "BBG001SDG885",
+                "cfigi": "BBG000C11MG6",
+                "figi": "BBG000C11MG6"
+            },
+            "url": "https://api.polygon.io/v2/tickers/CYAPD"
+        },
+        {
+            "ticker": "PXPP",
+            "name": "Phoenix Apps, Inc. Common Stock",
+            "market": "STOCKS",
+            "locale": "US",
+            "currency": "USD",
+            "active": true,
+            "primaryExch": "OTC",
+            "updated": "2020-06-23",
+            "codes": {
+                "figiuid": "EQ0000000048163684",
+                "scfigi": "BBG00C84MRJ2",
+                "cfigi": "BBG00C84MRH4",
+                "figi": "BBG00C84MS19"
+            },
+            "url": "https://api.polygon.io/v2/tickers/PXPP"
+        },
+        {
+            "ticker": "CYAP",
+            "name": "Cyber Apps World Inc. Common Stock",
+            "market": "STOCKS",
+            "locale": "US",
+            "currency": "USD",
+            "active": true,
+            "primaryExch": "OTC",
+            "updated": "2020-06-23",
+            "codes": {
+                "cik": "0001230524",
+                "figiuid": "EQ0000000001472684",
+                "scfigi": "BBG001SDG885",
+                "cfigi": "BBG000C11MG6",
+                "figi": "BBG000C11WK9"
+            },
+            "url": "https://api.polygon.io/v2/tickers/CYAP"
+        }
+    ],
+}
