@@ -1,5 +1,5 @@
 //
-//  TickerRequest.swift
+//  Ticker.swift
 //
 //
 //  Created by Antoni Remeseiro Alfonso on 9/9/20.

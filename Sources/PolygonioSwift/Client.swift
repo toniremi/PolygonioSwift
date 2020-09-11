@@ -58,7 +58,7 @@ public class Client {
             guard let data = data, error == nil else {
                 // If an error was returned set the value in the completion as nil and print the error
                 DispatchQueue.main.async {
-                    completion(nil, PolygonSwiftError(error?.localizedDescription ?? "Data is empty at queryTickers()."))
+                    completion(nil, PolygonSwiftError(error?.localizedDescription ?? "Data is empty at tickers()."))
                 }
                 return
             }
@@ -91,6 +91,50 @@ public class Client {
     }
     
     
+    /// Get the mapping of ticker types to descriptions / long names
+    /// - Parameter completion: The completion to receive the response which is an TickerTypesResponse object.
+    public func tickerTypes( completion: @escaping (_ response: TickerTypesResponse?, _ error: PolygonSwiftError?) -> Void) {
+        let rq = TickerTypesRequest()
+        let url = builder.buildURL(rq)
+        
+        let task = session.dataTask(with: url, completionHandler: { data, response, error in
+            
+            // Unwrap the data and make sure that an error wasn't returned
+            guard let data = data, error == nil else {
+                // If an error was returned set the value in the completion as nil and print the error
+                DispatchQueue.main.async {
+                    completion(nil, PolygonSwiftError(error?.localizedDescription ?? "Data is empty at tickerTypes()."))
+                }
+                return
+            }
+            
+            // add a try/catch so we can fetch any possible errors when decoding response or from the api call
+            do {
+                let rs = try JSONDecoder().decode(TickerTypesResponse.self, from: data)
+                DispatchQueue.main.async {
+                    completion(rs, nil)
+                }
+            } catch {
+                
+                // lets handle the type of error here
+                // try to see if we got an error from the api in the response
+                let responseError = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
+                // if we have an error from the api send that error instead as it may give more info.
+                if responseError != nil, let apiError = responseError?["error"] as? String {
+                    DispatchQueue.main.async {
+                        completion(nil, PolygonSwiftError(apiError))
+                    }
+                } else {
+                    // otherwise send normal error
+                    DispatchQueue.main.async {
+                        completion(nil, PolygonSwiftError(error.localizedDescription))
+                    }
+                }
+            }
+        })
+        task.resume()
+    }
+    
     /// Get the details of the symbol company/entity. These are important details which offer an overview of the entity. Things like name, sector, description, logo and similar companies.
     /// - Parameters:
     ///   - symbol: Symbol we want details for
@@ -105,7 +149,7 @@ public class Client {
             guard let data = data, error == nil else {
                 // If an error was returned set the value in the completion as nil and print the error
                 DispatchQueue.main.async {
-                    completion(nil, PolygonSwiftError(error?.localizedDescription ?? "Data is empty at queryTickers()."))
+                    completion(nil, PolygonSwiftError(error?.localizedDescription ?? "Data is empty at tickerDetails()."))
                 }
                 return
             }
@@ -113,6 +157,240 @@ public class Client {
             // add a try/catch so we can fetch any possible errors when decoding response or from the api call
             do {
                 let rs = try JSONDecoder().decode(TickerResponse.self, from: data)
+                DispatchQueue.main.async {
+                    completion(rs, nil)
+                }
+            } catch {
+                
+                // lets handle the type of error here
+                // try to see if we got an error from the api in the response
+                let responseError = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
+                // if we have an error from the api send that error instead as it may give more info.
+                if responseError != nil, let apiError = responseError?["error"] as? String {
+                    DispatchQueue.main.async {
+                        completion(nil, PolygonSwiftError(apiError))
+                    }
+                } else {
+                    // otherwise send normal error
+                    DispatchQueue.main.async {
+                        completion(nil, PolygonSwiftError(error.localizedDescription))
+                    }
+                }
+            }
+        })
+        task.resume()
+    }
+    
+    
+    /// Get news articles for this ticker.
+    /// - Parameters:
+    ///   - symbol: Ticker we want to search news for
+    ///   - perpage: How many items to be on each page during pagination. Max 50
+    ///   - page: Which page of results to return
+    ///   - completion: The completion to receive the response which is an TickerNewsResponse object.
+    public func tickerNews(symbol: String, perpage: Int = 50, page: Int = 1, completion: @escaping (_ response: TickerNewsResponse?, _ error: PolygonSwiftError?) -> Void) {
+        let rq = TickerNewsRequest(symbol: symbol, perpage: perpage, page: page)
+        let url = builder.buildURL(rq)
+        
+        let task = session.dataTask(with: url, completionHandler: { data, response, error in
+            
+            // Unwrap the data and make sure that an error wasn't returned
+            guard let data = data, error == nil else {
+                // If an error was returned set the value in the completion as nil and print the error
+                DispatchQueue.main.async {
+                    completion(nil, PolygonSwiftError(error?.localizedDescription ?? "Data is empty at tickerNews()."))
+                }
+                return
+            }
+            
+            // add a try/catch so we can fetch any possible errors when decoding response or from the api call
+            do {
+                let rs = try JSONDecoder().decode(TickerNewsResponse.self, from: data)
+                DispatchQueue.main.async {
+                    completion(rs, nil)
+                }
+            } catch {
+                
+                // lets handle the type of error here
+                // try to see if we got an error from the api in the response
+                let responseError = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
+                // if we have an error from the api send that error instead as it may give more info.
+                if responseError != nil, let apiError = responseError?["error"] as? String {
+                    DispatchQueue.main.async {
+                        completion(nil, PolygonSwiftError(apiError))
+                    }
+                } else {
+                    // otherwise send normal error
+                    DispatchQueue.main.async {
+                        completion(nil, PolygonSwiftError(error.localizedDescription))
+                    }
+                }
+            }
+        })
+        task.resume()
+    }
+    
+    
+    /// Get the list of currently supported markets by Polygon.io API
+    /// - Parameter completion: The completion to receive the response which is an MarketsResponse object.
+    public func markets( completion: @escaping (_ response: MarketsResponse?, _ error: PolygonSwiftError?) -> Void) {
+        let rq = MarketsRequest()
+        let url = builder.buildURL(rq)
+        
+        let task = session.dataTask(with: url, completionHandler: { data, response, error in
+            
+            // Unwrap the data and make sure that an error wasn't returned
+            guard let data = data, error == nil else {
+                // If an error was returned set the value in the completion as nil and print the error
+                DispatchQueue.main.async {
+                    completion(nil, PolygonSwiftError(error?.localizedDescription ?? "Data is empty at markets()."))
+                }
+                return
+            }
+            
+            // add a try/catch so we can fetch any possible errors when decoding response or from the api call
+            do {
+                let rs = try JSONDecoder().decode(MarketsResponse.self, from: data)
+                DispatchQueue.main.async {
+                    completion(rs, nil)
+                }
+            } catch {
+                
+                // lets handle the type of error here
+                // try to see if we got an error from the api in the response
+                let responseError = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
+                // if we have an error from the api send that error instead as it may give more info.
+                if responseError != nil, let apiError = responseError?["error"] as? String {
+                    DispatchQueue.main.async {
+                        completion(nil, PolygonSwiftError(apiError))
+                    }
+                } else {
+                    // otherwise send normal error
+                    DispatchQueue.main.async {
+                        completion(nil, PolygonSwiftError(error.localizedDescription))
+                    }
+                }
+            }
+        })
+        task.resume()
+    }
+    
+    /// Get the list of currently supported locales by Polygon.io API
+    /// - Parameter completion: The completion to receive the response which is an LocalesResponse object.
+    public func locales( completion: @escaping (_ response: LocalesResponse?, _ error: PolygonSwiftError?) -> Void) {
+        let rq = LocalesRequest()
+        let url = builder.buildURL(rq)
+        
+        let task = session.dataTask(with: url, completionHandler: { data, response, error in
+            
+            // Unwrap the data and make sure that an error wasn't returned
+            guard let data = data, error == nil else {
+                // If an error was returned set the value in the completion as nil and print the error
+                DispatchQueue.main.async {
+                    completion(nil, PolygonSwiftError(error?.localizedDescription ?? "Data is empty at locales()."))
+                }
+                return
+            }
+            
+            // add a try/catch so we can fetch any possible errors when decoding response or from the api call
+            do {
+                let rs = try JSONDecoder().decode(LocalesResponse.self, from: data)
+                DispatchQueue.main.async {
+                    completion(rs, nil)
+                }
+            } catch {
+                
+                // lets handle the type of error here
+                // try to see if we got an error from the api in the response
+                let responseError = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
+                // if we have an error from the api send that error instead as it may give more info.
+                if responseError != nil, let apiError = responseError?["error"] as? String {
+                    DispatchQueue.main.async {
+                        completion(nil, PolygonSwiftError(apiError))
+                    }
+                } else {
+                    // otherwise send normal error
+                    DispatchQueue.main.async {
+                        completion(nil, PolygonSwiftError(error.localizedDescription))
+                    }
+                }
+            }
+        })
+        task.resume()
+    }
+    
+    /// Get the historical splits for this symbol.
+    /// - Parameters:
+    ///   - symbol: Symbol we want historical splits data for
+    ///   - completion: The completion to receive the response which is an StockSplitsResponse object.
+    public func stockSplits(symbol: String, completion: @escaping (_ response: StockSplitsResponse?, _ error: PolygonSwiftError?) -> Void) {
+        let rq = StockSplitsRequest(symbol: symbol)
+        let url = builder.buildURL(rq)
+        
+        let task = session.dataTask(with: url, completionHandler: { data, response, error in
+            
+            // Unwrap the data and make sure that an error wasn't returned
+            guard let data = data, error == nil else {
+                // If an error was returned set the value in the completion as nil and print the error
+                DispatchQueue.main.async {
+                    completion(nil, PolygonSwiftError(error?.localizedDescription ?? "Data is empty at stockSplits()."))
+                }
+                return
+            }
+            
+            // add a try/catch so we can fetch any possible errors when decoding response or from the api call
+            do {
+                let response = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
+                print(response)
+                let rs = try JSONDecoder().decode(StockSplitsResponse.self, from: data)
+                DispatchQueue.main.async {
+                    completion(rs, nil)
+                }
+            } catch {
+                
+                // lets handle the type of error here
+                // try to see if we got an error from the api in the response
+                let responseError = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
+                // if we have an error from the api send that error instead as it may give more info.
+                if responseError != nil, let apiError = responseError?["error"] as? String {
+                    DispatchQueue.main.async {
+                        completion(nil, PolygonSwiftError(apiError))
+                    }
+                } else {
+                    // otherwise send normal error
+                    DispatchQueue.main.async {
+                        completion(nil, PolygonSwiftError(error.localizedDescription))
+                    }
+                }
+            }
+        })
+        task.resume()
+    }
+    
+    /// Get the historical divdends for this ticker.
+    /// - Parameters:
+    ///   - symbol: Symbol we want historical dividends data for
+    ///   - completion: The completion to receive the response which is an StockDividendsResponse object.
+    public func stockDividends(symbol: String, completion: @escaping (_ response: StockDividendsResponse?, _ error: PolygonSwiftError?) -> Void) {
+        let rq = StockDividendsRequest(symbol: symbol)
+        let url = builder.buildURL(rq)
+        
+        let task = session.dataTask(with: url, completionHandler: { data, response, error in
+            
+            // Unwrap the data and make sure that an error wasn't returned
+            guard let data = data, error == nil else {
+                // If an error was returned set the value in the completion as nil and print the error
+                DispatchQueue.main.async {
+                    completion(nil, PolygonSwiftError(error?.localizedDescription ?? "Data is empty at stockDividends()."))
+                }
+                return
+            }
+            
+            // add a try/catch so we can fetch any possible errors when decoding response or from the api call
+            do {
+                let response = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
+                print(response)
+                let rs = try JSONDecoder().decode(StockDividendsResponse.self, from: data)
                 DispatchQueue.main.async {
                     completion(rs, nil)
                 }

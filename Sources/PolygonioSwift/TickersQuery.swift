@@ -1,5 +1,5 @@
 //
-//  TickersQueryRequest.swift
+//  TickersQuery.swift
 //  
 //
 //  Created by Antoni Remeseiro Alfonso on 9/9/20.
@@ -16,6 +16,7 @@ public struct TickersQueryRequest : ApiRequest {
         case descending = "-ticker"
     }
     
+    // Can see this by checking https://api.polygon.io/v2/reference/types
     public enum TickerTypes: String {
         // Stock Types
         case CommonStock = "CS"
@@ -54,7 +55,7 @@ public struct TickersQueryRequest : ApiRequest {
         case AlphaIndex = "ALPHAINDEX"
     }
     
-    // the markets we can select
+    // Can see this by checking
     public enum MarketOptions: String {
         case Stocks = "STOCKS"
         case Indices = "INDICES"
@@ -65,7 +66,7 @@ public struct TickersQueryRequest : ApiRequest {
         case MoneyMarketFunds = "MMF"
     }
     
-    // Can see this by chekcing https://api.polygon.io/v2/reference/locales
+    // Can see this by checking https://api.polygon.io/v2/reference/locales
     public enum Locale: String {
         case global = "G"
         case UnitedStates = "US"
@@ -181,7 +182,8 @@ public struct TickersQueryResponse : Decodable {
         public var active: Bool
         public var primaryExch: String
         public var updated: String
-        public var codes: Codes
+        public var codes: Codes?
+        public var attrs: Attributes?
         public var url: String
         
         private enum CodingKeys: String, CodingKey {
@@ -194,10 +196,12 @@ public struct TickersQueryResponse : Decodable {
             case primaryExch = "primaryExch"
             case updated = "updated"
             case codes = "codes"
+            case attrs = "attrs"
             case url = "url"
         }
     }
     
+    // only shown for Stock Symbols
     public struct Codes : Codable {
         public var figiuid: String
         public var scfigi: String
@@ -209,6 +213,43 @@ public struct TickersQueryResponse : Decodable {
             case scfigi = "scfigi"
             case cfigi = "cfigi"
             case figi = "figi"
+        }
+    }
+    
+    // Shown for Crypto, Forex and Indices
+    public struct Attributes : Codable {
+        // crypto & Forex variables
+        public var currencyName: String?
+        public var currency: String?
+        public var baseName: String?
+        public var base: String?
+        
+        // Indices variables
+        public var holiday: Bool?
+        public var assettype: String?
+        public var entitlement: String?
+        public var disseminationfreq: String?
+        public var dataset: String?
+        public var schedule: String?
+        public var brand: String?
+        public var series: String?
+        
+        
+        private enum CodingKeys: String, CodingKey {
+            // crypto & Forex variables
+            case currencyName = "currencyName"
+            case currency = "currency"
+            case baseName = "baseName"
+            case base = "base"
+            // Indices variables
+            case holiday = "holiday"
+            case assettype = "assettype"
+            case entitlement = "entitlement"
+            case disseminationfreq = "disseminationfreq"
+            case dataset = "dataset"
+            case schedule = "schedule"
+            case brand = "brand"
+            case series = "series"
         }
     }
     
