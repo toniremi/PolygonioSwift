@@ -17,7 +17,6 @@ Simply import PolygonSwift with:
     import PolygonioSwift
 
   
-
 then create a polygon swift object like:
 
     let polygon = PolygonioSwift.Client(key: "YOUR_POLYGON_API_KEY")
