@@ -73,17 +73,18 @@ public class Client {
                 
                 // lets handle the type of error here
                 // try to see if we got an error from the api in the response
-                let responseError = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
+                guard let responseError = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any],
+                    let apiError = responseError["error"] as? String else {
+                        // just send normal error
+                        DispatchQueue.main.async {
+                            completion(nil, PolygonSwiftError(error.localizedDescription))
+                        }
+                        return
+                }
+                
                 // if we have an error from the api send that error instead as it may give more info.
-                if responseError != nil, let apiError = responseError?["error"] as? String {
-                    DispatchQueue.main.async {
-                        completion(nil, PolygonSwiftError(apiError))
-                    }
-                } else {
-                    // otherwise send normal error
-                    DispatchQueue.main.async {
-                        completion(nil, PolygonSwiftError(error.localizedDescription))
-                    }
+                DispatchQueue.main.async {
+                    completion(nil, PolygonSwiftError(apiError))
                 }
             }
         })
@@ -118,17 +119,18 @@ public class Client {
                 
                 // lets handle the type of error here
                 // try to see if we got an error from the api in the response
-                let responseError = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
+                guard let responseError = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any],
+                    let apiError = responseError["error"] as? String else {
+                        // just send normal error
+                        DispatchQueue.main.async {
+                            completion(nil, PolygonSwiftError(error.localizedDescription))
+                        }
+                        return
+                }
+                
                 // if we have an error from the api send that error instead as it may give more info.
-                if responseError != nil, let apiError = responseError?["error"] as? String {
-                    DispatchQueue.main.async {
-                        completion(nil, PolygonSwiftError(apiError))
-                    }
-                } else {
-                    // otherwise send normal error
-                    DispatchQueue.main.async {
-                        completion(nil, PolygonSwiftError(error.localizedDescription))
-                    }
+                DispatchQueue.main.async {
+                    completion(nil, PolygonSwiftError(apiError))
                 }
             }
         })
@@ -164,17 +166,18 @@ public class Client {
                 
                 // lets handle the type of error here
                 // try to see if we got an error from the api in the response
-                let responseError = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
+                guard let responseError = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any],
+                    let apiError = responseError["error"] as? String else {
+                        // just send normal error
+                        DispatchQueue.main.async {
+                            completion(nil, PolygonSwiftError(error.localizedDescription))
+                        }
+                        return
+                }
+                
                 // if we have an error from the api send that error instead as it may give more info.
-                if responseError != nil, let apiError = responseError?["error"] as? String {
-                    DispatchQueue.main.async {
-                        completion(nil, PolygonSwiftError(apiError))
-                    }
-                } else {
-                    // otherwise send normal error
-                    DispatchQueue.main.async {
-                        completion(nil, PolygonSwiftError(error.localizedDescription))
-                    }
+                DispatchQueue.main.async {
+                    completion(nil, PolygonSwiftError(apiError))
                 }
             }
         })
@@ -213,17 +216,18 @@ public class Client {
                 
                 // lets handle the type of error here
                 // try to see if we got an error from the api in the response
-                let responseError = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
+                guard let responseError = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any],
+                    let apiError = responseError["error"] as? String else {
+                        // just send normal error
+                        DispatchQueue.main.async {
+                            completion(nil, PolygonSwiftError(error.localizedDescription))
+                        }
+                        return
+                }
+                
                 // if we have an error from the api send that error instead as it may give more info.
-                if responseError != nil, let apiError = responseError?["error"] as? String {
-                    DispatchQueue.main.async {
-                        completion(nil, PolygonSwiftError(apiError))
-                    }
-                } else {
-                    // otherwise send normal error
-                    DispatchQueue.main.async {
-                        completion(nil, PolygonSwiftError(error.localizedDescription))
-                    }
+                DispatchQueue.main.async {
+                    completion(nil, PolygonSwiftError(apiError))
                 }
             }
         })
@@ -258,17 +262,18 @@ public class Client {
                 
                 // lets handle the type of error here
                 // try to see if we got an error from the api in the response
-                let responseError = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
+                guard let responseError = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any],
+                    let apiError = responseError["error"] as? String else {
+                        // just send normal error
+                        DispatchQueue.main.async {
+                            completion(nil, PolygonSwiftError(error.localizedDescription))
+                        }
+                        return
+                }
+                
                 // if we have an error from the api send that error instead as it may give more info.
-                if responseError != nil, let apiError = responseError?["error"] as? String {
-                    DispatchQueue.main.async {
-                        completion(nil, PolygonSwiftError(apiError))
-                    }
-                } else {
-                    // otherwise send normal error
-                    DispatchQueue.main.async {
-                        completion(nil, PolygonSwiftError(error.localizedDescription))
-                    }
+                DispatchQueue.main.async {
+                    completion(nil, PolygonSwiftError(apiError))
                 }
             }
         })
@@ -302,17 +307,18 @@ public class Client {
                 
                 // lets handle the type of error here
                 // try to see if we got an error from the api in the response
-                let responseError = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
+                guard let responseError = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any],
+                    let apiError = responseError["error"] as? String else {
+                        // just send normal error
+                        DispatchQueue.main.async {
+                            completion(nil, PolygonSwiftError(error.localizedDescription))
+                        }
+                        return
+                }
+                
                 // if we have an error from the api send that error instead as it may give more info.
-                if responseError != nil, let apiError = responseError?["error"] as? String {
-                    DispatchQueue.main.async {
-                        completion(nil, PolygonSwiftError(apiError))
-                    }
-                } else {
-                    // otherwise send normal error
-                    DispatchQueue.main.async {
-                        completion(nil, PolygonSwiftError(error.localizedDescription))
-                    }
+                DispatchQueue.main.async {
+                    completion(nil, PolygonSwiftError(apiError))
                 }
             }
         })
@@ -348,17 +354,18 @@ public class Client {
                 
                 // lets handle the type of error here
                 // try to see if we got an error from the api in the response
-                let responseError = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
+                guard let responseError = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any],
+                    let apiError = responseError["error"] as? String else {
+                        // just send normal error
+                        DispatchQueue.main.async {
+                            completion(nil, PolygonSwiftError(error.localizedDescription))
+                        }
+                        return
+                }
+                
                 // if we have an error from the api send that error instead as it may give more info.
-                if responseError != nil, let apiError = responseError?["error"] as? String {
-                    DispatchQueue.main.async {
-                        completion(nil, PolygonSwiftError(apiError))
-                    }
-                } else {
-                    // otherwise send normal error
-                    DispatchQueue.main.async {
-                        completion(nil, PolygonSwiftError(error.localizedDescription))
-                    }
+                DispatchQueue.main.async {
+                    completion(nil, PolygonSwiftError(apiError))
                 }
             }
         })
@@ -394,17 +401,18 @@ public class Client {
                 
                 // lets handle the type of error here
                 // try to see if we got an error from the api in the response
-                let responseError = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
+                guard let responseError = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any],
+                    let apiError = responseError["error"] as? String else {
+                        // just send normal error
+                        DispatchQueue.main.async {
+                            completion(nil, PolygonSwiftError(error.localizedDescription))
+                        }
+                        return
+                }
+                
                 // if we have an error from the api send that error instead as it may give more info.
-                if responseError != nil, let apiError = responseError?["error"] as? String {
-                    DispatchQueue.main.async {
-                        completion(nil, PolygonSwiftError(apiError))
-                    }
-                } else {
-                    // otherwise send normal error
-                    DispatchQueue.main.async {
-                        completion(nil, PolygonSwiftError(error.localizedDescription))
-                    }
+                DispatchQueue.main.async {
+                    completion(nil, PolygonSwiftError(apiError))
                 }
             }
         })
@@ -441,17 +449,18 @@ public class Client {
                 
                 // lets handle the type of error here
                 // try to see if we got an error from the api in the response
-                let responseError = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
+                guard let responseError = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any],
+                    let apiError = responseError["error"] as? String else {
+                        // just send normal error
+                        DispatchQueue.main.async {
+                            completion(nil, PolygonSwiftError(error.localizedDescription))
+                        }
+                        return
+                }
+                
                 // if we have an error from the api send that error instead as it may give more info.
-                if responseError != nil, let apiError = responseError?["error"] as? String {
-                    DispatchQueue.main.async {
-                        completion(nil, PolygonSwiftError(apiError))
-                    }
-                } else {
-                    // otherwise send normal error
-                    DispatchQueue.main.async {
-                        completion(nil, PolygonSwiftError(error.localizedDescription))
-                    }
+                DispatchQueue.main.async {
+                    completion(nil, PolygonSwiftError(apiError))
                 }
             }
         })
@@ -485,20 +494,20 @@ public class Client {
                     completion(rs, nil)
                 }
             } catch {
-                
                 // lets handle the type of error here
                 // try to see if we got an error from the api in the response
-                let responseError = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
+                guard let responseError = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any],
+                    let apiError = responseError["error"] as? String else {
+                        // just send normal error
+                        DispatchQueue.main.async {
+                            completion(nil, PolygonSwiftError(error.localizedDescription))
+                        }
+                        return
+                }
+                
                 // if we have an error from the api send that error instead as it may give more info.
-                if responseError != nil, let apiError = responseError?["error"] as? String {
-                    DispatchQueue.main.async {
-                        completion(nil, PolygonSwiftError(apiError))
-                    }
-                } else {
-                    // otherwise send normal error
-                    DispatchQueue.main.async {
-                        completion(nil, PolygonSwiftError(error.localizedDescription))
-                    }
+                DispatchQueue.main.async {
+                    completion(nil, PolygonSwiftError(apiError))
                 }
             }
         })
@@ -537,20 +546,20 @@ public class Client {
                     completion(rs, nil)
                 }
             } catch {
-                
                 // lets handle the type of error here
                 // try to see if we got an error from the api in the response
-                let responseError = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
+                guard let responseError = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any],
+                    let apiError = responseError["error"] as? String else {
+                        // just send normal error
+                        DispatchQueue.main.async {
+                            completion(nil, PolygonSwiftError(error.localizedDescription))
+                        }
+                        return
+                }
+                
                 // if we have an error from the api send that error instead as it may give more info.
-                if responseError != nil, let apiError = responseError?["error"] as? String {
-                    DispatchQueue.main.async {
-                        completion(nil, PolygonSwiftError(apiError))
-                    }
-                } else {
-                    // otherwise send normal error
-                    DispatchQueue.main.async {
-                        completion(nil, PolygonSwiftError(error.localizedDescription))
-                    }
+                DispatchQueue.main.async {
+                    completion(nil, PolygonSwiftError(apiError))
                 }
             }
         })
