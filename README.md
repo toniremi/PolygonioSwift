@@ -1,61 +1,83 @@
-# ALMOST DONE :walking_woman: :running_woman: :biking_woman:
+# PolygonSwift
 
-Thank you for using Swift 5 Module Template. Before you release your awesome project to the world, complete the following steps.
+  
 
-THIS LIST IS EASY, CHECK IT OFF ONE-BY-ONE BABY! ✔️ ✔️ ✔️
+[![CI Status](http://img.shields.io/travis/toniremi/PolygonioSwift.svg?style=flat)](https://travis-ci.org/toniremi/PolygonioSwift)
 
- - [ ] Open the project in Xcode and add features to xxPROJECTxNAMExx
- - [ ] Make sure you are using Swift 5 (Edit > Convert > To Current Swift Syntax…)
- - [ ] Fix all build errors and warnings, add tests (yes really)
- - [ ] Add a screenshot or AT LEAST some picture below in this README
- - [ ] Delete all this crap up here
- - [ ] Make one release (full steps are in [CONTRIBUTING.md] in case you forget)
+![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/toniremi/PolygonioSwift)
 
-THEN YOU'RE DONE, GO STAR [swift5-module-template](https://github.com/fulldecent/swift5-module-template) FOR UPDATES.
-
-----
-
-# xxPROJECTxNAMExx
-
-[![CI Status](http://img.shields.io/travis/__GITHUB_USERNAME__/xxPROJECTxNAMExx.svg?style=flat)](https://travis-ci.org/__GITHUB_USERNAME__/xxPROJECTxNAMExx)
-![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/__GITHUB_USERNAME__/xxPROJECTxNAMExx)
-[![License](https://img.shields.io/github/license/__GITHUB_USERNAME__/xxPROJECTxNAMExx)](LICENSE)
-
-<a href="https://placehold.it/400?text=Screen+shot"><img width=200 height=200 src="https://placehold.it/400?text=Screen+shot" alt="Screenshot" /></a>
+[![License](https://img.shields.io/github/license/toniremi/PolygonioSwift)](LICENSE)
 
 
 ## Example
 
-To run the example project, clone this repo, and open iOS Example.xcworkspace from the iOS Example directory.
 
+Simply import PolygonSwift with:
+
+    import PolygonioSwift
+
+  
+
+then create a polygon swift object like:
+
+    let polygon = PolygonioSwift.Client(key: "YOUR_POLYGON_API_KEY")
+
+and finally simply call any of the endpoints you want to get info from. The names are the same as in polygon.io docs.
+
+    polygon.tickers(sort: .type, type: nil, market: .Stocks, locale: nil, search: "AAPL", active: true) { (result:TickersQueryResponse?, err) in
+        // check if we got any errors
+        if let err = err {
+            print(err)
+        } else {
+            // results will hold the full response as it comes from Polygon.io
+            print(result)
+            // the candle data is in an array inside results.tickers
+            print(result?.tickers)
+        }
+    }
+
+Please take a look at the documentation to know what endpoints does polygon.io has and what info to expect back at <a href="https://polygon.io/docs/#getting-started">https://polygon.io/docs/#getting-started</a>.
+
+To run the example project, clone this repo, and open iOS Example.xcworkspace from the iOS Example directory. 
+
+In the examples you can see more methods although all of them work in the same way just changes name and parameter that they will accept.
 
 ## Requirements
 
+You need to have a valid and working Polygon API Key. Please create an account at <a href="https://polygon.io/">https://polygon.io/</a> to obtain a valid API key.
 
 ## Installation
 
+
 Add this to your project using Swift Package Manager. In Xcode that is simply: File > Swift Packages > Add Package Dependency... and you're done. Alternative installations options are shown below for legacy projects.
+
 
 ### CocoaPods
 
-If you are already using [CocoaPods](http://cocoapods.org), just add 'xxPROJECTxNAMExx' to your `Podfile` then run `pod install`.
+
+If you are already using [CocoaPods](http://cocoapods.org), just add 'PolygonioSwift' to your `Podfile` then run `pod install`.
+
 
 ### Carthage
 
+
 If you are already using [Carthage](https://github.com/Carthage/Carthage), just add to your `Cartfile`:
 
+  
 ```ogdl
-github "__GITHUB_USERNAME__/xxPROJECTxNAMExx" ~> 0.1
+
+github "toniremi/PolygonioSwift" ~> 0.1
+
 ```
 
-Then run `carthage update` to build the framework and drag the built `xxPROJECTxNAMExx`.framework into your Xcode project.
 
+Then run `carthage update` to build the framework and drag the built `PolygonioSwift`.framework into your Xcode project.
+  
 
 ## Author
 
-__AUTHOR NAME__
-
+Antoni Remeseiro Alfonso
 
 ## License
 
-xxPROJECTxNAMExx is available under the MIT license. See [the LICENSE file](LICENSE) for more information.
+PolygonioSwift is available under the MIT license. See [the LICENSE file](LICENSE) for more information.

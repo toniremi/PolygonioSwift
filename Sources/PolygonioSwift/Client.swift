@@ -139,8 +139,8 @@ public class Client {
     /// - Parameters:
     ///   - symbol: Symbol we want details for
     ///   - completion: The completion to receive the response which is an TickerResponse object.
-    public func tickerDetails(symbol: String, completion: @escaping (_ response: TickerResponse?, _ error: PolygonSwiftError?) -> Void) {
-        let rq = TickerRequest(symbol: symbol)
+    public func tickerDetails(symbol: String, completion: @escaping (_ response: TickerDetailsResponse?, _ error: PolygonSwiftError?) -> Void) {
+        let rq = TickerDetailsRequest(symbol: symbol)
         let url = builder.buildURL(rq)
         
         let task = session.dataTask(with: url, completionHandler: { data, response, error in
@@ -156,7 +156,7 @@ public class Client {
             
             // add a try/catch so we can fetch any possible errors when decoding response or from the api call
             do {
-                let rs = try JSONDecoder().decode(TickerResponse.self, from: data)
+                let rs = try JSONDecoder().decode(TickerDetailsResponse.self, from: data)
                 DispatchQueue.main.async {
                     completion(rs, nil)
                 }
@@ -340,8 +340,6 @@ public class Client {
             
             // add a try/catch so we can fetch any possible errors when decoding response or from the api call
             do {
-                let response = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
-                print(response)
                 let rs = try JSONDecoder().decode(StockSplitsResponse.self, from: data)
                 DispatchQueue.main.async {
                     completion(rs, nil)
@@ -388,9 +386,101 @@ public class Client {
             
             // add a try/catch so we can fetch any possible errors when decoding response or from the api call
             do {
-                let response = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
-                print(response)
                 let rs = try JSONDecoder().decode(StockDividendsResponse.self, from: data)
+                DispatchQueue.main.async {
+                    completion(rs, nil)
+                }
+            } catch {
+                
+                // lets handle the type of error here
+                // try to see if we got an error from the api in the response
+                let responseError = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
+                // if we have an error from the api send that error instead as it may give more info.
+                if responseError != nil, let apiError = responseError?["error"] as? String {
+                    DispatchQueue.main.async {
+                        completion(nil, PolygonSwiftError(apiError))
+                    }
+                } else {
+                    // otherwise send normal error
+                    DispatchQueue.main.async {
+                        completion(nil, PolygonSwiftError(error.localizedDescription))
+                    }
+                }
+            }
+        })
+        task.resume()
+    }
+    
+    /// Get the historical financials for this ticker.
+    /// - Parameters:
+    ///   - symbol: Symbol we want financials data for
+    ///   - limit: Limit the number of results
+    ///   - completion: The completion to receive the response which is an StockFinancialsResponse object.
+    public func stockFinancials(symbol: String, limit: Int, completion: @escaping (_ response: StockFinancialsResponse?, _ error: PolygonSwiftError?) -> Void) {
+        let rq = StockFinancialsRequest(symbol: symbol, limit: limit)
+        let url = builder.buildURL(rq)
+        
+        let task = session.dataTask(with: url, completionHandler: { data, response, error in
+            
+            // Unwrap the data and make sure that an error wasn't returned
+            guard let data = data, error == nil else {
+                // If an error was returned set the value in the completion as nil and print the error
+                DispatchQueue.main.async {
+                    completion(nil, PolygonSwiftError(error?.localizedDescription ?? "Data is empty at stockFinancials()."))
+                }
+                return
+            }
+            
+            // add a try/catch so we can fetch any possible errors when decoding response or from the api call
+            do {
+                let rs = try JSONDecoder().decode(StockFinancialsResponse.self, from: data)
+                DispatchQueue.main.async {
+                    completion(rs, nil)
+                }
+            } catch {
+                
+                // lets handle the type of error here
+                // try to see if we got an error from the api in the response
+                let responseError = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
+                // if we have an error from the api send that error instead as it may give more info.
+                if responseError != nil, let apiError = responseError?["error"] as? String {
+                    DispatchQueue.main.async {
+                        completion(nil, PolygonSwiftError(apiError))
+                    }
+                } else {
+                    // otherwise send normal error
+                    DispatchQueue.main.async {
+                        completion(nil, PolygonSwiftError(error.localizedDescription))
+                    }
+                }
+            }
+        })
+        task.resume()
+    }
+    
+    /// Get the previous day close for the specified ticker
+    /// - Parameters:
+    ///   - symbol: Symbol we want historical dividends data for
+    ///   - unadjusted: Set to true if the results should NOT be adjusted for splits. Default is false.
+    ///   - completion: The completion to receive the response which is an PreviousCloseResponse object.
+    public func previousClose(symbol: String, unadjusted: Bool = false, completion: @escaping (_ response: PreviousCloseResponse?, _ error: PolygonSwiftError?) -> Void) {
+        let rq = PreviousCloseRequest(symbol: symbol, unadjusted: unadjusted)
+        let url = builder.buildURL(rq)
+        
+        let task = session.dataTask(with: url, completionHandler: { data, response, error in
+            
+            // Unwrap the data and make sure that an error wasn't returned
+            guard let data = data, error == nil else {
+                // If an error was returned set the value in the completion as nil and print the error
+                DispatchQueue.main.async {
+                    completion(nil, PolygonSwiftError(error?.localizedDescription ?? "Data is empty at previousClose()."))
+                }
+                return
+            }
+            
+            // add a try/catch so we can fetch any possible errors when decoding response or from the api call
+            do {
+                let rs = try JSONDecoder().decode(PreviousCloseResponse.self, from: data)
                 DispatchQueue.main.async {
                     completion(rs, nil)
                 }
