@@ -21,3 +21,16 @@ public struct PolygonSwiftError: LocalizedError
         return message
     }
 }
+
+public struct PolygonErrorResponse : Decodable {
+    
+    public var status: String
+    public var requestid: String
+    public var error: String
+   
+    private enum CodingKeys: String, CodingKey {
+        case status = "status"
+        case requestid = "request_id"
+        case error = "error"
+    }
+}

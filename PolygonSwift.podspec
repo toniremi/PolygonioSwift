@@ -16,9 +16,10 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "PolygonSwift"
-  spec.version      = "0.5.0"
+  spec.version      = "0.6.0"
   spec.summary      = "Swift wrapper to connect to the Polygon.io API."
   spec.platforms    = { :ios => 11.0 }
+  spec.swift_version    = '5.0'
   
   # This description is used to generate tags and improve search results.
   #   * Think: What does it do? Why did you write it? What is the focus?
