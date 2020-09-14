@@ -1,4 +1,4 @@
-# PolygonSwift
+# PolygonioSwift
 
   
 
@@ -12,7 +12,7 @@
 ## Example
 
 
-Simply import PolygonSwift with:
+Simply import PolygonioSwift with:
 
     import PolygonioSwift
 
