@@ -2,7 +2,7 @@
 //  StockDividends.swift
 //
 //
-//  Created by Antoni Remeseiro Alfonso on 9/11/20.
+//  Created by Antoni Remeseiro Alfonso on 9/14/20.
 //
 
 import Foundation

@@ -7,8 +7,8 @@
 
 import Foundation
 
-public struct TickerRequest : ApiRequest {
-    typealias Response = TickerResponse
+public struct TickerDetailsRequest : ApiRequest {
+    typealias Response = TickerDetailsResponse
     
     let symbol: String
 
@@ -21,7 +21,7 @@ public struct TickerRequest : ApiRequest {
     }
 }
 
-public struct TickerResponse : Decodable {
+public struct TickerDetailsResponse : Decodable {
     
     public var logo: String
     public var listdate: String
