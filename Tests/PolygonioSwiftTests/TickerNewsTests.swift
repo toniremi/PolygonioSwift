@@ -1,5 +1,5 @@
 //
-//  TimeSeriesTests.swift
+//  TickerNewsTests.swift
 //  
 //
 //  Created by Antoni Remeseiro Alfonso on 9/11/20.

@@ -1,5 +1,5 @@
 //
-//  TimeSeriesTests.swift
+//  AggregatesTests.swift
 //  
 //
 //  Created by Antoni Remeseiro Alfonso on 9/9/20.

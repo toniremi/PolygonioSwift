@@ -449,6 +449,92 @@ public class Client {
         task.resume()
     }
     
+    /// Current status of each market
+    /// - Parameter completion: The completion to receive the response which is an MarketStatusResponse object.
+    public func marketStatus( completion: @escaping (_ response: MarketStatusResponse?, _ error: PolygonSwiftError?) -> Void) {
+        let rq = MarketStatusRequest()
+        let url = builder.buildURL(rq)
+        
+        let task = session.dataTask(with: url, completionHandler: { data, response, error in
+            
+            // Unwrap the data and make sure that an error wasn't returned
+            guard let data = data, error == nil else {
+                // If an error was returned set the value in the completion as nil and print the error
+                DispatchQueue.main.async {
+                    completion(nil, PolygonSwiftError(error?.localizedDescription ?? "Data is empty at marketStatus()."))
+                }
+                return
+            }
+            
+            // add a try/catch so we can fetch any possible errors when decoding response or from the api call
+            do {
+                let rs = try JSONDecoder().decode(MarketStatusResponse.self, from: data)
+                DispatchQueue.main.async {
+                    completion(rs, nil)
+                }
+            } catch {
+                // lets handle the type of error here
+                // try to see if we got an error from the api in the response
+                guard let responseError = try? JSONDecoder().decode(PolygonErrorResponse.self, from: data) else {
+                    // just send normal error
+                    DispatchQueue.main.async {
+                        completion(nil, PolygonSwiftError(error.localizedDescription))
+                    }
+                    return
+                }
+                
+                // if we have an error from the api send that error instead as it may give more info.
+                DispatchQueue.main.async {
+                    completion(nil, PolygonSwiftError(responseError.error))
+                }
+            }
+        })
+        task.resume()
+    }
+    
+    /// Get upcoming market holidays and their open/close times
+    /// - Parameter completion: The completion to receive the response which is an  array of MarketHolidaysResponse object.
+    public func marketHolidays( completion: @escaping (_ response: [MarketHolidaysResponse?], _ error: PolygonSwiftError?) -> Void) {
+        let rq = MarketHolidaysRequest()
+        let url = builder.buildURL(rq)
+        
+        let task = session.dataTask(with: url, completionHandler: { data, response, error in
+            
+            // Unwrap the data and make sure that an error wasn't returned
+            guard let data = data, error == nil else {
+                // If an error was returned set the value in the completion as nil and print the error
+                DispatchQueue.main.async {
+                    completion([], PolygonSwiftError(error?.localizedDescription ?? "Data is empty at marketHolidays()."))
+                }
+                return
+            }
+            
+            // add a try/catch so we can fetch any possible errors when decoding response or from the api call
+            do {
+                let rs = try JSONDecoder().decode([MarketHolidaysResponse].self, from: data)
+                DispatchQueue.main.async {
+                    completion(rs, nil)
+                }
+            } catch {
+                // lets handle the type of error here
+                // try to see if we got an error from the api in the response
+                guard let responseError = try? JSONDecoder().decode(PolygonErrorResponse.self, from: data) else {
+                    // just send normal error
+                    DispatchQueue.main.async {
+                        completion([], PolygonSwiftError(error.localizedDescription))
+                    }
+                    return
+                }
+                
+                // if we have an error from the api send that error instead as it may give more info.
+                DispatchQueue.main.async {
+                    completion([], PolygonSwiftError(responseError.error))
+                }
+            }
+        })
+        task.resume()
+    }
+    
     /// Get the previous day close for the specified ticker
     /// - Parameters:
     ///   - symbol: Symbol we want historical dividends data for
@@ -495,13 +581,60 @@ public class Client {
         task.resume()
     }
     
+    /// Get the open, close and afterhours prices of a symbol on a certain date.
+    /// - Parameters:
+    ///   - symbol: Symbol of the stock to get
+    ///   - date: Date of the requested open/close ( YYYY-MM-DD format )
+    ///   - completion: The completion to receive the response which is an DailyOpenCloseResponse object.
+    public func dailyOpenClose(symbol:String, date:String, completion: @escaping (_ response: DailyOpenCloseResponse?, _ error: PolygonSwiftError?) -> Void) {
+        let rq = DailyOpenCloseRequest(symbol: symbol, date: date)
+        let url = builder.buildURL(rq)
+        
+        let task = session.dataTask(with: url, completionHandler: { data, response, error in
+            
+            // Unwrap the data and make sure that an error wasn't returned
+            guard let data = data, error == nil else {
+                // If an error was returned set the value in the completion as nil and print the error
+                DispatchQueue.main.async {
+                    completion(nil, PolygonSwiftError(error?.localizedDescription ?? "Data is empty at dailyOpenClose()."))
+                }
+                return
+            }
+            
+            // add a try/catch so we can fetch any possible errors when decoding response or from the api call
+            do {
+                let rs = try JSONDecoder().decode(DailyOpenCloseResponse.self, from: data)
+                DispatchQueue.main.async {
+                    completion(rs, nil)
+                }
+            } catch {
+                // lets handle the type of error here
+                // try to see if we got an error from the api in the response
+                guard let responseError = try? JSONDecoder().decode(PolygonErrorResponse.self, from: data) else {
+                    // just send normal error
+                    DispatchQueue.main.async {
+                        completion(nil, PolygonSwiftError(error.localizedDescription))
+                    }
+                    return
+                }
+                
+                // if we have an error from the api send that error instead as it may give more info.
+                DispatchQueue.main.async {
+                    completion(nil, PolygonSwiftError(responseError.error))
+                }
+            }
+        })
+        task.resume()
+    }
+    
+    
     /// Get aggregates for a date range, in custom time window sizes.
     /// - Parameters:
     ///   - ticker: Ticker symbol of the request
     ///   - multiplier: Size of the timespan multiplier. Ex: 1, 5, 10
     ///   - timespan: Size of the time window
-    ///   - from: From date. format for date is yyyy-MM-DD Ex: 2020-09-10 ; also can use timestamp in milliseconds ex: 1599701937000
-    ///   - to: To date. format for date is yyyy-MM-DD Ex: 2020-09-10 ; also can use timestamp in milliseconds ex: 1599701937000
+    ///   - from: From date. format for date is YYYY-MM-DD Ex: 2020-09-10 ; also can use timestamp in milliseconds ex: 1599701937000
+    ///   - to: To date. format for date is YYYY-MM-DD Ex: 2020-09-10 ; also can use timestamp in milliseconds ex: 1599701937000
     ///   - unadjusted: Set to true if the results should NOT be adjusted for splits. Default is false.
     ///   - sorting: Sort by timestamp. Default is ascending.
     ///   - completion: The completion to receive the response which is an AggregateResponse object. Candle data will be inside the results property..

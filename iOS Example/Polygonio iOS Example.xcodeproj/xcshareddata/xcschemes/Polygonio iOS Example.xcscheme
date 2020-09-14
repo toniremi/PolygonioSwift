@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D9A12771235699C600D136A5"
-               BuildableName = "iOS Example.app"
-               BlueprintName = "iOS Example"
-               ReferencedContainer = "container:iOS Example.xcodeproj">
+               BuildableName = "Polygonio iOS Example.app"
+               BlueprintName = "Polygonio iOS Example"
+               ReferencedContainer = "container:Polygonio iOS Example.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D9A12771235699C600D136A5"
-            BuildableName = "iOS Example.app"
-            BlueprintName = "iOS Example"
-            ReferencedContainer = "container:iOS Example.xcodeproj">
+            BuildableName = "Polygonio iOS Example.app"
+            BlueprintName = "Polygonio iOS Example"
+            ReferencedContainer = "container:Polygonio iOS Example.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D9A12771235699C600D136A5"
-            BuildableName = "iOS Example.app"
-            BlueprintName = "iOS Example"
-            ReferencedContainer = "container:iOS Example.xcodeproj">
+            BuildableName = "Polygonio iOS Example.app"
+            BlueprintName = "Polygonio iOS Example"
+            ReferencedContainer = "container:Polygonio iOS Example.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

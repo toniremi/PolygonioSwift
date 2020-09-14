@@ -17,7 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D9A12772235699C600D136A5 /* iOS Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9A12772235699C600D136A5 /* Polygonio iOS Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Polygonio iOS Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9A12775235699C600D136A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D9A12777235699C600D136A5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		D9A12779235699C600D136A5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -51,7 +51,7 @@
 		D9A12773235699C600D136A5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D9A12772235699C600D136A5 /* iOS Example.app */,
+				D9A12772235699C600D136A5 /* Polygonio iOS Example.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -80,9 +80,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D9A12771235699C600D136A5 /* iOS Example */ = {
+		D9A12771235699C600D136A5 /* Polygonio iOS Example */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D9A12786235699C700D136A5 /* Build configuration list for PBXNativeTarget "iOS Example" */;
+			buildConfigurationList = D9A12786235699C700D136A5 /* Build configuration list for PBXNativeTarget "Polygonio iOS Example" */;
 			buildPhases = (
 				D9A1276E235699C600D136A5 /* Sources */,
 				D9A1276F235699C600D136A5 /* Frameworks */,
@@ -92,12 +92,12 @@
 			);
 			dependencies = (
 			);
-			name = "iOS Example";
+			name = "Polygonio iOS Example";
 			packageProductDependencies = (
 				D9A1278A2356A25E00D136A5 /* PolygonioSwift */,
 			);
 			productName = "iOS Example";
-			productReference = D9A12772235699C600D136A5 /* iOS Example.app */;
+			productReference = D9A12772235699C600D136A5 /* Polygonio iOS Example.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -108,14 +108,14 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1110;
 				LastUpgradeCheck = 1110;
-				ORGANIZATIONNAME = "__ORGANIZATION NAME__";
+				ORGANIZATIONNAME = PolygonioSwift;
 				TargetAttributes = {
 					D9A12771235699C600D136A5 = {
 						CreatedOnToolsVersion = 11.1;
 					};
 				};
 			};
-			buildConfigurationList = D9A1276D235699C600D136A5 /* Build configuration list for PBXProject "iOS Example" */;
+			buildConfigurationList = D9A1276D235699C600D136A5 /* Build configuration list for PBXProject "Polygonio iOS Example" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -128,7 +128,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D9A12771235699C600D136A5 /* iOS Example */,
+				D9A12771235699C600D136A5 /* Polygonio iOS Example */,
 			);
 		};
 /* End PBXProject section */
@@ -303,8 +303,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.AN.ORGANIZATION.IDENTIFIER.iOS-Example";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.polygonio.iOS-Example";
+				PRODUCT_NAME = "Polygonio iOS Example";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -320,8 +320,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.AN.ORGANIZATION.IDENTIFIER.iOS-Example";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.polygonio.iOS-Example";
+				PRODUCT_NAME = "Polygonio iOS Example";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -330,7 +330,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D9A1276D235699C600D136A5 /* Build configuration list for PBXProject "iOS Example" */ = {
+		D9A1276D235699C600D136A5 /* Build configuration list for PBXProject "Polygonio iOS Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D9A12784235699C700D136A5 /* Debug */,
@@ -339,7 +339,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D9A12786235699C700D136A5 /* Build configuration list for PBXNativeTarget "iOS Example" */ = {
+		D9A12786235699C700D136A5 /* Build configuration list for PBXNativeTarget "Polygonio iOS Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D9A12787235699C700D136A5 /* Debug */,
