@@ -30,7 +30,7 @@ public struct AggregatesRequest : ApiRequest {
     let ticker: String
     let multiplier: Int
     let timespan: TimeSpan
-    let from: String // date format yyyy-MM-DD or Timestamp in milliseconds
+    let from: String // date format YYYY-MM-DD or Timestamp in milliseconds
     let to: String
     
     // query item variabels

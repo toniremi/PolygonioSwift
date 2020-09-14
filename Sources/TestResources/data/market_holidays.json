@@ -1,0 +1,216 @@
+[
+    {
+        "exchange": "NYSE",
+        "name": "Thanksgiving",
+        "date": "2020-11-26",
+        "status": "closed"
+    },
+    {
+        "exchange": "NASDAQ",
+        "name": "Thanksgiving",
+        "date": "2020-11-26",
+        "status": "closed"
+    },
+    {
+        "exchange": "OTC",
+        "name": "Thanksgiving",
+        "date": "2020-11-26",
+        "status": "closed"
+    },
+    {
+        "exchange": "NASDAQ",
+        "name": "Thanksgiving",
+        "date": "2020-11-27",
+        "status": "early-close",
+        "open": "2020-11-27T14:30:00.000Z",
+        "close": "2020-11-27T18:00:00.000Z"
+    },
+    {
+        "exchange": "NYSE",
+        "name": "Thanksgiving",
+        "date": "2020-11-27",
+        "status": "early-close",
+        "open": "2020-11-27T14:30:00.000Z",
+        "close": "2020-11-27T18:00:00.000Z"
+    },
+    {
+        "exchange": "OTC",
+        "name": "Thanksgiving",
+        "date": "2020-11-27",
+        "status": "early-close",
+        "open": "2020-11-27T14:30:00.000Z",
+        "close": "2020-11-27T19:00:00.000Z"
+    },
+    {
+        "exchange": "NYSE",
+        "name": "Christmas",
+        "date": "2020-12-24",
+        "status": "early-close",
+        "open": "2020-12-24T14:30:00.000Z",
+        "close": "2020-12-24T18:00:00.000Z"
+    },
+    {
+        "exchange": "NASDAQ",
+        "name": "Christmas",
+        "date": "2020-12-24",
+        "status": "early-close",
+        "open": "2020-12-24T14:30:00.000Z",
+        "close": "2020-12-24T18:00:00.000Z"
+    },
+    {
+        "exchange": "OTC",
+        "name": "Christmas",
+        "date": "2020-12-24",
+        "status": "early-close",
+        "open": "2020-12-24T14:30:00.000Z",
+        "close": "2020-12-24T19:00:00.000Z"
+    },
+    {
+        "exchange": "NASDAQ",
+        "name": "Christmas",
+        "date": "2020-12-25",
+        "status": "closed"
+    },
+    {
+        "exchange": "NYSE",
+        "name": "Christmas",
+        "date": "2020-12-25",
+        "status": "closed"
+    },
+    {
+        "exchange": "OTC",
+        "name": "Christmas",
+        "date": "2020-12-25",
+        "status": "closed"
+    },
+    {
+        "exchange": "NYSE",
+        "name": "New Years Day",
+        "date": "2021-01-01",
+        "status": "closed"
+    },
+    {
+        "exchange": "NASDAQ",
+        "name": "New Years Day",
+        "date": "2021-01-01",
+        "status": "closed"
+    },
+    {
+        "exchange": "OTC",
+        "name": "New Year's Day",
+        "date": "2021-01-01",
+        "status": "closed"
+    },
+    {
+        "exchange": "NYSE",
+        "name": "Martin Luther King, Jr. Day",
+        "date": "2021-01-18",
+        "status": "closed"
+    },
+    {
+        "exchange": "NASDAQ",
+        "name": "Martin Luther King, Jr. Day",
+        "date": "2021-01-18",
+        "status": "closed"
+    },
+    {
+        "exchange": "NASDAQ",
+        "name": "Washington's Birthday",
+        "date": "2021-02-15",
+        "status": "closed"
+    },
+    {
+        "exchange": "NYSE",
+        "name": "Washington's Birthday",
+        "date": "2021-02-15",
+        "status": "closed"
+    },
+    {
+        "exchange": "NASDAQ",
+        "name": "Good Friday",
+        "date": "2021-04-02",
+        "status": "closed"
+    },
+    {
+        "exchange": "NYSE",
+        "name": "Good Friday",
+        "date": "2021-04-02",
+        "status": "closed"
+    },
+    {
+        "exchange": "NASDAQ",
+        "name": "Memorial Day",
+        "date": "2021-05-31",
+        "status": "closed"
+    },
+    {
+        "exchange": "NYSE",
+        "name": "Memorial Day",
+        "date": "2021-05-31",
+        "status": "closed"
+    },
+    {
+        "exchange": "NASDAQ",
+        "name": "Independence Day",
+        "date": "2021-07-05",
+        "status": "closed"
+    },
+    {
+        "exchange": "NYSE",
+        "name": "Independence Day",
+        "date": "2021-07-05",
+        "status": "closed"
+    },
+    {
+        "exchange": "NYSE",
+        "name": "Labor Day",
+        "date": "2021-09-06",
+        "status": "closed"
+    },
+    {
+        "exchange": "NASDAQ",
+        "name": "Labor Day",
+        "date": "2021-09-06",
+        "status": "closed"
+    },
+    {
+        "exchange": "NASDAQ",
+        "name": "Thanksgiving",
+        "date": "2021-11-25",
+        "status": "closed"
+    },
+    {
+        "exchange": "NYSE",
+        "name": "Thanksgiving",
+        "date": "2021-11-25",
+        "status": "closed"
+    },
+    {
+        "exchange": "NYSE",
+        "name": "Thanksgiving",
+        "date": "2021-11-26",
+        "status": "early-close",
+        "open": "2021-11-26T14:30:00.000Z",
+        "close": "2021-11-26T18:00:00.000Z"
+    },
+    {
+        "exchange": "NASDAQ",
+        "name": "Thanksgiving",
+        "date": "2021-11-26",
+        "status": "early-close",
+        "open": "2021-11-26T14:30:00.000Z",
+        "close": "2021-11-26T18:00:00.000Z"
+    },
+    {
+        "exchange": "NYSE",
+        "name": "Christmas",
+        "date": "2021-12-24",
+        "status": "closed"
+    },
+    {
+        "exchange": "NASDAQ",
+        "name": "Christmas",
+        "date": "2021-12-24",
+        "status": "closed"
+    }
+],

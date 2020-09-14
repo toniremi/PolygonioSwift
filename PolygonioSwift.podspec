@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "PolygonioSwift"
-  spec.version      = "0.7.0"
+  spec.version      = "0.8.0"
   spec.summary      = "Swift wrapper to connect to the Polygon.io API."
   spec.platforms    = { :ios => 11.0 }
   spec.swift_version    = '5.0'
@@ -67,6 +67,6 @@ Pod::Spec.new do |spec|
   
   spec.ios.deployment_target = '11.0'
 
-  spec.source_files = 'Sources/**/*'
+  spec.source_files = 'Sources/PolygonioSwift/**/*'
  
 end

@@ -1,8 +1,8 @@
 //
-//  TimeSeriesTests.swift
+//  TickerTypesTests.swift
 //  
 //
-//  Created by Antoni Remeseiro Alfonso on 9/14/20.
+//  Created by Antoni Remeseiro Alfonso on 9/13/20.
 //
 
 import XCTest
