@@ -15,8 +15,8 @@ Pod::Spec.new do |spec|
   #  summary should be tweet-length, and the description more in depth.
   #
 
-  spec.name         = "PolygonSwift"
-  spec.version      = "0.6.0"
+  spec.name         = "PolygonioSwift"
+  spec.version      = "0.7.0"
   spec.summary      = "Swift wrapper to connect to the Polygon.io API."
   spec.platforms    = { :ios => 11.0 }
   spec.swift_version    = '5.0'

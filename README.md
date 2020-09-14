@@ -54,8 +54,10 @@ Add this to your project using Swift Package Manager. In Xcode that is simply: F
 ### CocoaPods
 
 
-If you are already using [CocoaPods](http://cocoapods.org), just add 'PolygonioSwift' to your `Podfile` then run `pod install`.
+If you are already using [CocoaPods](http://cocoapods.org), just add the following line to your  `Podfile`  then run `pod install`.
 
+    pod 'PolygonioSwift'
+    
 
 ### Carthage
 
