@@ -13,8 +13,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view. YOUR_POLYGON_API_KEY
-        let polygon = PolygonioSwift.Client(key: "***REMOVED***")
+        // Do any additional setup after loading the view.
+        let polygon = PolygonioSwift.Client(key: "YOUR_POLYGON_API_KEY")
         
         // Market Status
         polygon.marketStatus { (result: MarketStatusResponse?, err) in
