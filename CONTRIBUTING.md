@@ -4,6 +4,10 @@ All contributors are welcome. Please use issues and pull requests to contribute 
 
 ## Making a change
 
+When doing any change please make sure to also add the proper test, look at Tests folder to see how tests are used. 
+
+Make sure that all the test are passing before you commit your change.
+
 When you commit a change, please add a note to [CHANGELOG.md](CHANGELOG.md).
 
 ## Release process
