@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "container:/Users/antoniremeseiroalfonso/Documents/Smarcle Workspace/Apps/Libraries/PolygonioSwift/iOS Example/Polygonio iOS Example.xcodeproj">
+      location = "container:iOS Example.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:..">

@@ -13,8 +13,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
-        let polygon = PolygonioSwift.Client(key: "YOUR_POLYGON_API_KEY")
+        // Do any additional setup after loading the view. YOUR_POLYGON_API_KEY
+        let polygon = PolygonioSwift.Client(key: "ftywxBymn_smRBOdsmVpk3H_At_ny4pUzZQTq0")
         
         // Market Status
         polygon.marketStatus { (result: MarketStatusResponse?, err) in
@@ -24,6 +24,17 @@ class ViewController: UIViewController {
             } else {
                 print(result)
                 print(result?.market)
+            }
+        }
+        
+        // Ticker News
+        
+        polygon.tickerNews(symbol: "AAPL") { (result:[TickerNewsResponse?], err) in
+            // check if we got any errors
+            if let err = err {
+                print(err)
+            } else {
+                print(result)
             }
         }
         
