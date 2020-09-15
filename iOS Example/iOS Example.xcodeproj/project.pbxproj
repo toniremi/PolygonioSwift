@@ -80,9 +80,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D9A12771235699C600D136A5 /* Polygonio iOS Example */ = {
+		D9A12771235699C600D136A5 /* iOS Example */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D9A12786235699C700D136A5 /* Build configuration list for PBXNativeTarget "Polygonio iOS Example" */;
+			buildConfigurationList = D9A12786235699C700D136A5 /* Build configuration list for PBXNativeTarget "iOS Example" */;
 			buildPhases = (
 				D9A1276E235699C600D136A5 /* Sources */,
 				D9A1276F235699C600D136A5 /* Frameworks */,
@@ -92,7 +92,7 @@
 			);
 			dependencies = (
 			);
-			name = "Polygonio iOS Example";
+			name = "iOS Example";
 			packageProductDependencies = (
 				D9A1278A2356A25E00D136A5 /* PolygonioSwift */,
 			);
@@ -115,7 +115,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D9A1276D235699C600D136A5 /* Build configuration list for PBXProject "Polygonio iOS Example" */;
+			buildConfigurationList = D9A1276D235699C600D136A5 /* Build configuration list for PBXProject "iOS Example" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -128,7 +128,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D9A12771235699C600D136A5 /* Polygonio iOS Example */,
+				D9A12771235699C600D136A5 /* iOS Example */,
 			);
 		};
 /* End PBXProject section */
@@ -330,7 +330,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D9A1276D235699C600D136A5 /* Build configuration list for PBXProject "Polygonio iOS Example" */ = {
+		D9A1276D235699C600D136A5 /* Build configuration list for PBXProject "iOS Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D9A12784235699C700D136A5 /* Debug */,
@@ -339,7 +339,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D9A12786235699C700D136A5 /* Build configuration list for PBXNativeTarget "Polygonio iOS Example" */ = {
+		D9A12786235699C700D136A5 /* Build configuration list for PBXNativeTarget "iOS Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D9A12787235699C700D136A5 /* Debug */,

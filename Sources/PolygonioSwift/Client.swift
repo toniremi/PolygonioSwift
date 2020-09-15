@@ -185,7 +185,7 @@ public class Client {
     ///   - perpage: How many items to be on each page during pagination. Max 50
     ///   - page: Which page of results to return
     ///   - completion: The completion to receive the response which is an TickerNewsResponse object.
-    public func tickerNews(symbol: String, perpage: Int = 50, page: Int = 1, completion: @escaping (_ response: TickerNewsResponse?, _ error: PolygonSwiftError?) -> Void) {
+    public func tickerNews(symbol: String, perpage: Int = 50, page: Int = 1, completion: @escaping (_ response: [TickerNewsResponse?], _ error: PolygonSwiftError?) -> Void) {
         let rq = TickerNewsRequest(symbol: symbol, perpage: perpage, page: page)
         let url = builder.buildURL(rq)
         
@@ -195,14 +195,14 @@ public class Client {
             guard let data = data, error == nil else {
                 // If an error was returned set the value in the completion as nil and print the error
                 DispatchQueue.main.async {
-                    completion(nil, PolygonSwiftError(error?.localizedDescription ?? "Data is empty at tickerNews()."))
+                    completion([], PolygonSwiftError(error?.localizedDescription ?? "Data is empty at tickerNews()."))
                 }
                 return
             }
             
             // add a try/catch so we can fetch any possible errors when decoding response or from the api call
             do {
-                let rs = try JSONDecoder().decode(TickerNewsResponse.self, from: data)
+                let rs = try JSONDecoder().decode([TickerNewsResponse].self, from: data)
                 DispatchQueue.main.async {
                     completion(rs, nil)
                 }
@@ -212,14 +212,14 @@ public class Client {
                 guard let responseError = try? JSONDecoder().decode(PolygonErrorResponse.self, from: data) else {
                     // just send normal error
                     DispatchQueue.main.async {
-                        completion(nil, PolygonSwiftError(error.localizedDescription))
+                        completion([], PolygonSwiftError(error.localizedDescription))
                     }
                     return
                 }
                 
                 // if we have an error from the api send that error instead as it may give more info.
                 DispatchQueue.main.async {
-                    completion(nil, PolygonSwiftError(responseError.error))
+                    completion([], PolygonSwiftError(responseError.error))
                 }
             }
         })
@@ -626,7 +626,6 @@ public class Client {
         })
         task.resume()
     }
-    
     
     /// Get aggregates for a date range, in custom time window sizes.
     /// - Parameters:
