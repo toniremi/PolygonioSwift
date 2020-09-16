@@ -15,7 +15,7 @@ class ViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         let polygon = PolygonioSwift.Client(key: "YOUR_POLYGON_API_KEY")
-        
+
         // Market Status
         polygon.marketStatus { (result: MarketStatusResponse?, err) in
             // check if we got any errors
@@ -28,7 +28,6 @@ class ViewController: UIViewController {
         }
         
         // Ticker News
-        
         polygon.tickerNews(symbol: "AAPL") { (result:[TickerNewsResponse?], err) in
             // check if we got any errors
             if let err = err {
@@ -99,7 +98,5 @@ class ViewController: UIViewController {
             }
         }*/
     }
-    
-    
 }
 

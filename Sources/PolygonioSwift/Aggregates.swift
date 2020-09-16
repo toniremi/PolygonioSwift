@@ -73,7 +73,7 @@ public struct AggregatesResponse : Decodable {
     
     public struct Candle : Codable {
         public var volume: Int
-        public var volumeWeighted: Decimal
+        public var VWAP: Decimal //VWAP (Volume Weighted Average Price)
         public var open: Decimal
         public var close: Decimal
         public var high: Decimal
@@ -83,7 +83,7 @@ public struct AggregatesResponse : Decodable {
         
         private enum CodingKeys: String, CodingKey {
             case volume = "v"
-            case volumeWeighted = "vw"
+            case VWAP = "vw"
             case open = "o"
             case close = "c"
             case high = "h"

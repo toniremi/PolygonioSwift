@@ -581,6 +581,57 @@ public class Client {
         task.resume()
     }
     
+    /// Get aggregates for a date range, in custom time window sizes.
+    /// - Parameters:
+    ///   - ticker: Ticker symbol of the request
+    ///   - multiplier: Size of the timespan multiplier. Ex: 1, 5, 10
+    ///   - timespan: Size of the time window
+    ///   - from: From date. format for date is YYYY-MM-DD Ex: 2020-09-10 ; also can use timestamp in milliseconds ex: 1599701937000
+    ///   - to: To date. format for date is YYYY-MM-DD Ex: 2020-09-10 ; also can use timestamp in milliseconds ex: 1599701937000
+    ///   - unadjusted: Set to true if the results should NOT be adjusted for splits. Default is false.
+    ///   - sorting: Sort by timestamp. Default is ascending.
+    ///   - completion: The completion to receive the response which is an AggregateResponse object. Candle data will be inside the results property..
+    public func aggregates(ticker:String, multiplier:Int, timespan:AggregatesRequest.TimeSpan, from:String, to:String, unadjusted:Bool = false, sorting:AggregatesRequest.Sorting = .ascending, completion: @escaping (_ response: AggregatesResponse?, _ error: PolygonSwiftError?) -> Void) {
+        let rq = AggregatesRequest(ticker: ticker, multiplier: multiplier, timespan: timespan, from: from, to: to, unadjusted: unadjusted, sort: sorting)
+        let url = builder.buildURL(rq)
+        
+        let task = session.dataTask(with: url, completionHandler: { data, response, error in
+            
+            // Unwrap the data and make sure that an error wasn't returned
+            guard let data = data, error == nil else {
+                // If an error was returned set the value in the completion as nil and print the error
+                DispatchQueue.main.async {
+                    completion(nil, PolygonSwiftError(error?.localizedDescription ?? "Data is empty at aggregates()."))
+                }
+                return
+            }
+            
+            // add a try/catch so we can fetch any possible errors when decoding response or from the api call
+            do {
+                let rs = try JSONDecoder().decode(AggregatesResponse.self, from: data)
+                DispatchQueue.main.async {
+                    completion(rs, nil)
+                }
+            } catch {
+                // lets handle the type of error here
+                // try to see if we got an error from the api in the response
+                guard let responseError = try? JSONDecoder().decode(PolygonErrorResponse.self, from: data) else {
+                    // just send normal error
+                    DispatchQueue.main.async {
+                        completion(nil, PolygonSwiftError(error.localizedDescription))
+                    }
+                    return
+                }
+                
+                // if we have an error from the api send that error instead as it may give more info.
+                DispatchQueue.main.async {
+                    completion(nil, PolygonSwiftError(responseError.error))
+                }
+            }
+        })
+        task.resume()
+    }
+    
     /// Get the open, close and afterhours prices of a symbol on a certain date.
     /// - Parameters:
     ///   - symbol: Symbol of the stock to get
@@ -627,18 +678,12 @@ public class Client {
         task.resume()
     }
     
-    /// Get aggregates for a date range, in custom time window sizes.
+    /// See the current snapshot of a single ticker
     /// - Parameters:
-    ///   - ticker: Ticker symbol of the request
-    ///   - multiplier: Size of the timespan multiplier. Ex: 1, 5, 10
-    ///   - timespan: Size of the time window
-    ///   - from: From date. format for date is YYYY-MM-DD Ex: 2020-09-10 ; also can use timestamp in milliseconds ex: 1599701937000
-    ///   - to: To date. format for date is YYYY-MM-DD Ex: 2020-09-10 ; also can use timestamp in milliseconds ex: 1599701937000
-    ///   - unadjusted: Set to true if the results should NOT be adjusted for splits. Default is false.
-    ///   - sorting: Sort by timestamp. Default is ascending.
-    ///   - completion: The completion to receive the response which is an AggregateResponse object. Candle data will be inside the results property..
-    public func aggregates(ticker:String, multiplier:Int, timespan:AggregatesRequest.TimeSpan, from:String, to:String, unadjusted:Bool = false, sorting:AggregatesRequest.Sorting = .ascending, completion: @escaping (_ response: AggregatesResponse?, _ error: PolygonSwiftError?) -> Void) {
-        let rq = AggregatesRequest(ticker: ticker, multiplier: multiplier, timespan: timespan, from: from, to: to, unadjusted: unadjusted, sort: sorting)
+    ///   - symbol: Ticker of the snapshot
+    ///   - completion: The completion to receive the response which is an TickerSnapshotResponse object.
+    public func tickerSnapshot(symbol:String, completion: @escaping (_ response: TickerSnapshotResponse?, _ error: PolygonSwiftError?) -> Void) {
+        let rq = TickerSnapshotRequest(symbol: symbol)
         let url = builder.buildURL(rq)
         
         let task = session.dataTask(with: url, completionHandler: { data, response, error in
@@ -647,14 +692,59 @@ public class Client {
             guard let data = data, error == nil else {
                 // If an error was returned set the value in the completion as nil and print the error
                 DispatchQueue.main.async {
-                    completion(nil, PolygonSwiftError(error?.localizedDescription ?? "Data is empty at aggregates()."))
+                    completion(nil, PolygonSwiftError(error?.localizedDescription ?? "Data is empty at tickerSnapshot()."))
                 }
                 return
             }
             
             // add a try/catch so we can fetch any possible errors when decoding response or from the api call
             do {
-                let rs = try JSONDecoder().decode(AggregatesResponse.self, from: data)
+                let rs = try JSONDecoder().decode(TickerSnapshotResponse.self, from: data)
+                DispatchQueue.main.async {
+                    completion(rs, nil)
+                }
+            } catch {
+                // lets handle the type of error here
+                // try to see if we got an error from the api in the response
+                guard let responseError = try? JSONDecoder().decode(PolygonErrorResponse.self, from: data) else {
+                    // just send normal error
+                    DispatchQueue.main.async {
+                        completion(nil, PolygonSwiftError(error.localizedDescription))
+                    }
+                    return
+                }
+                
+                // if we have an error from the api send that error instead as it may give more info.
+                DispatchQueue.main.async {
+                    completion(nil, PolygonSwiftError(responseError.error))
+                }
+            }
+        })
+        task.resume()
+    }
+    
+    /// Snapshot allows you to see all tickers current minute aggregate, daily aggregate and last trade. As well as previous days aggregate and calculated change for today.
+    /// WARNING: The response size is large use this at your own discretion.
+    /// - Parameters:
+    ///   - completion: The completion to receive the response which is an AllTickersSnapshotResponse object. The tickers property contains an array with all the tickers info inside.
+    public func allTickersSnapshot(completion: @escaping (_ response: AllTickersSnapshotResponse?, _ error: PolygonSwiftError?) -> Void) {
+        let rq = AllTickersSnapshotRequest()
+        let url = builder.buildURL(rq)
+        
+        let task = session.dataTask(with: url, completionHandler: { data, response, error in
+            
+            // Unwrap the data and make sure that an error wasn't returned
+            guard let data = data, error == nil else {
+                // If an error was returned set the value in the completion as nil and print the error
+                DispatchQueue.main.async {
+                    completion(nil, PolygonSwiftError(error?.localizedDescription ?? "Data is empty at allTickersSnapshot()."))
+                }
+                return
+            }
+            
+            // add a try/catch so we can fetch any possible errors when decoding response or from the api call
+            do {
+                let rs = try JSONDecoder().decode(AllTickersSnapshotResponse.self, from: data)
                 DispatchQueue.main.async {
                     completion(rs, nil)
                 }
