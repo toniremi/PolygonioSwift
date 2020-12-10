@@ -65,6 +65,8 @@ public class Client {
             
             // add a try/catch so we can fetch any possible errors when decoding response or from the api call
             do {
+                // you can debug the raw json reply by using the line below
+                //let response = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
                 let rs = try JSONDecoder().decode(TickersQueryResponse.self, from: data)
                 DispatchQueue.main.async {
                     completion(rs, nil)
@@ -109,6 +111,8 @@ public class Client {
             
             // add a try/catch so we can fetch any possible errors when decoding response or from the api call
             do {
+                // you can debug the raw json reply by using the line below
+                //let response = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
                 let rs = try JSONDecoder().decode(TickerTypesResponse.self, from: data)
                 DispatchQueue.main.async {
                     completion(rs, nil)
@@ -154,6 +158,8 @@ public class Client {
             
             // add a try/catch so we can fetch any possible errors when decoding response or from the api call
             do {
+                // you can debug the raw json reply by using the line below
+                //let response = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
                 let rs = try JSONDecoder().decode(TickerDetailsResponse.self, from: data)
                 DispatchQueue.main.async {
                     completion(rs, nil)
@@ -202,6 +208,8 @@ public class Client {
             
             // add a try/catch so we can fetch any possible errors when decoding response or from the api call
             do {
+                // you can debug the raw json reply by using the line below
+                //let response = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
                 let rs = try JSONDecoder().decode([TickerNewsResponse].self, from: data)
                 DispatchQueue.main.async {
                     completion(rs, nil)
@@ -246,6 +254,8 @@ public class Client {
             
             // add a try/catch so we can fetch any possible errors when decoding response or from the api call
             do {
+                // you can debug the raw json reply by using the line below
+                //let response = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
                 let rs = try JSONDecoder().decode(MarketsResponse.self, from: data)
                 DispatchQueue.main.async {
                     completion(rs, nil)
@@ -289,6 +299,8 @@ public class Client {
             
             // add a try/catch so we can fetch any possible errors when decoding response or from the api call
             do {
+                // you can debug the raw json reply by using the line below
+                //let response = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
                 let rs = try JSONDecoder().decode(LocalesResponse.self, from: data)
                 DispatchQueue.main.async {
                     completion(rs, nil)
@@ -334,6 +346,8 @@ public class Client {
             
             // add a try/catch so we can fetch any possible errors when decoding response or from the api call
             do {
+                // you can debug the raw json reply by using the line below
+                //let response = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
                 let rs = try JSONDecoder().decode(StockSplitsResponse.self, from: data)
                 DispatchQueue.main.async {
                     completion(rs, nil)
@@ -379,6 +393,8 @@ public class Client {
             
             // add a try/catch so we can fetch any possible errors when decoding response or from the api call
             do {
+                // you can debug the raw json reply by using the line below
+                //let response = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
                 let rs = try JSONDecoder().decode(StockDividendsResponse.self, from: data)
                 DispatchQueue.main.async {
                     completion(rs, nil)
@@ -425,6 +441,8 @@ public class Client {
             
             // add a try/catch so we can fetch any possible errors when decoding response or from the api call
             do {
+                // you can debug the raw json reply by using the line below
+                //let response = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
                 let rs = try JSONDecoder().decode(StockFinancialsResponse.self, from: data)
                 DispatchQueue.main.async {
                     completion(rs, nil)
@@ -468,6 +486,8 @@ public class Client {
             
             // add a try/catch so we can fetch any possible errors when decoding response or from the api call
             do {
+                // you can debug the raw json reply by using the line below
+                //let response = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
                 let rs = try JSONDecoder().decode(MarketStatusResponse.self, from: data)
                 DispatchQueue.main.async {
                     completion(rs, nil)
@@ -511,6 +531,8 @@ public class Client {
             
             // add a try/catch so we can fetch any possible errors when decoding response or from the api call
             do {
+                // you can debug the raw json reply by using the line below
+                //let response = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
                 let rs = try JSONDecoder().decode([MarketHolidaysResponse].self, from: data)
                 DispatchQueue.main.async {
                     completion(rs, nil)
@@ -557,6 +579,8 @@ public class Client {
             
             // add a try/catch so we can fetch any possible errors when decoding response or from the api call
             do {
+                // you can debug the raw json reply by using the line below
+                //let response = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
                 let rs = try JSONDecoder().decode(PreviousCloseResponse.self, from: data)
                 DispatchQueue.main.async {
                     completion(rs, nil)
@@ -608,6 +632,8 @@ public class Client {
             
             // add a try/catch so we can fetch any possible errors when decoding response or from the api call
             do {
+                // you can debug the raw json reply by using the line below
+                //let response = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
                 let rs = try JSONDecoder().decode(AggregatesResponse.self, from: data)
                 DispatchQueue.main.async {
                     completion(rs, nil)
@@ -618,6 +644,7 @@ public class Client {
                 guard let responseError = try? JSONDecoder().decode(PolygonErrorResponse.self, from: data) else {
                     // just send normal error
                     DispatchQueue.main.async {
+                        print(error)
                         completion(nil, PolygonSwiftError(error.localizedDescription))
                     }
                     return
@@ -654,6 +681,8 @@ public class Client {
             
             // add a try/catch so we can fetch any possible errors when decoding response or from the api call
             do {
+                // you can debug the raw json reply by using the line below
+                //let response = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
                 let rs = try JSONDecoder().decode(DailyOpenCloseResponse.self, from: data)
                 DispatchQueue.main.async {
                     completion(rs, nil)
@@ -699,6 +728,8 @@ public class Client {
             
             // add a try/catch so we can fetch any possible errors when decoding response or from the api call
             do {
+                // you can debug the raw json reply by using the line below
+                //let response = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
                 let rs = try JSONDecoder().decode(TickerSnapshotResponse.self, from: data)
                 DispatchQueue.main.async {
                     completion(rs, nil)
@@ -744,6 +775,8 @@ public class Client {
             
             // add a try/catch so we can fetch any possible errors when decoding response or from the api call
             do {
+                // you can debug the raw json reply by using the line below
+                //let response = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
                 let rs = try JSONDecoder().decode(AllTickersSnapshotResponse.self, from: data)
                 DispatchQueue.main.async {
                     completion(rs, nil)

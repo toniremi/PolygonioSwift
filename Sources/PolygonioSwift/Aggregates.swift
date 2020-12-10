@@ -81,7 +81,7 @@ public struct AggregatesResponse : Decodable {
         public var high: Decimal
         public var low: Decimal
         public var timestamp: Int
-        public var n: Int
+        public var n: Int?
         
         private enum CodingKeys: String, CodingKey {
             case volume = "v"
