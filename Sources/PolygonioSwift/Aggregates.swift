@@ -60,6 +60,7 @@ public struct AggregatesResponse : Decodable {
     public var resultsCount: Int
     public var results: [Candle]
     public var requestid: String
+    public var count: Int
 
     private enum CodingKeys: String, CodingKey {
         case ticker = "ticker"
@@ -69,6 +70,7 @@ public struct AggregatesResponse : Decodable {
         case resultsCount = "resultsCount"
         case results = "results"
         case requestid = "request_id"
+        case count = "count"
     }
     
     public struct Candle : Codable {

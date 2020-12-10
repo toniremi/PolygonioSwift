@@ -14,10 +14,10 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        let polygon = PolygonioSwift.Client(key: "YOUR_POLYGON_API_KEY")
+        let polygon = PolygonioSwift.Client(key: "YOUR_API_KEY")
 
         // Market Status
-        polygon.marketStatus { (result: MarketStatusResponse?, err) in
+        /*polygon.marketStatus { (result: MarketStatusResponse?, err) in
             // check if we got any errors
             if let err = err {
                 print(err)
@@ -38,27 +38,27 @@ class ViewController: UIViewController {
         }
         
         // Market Holidays
-        /*polygon.marketHolidays { (result: [MarketHolidaysResponse?], err) in
+        polygon.marketHolidays { (result: [MarketHolidaysResponse?], err) in
             // check if we got any errors
             if let err = err {
                 print(err)
             } else {
                 print(result)
             }
-        }*/
+        }
         
         // Daily Open Close
-        /*polygon.dailyOpenClose(symbol: "AAPL", date: "2020-09-11") { (result: DailyOpenCloseResponse?, err) in
+        polygon.dailyOpenClose(symbol: "AAPL", date: "2020-09-11") { (result: DailyOpenCloseResponse?, err) in
             // check if we got any errors
             if let err = err {
                 print(err)
             } else {
                 print(result)
             }
-        }*/
+        }
         
         // Tickers Query
-        /*polygon.tickers(sort: .type, type: nil, market: .Stocks, locale: nil, search: "AAPL", active: true) { (result:TickersQueryResponse?, err) in
+        polygon.tickers(sort: .type, type: nil, market: .Stocks, locale: nil, search: "AAPL", active: true) { (result:TickersQueryResponse?, err) in
             // check if we got any errors
             if let err = err {
                 print(err)
@@ -66,29 +66,29 @@ class ViewController: UIViewController {
                 print(result)
                 print(result?.tickers)
             }
-        }*/
+        }
         
         // Stock Financials
-        /*polygon.stockFinancials(symbol: "AAPL", limit: 2) { (result: StockFinancialsResponse?, err) in
+        polygon.stockFinancials(symbol: "AAPL", limit: 2) { (result: StockFinancialsResponse?, err) in
             if let err = err {
                 print(err)
             } else {
                 print(result)
             }
-        }*/
+        }
         
         // Ticker Details
-        /*polygon.tickerDetails(symbol: "AAPL") { (result:TickerDetailsResponse?, err) in
+        polygon.tickerDetails(symbol: "AAPL") { (result:TickerDetailsResponse?, err) in
             // check if we got any errors
             if let err = err {
                 print(err)
             } else {
                 print(result)
             }
-        }*/
+        }
         
         // Fetch Aggregates (Candle Data)
-        /*polygon.aggregates(ticker: "APPL", multiplier: 1, timespan: .day, from: "2020-08-09", to: "2020-09-09") { (result:AggregatesResponse?, err) in
+        polygon.aggregates(ticker: "AAPL", multiplier: 1, timespan: .day, from: "2020-08-09", to: "2020-09-09") { (result:AggregatesResponse?, err) in
             // check if we got any errors
             if let err = err {
                 print(err)
