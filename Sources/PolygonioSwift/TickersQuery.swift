@@ -11,9 +11,23 @@ public struct TickersQueryRequest : ApiRequest {
     typealias Response = TickersQueryResponse
     
     public enum Sorting: String {
+        case ticker = "ticker"
+        case name = "name"
+        case market = "market"
+        case locale = "locale"
         case type = "type"
-        case ascending = "ticker"
-        case descending = "-ticker"
+        case primaryExch = "primary_exchange"
+        case active = "active"
+        case currency = "currency_name"
+        case cik = "cik"
+        case composite_figi = "composite_figi"
+        case share_class_figi = "share_class_figi"
+        case last_updated_utc = "last_updated_utc"
+    }
+    
+    public enum Order: String {
+        case ascending = "asc"
+        case descending = "desc"
     }
     
     // Can see this by checking https://api.polygon.io/v2/reference/types
@@ -57,13 +71,9 @@ public struct TickersQueryRequest : ApiRequest {
     
     // Can see this by checking
     public enum MarketOptions: String {
-        case Stocks = "STOCKS"
-        case Indices = "INDICES"
-        case Crypto = "CRYPTO"
-        case Forex = "FX"
-        case Bonds = "BONDS"
-        case MutualFunds = "MF"
-        case MoneyMarketFunds = "MMF"
+        case Stocks = "stocks"
+        case Crypto = "crypto"
+        case Forex = "fx"
     }
     
     // Can see this by checking https://api.polygon.io/v2/reference/locales
@@ -89,26 +99,37 @@ public struct TickersQueryRequest : ApiRequest {
         case Sweden = "SE"
     }
     
+    
+    
+    let ticker: String
     let sort: Sorting?
+    let order: Order?
     let type: TickerTypes?
     let market: MarketOptions?
     let locale: Locale?
-    let search: String
-    var perpage: Int // how many results per page. Default is 50
-    var page: Int // for pagination if not assigned. Default is 1
+    var limit: Int? // how many results per page. Default is 100
     let active: Bool?
     
     var path: String {
-        return "/v2/reference/tickers"
+        return "/v3/reference/tickers"
     }
     
     var queryItems: [URLQueryItem] {
         // add here the parameters if we have a value
         var parameters: [URLQueryItem] = []
         
+        // always append the ticker as there has to be something in this field.
+        // for search we created a dedicated function to better handle search and make it simpler
+        parameters.append(URLQueryItem(name: "ticker", value: ticker))
+        
         // append sort if we have one
         if sort != nil {
             parameters.append(URLQueryItem(name: "sort", value: sort?.rawValue))
+        }
+        
+        // append sort if we have one
+        if order != nil {
+            parameters.append(URLQueryItem(name: "order", value: order?.rawValue))
         }
         
         // append type if we have one
@@ -126,27 +147,11 @@ public struct TickersQueryRequest : ApiRequest {
             parameters.append(URLQueryItem(name: "locale", value: locale?.rawValue))
         }
         
-        // always append the search as there has to be something in this field
-        parameters.append(URLQueryItem(name: "search", value: search))
-        
-
-        // make sure perPage is between 0 and 50
-        var perPageString = String(perpage)
-        // just make sure its not bigger than 50 or smaller than 0
-        if (perpage < 0 || perpage > 50) {
-            perPageString =  String(50) // max is 50 per page
+        // append limit if we have one
+        if limit != nil {
+            // add it to the parameters array
+            parameters.append(URLQueryItem(name: "limit", value: String(limit!)))
         }
-        // add it to the parameters array
-        parameters.append(URLQueryItem(name: "perpage", value: perPageString))
-        
-        // make sure page is between bigger than 0
-        var pageString = String(page)
-        // just make sure page is not less than 1
-        if (page < 1) {
-            pageString = String(1) // page cant be negative
-        }
-        // add it to the parameters array
-        parameters.append(URLQueryItem(name: "page", value: pageString))
         
         // append active if we have one
         if active != nil {
@@ -159,18 +164,16 @@ public struct TickersQueryRequest : ApiRequest {
 
 public struct TickersQueryResponse : Decodable {
     
-    public var page: Int
-    public var perPage: Int
+    public var request_id: String
     public var count: Int
     public var status: String
-    public var tickers: [Ticker]
+    public var results: [Ticker]
     
     private enum CodingKeys: String, CodingKey {
-        case page = "page"
-        case perPage = "perPage"
+        case request_id = "request_id"
         case count = "count"
         case status = "status"
-        case tickers = "tickers"
+        case results = "results"
     }
     
     public struct Ticker : Codable {
@@ -178,79 +181,29 @@ public struct TickersQueryResponse : Decodable {
         public var name: String
         public var market: String
         public var locale: String
+        public var primaryExch: String
+        public var type: String
         public var currency: String
         public var active: Bool
-        public var primaryExch: String
-        public var updated: String
-        public var codes: Codes?
-        public var attrs: Attributes?
-        public var url: String
+        
+        public var cik: String
+        public var composite_figi: String
+        public var share_class_figi: String
+        public var last_updated_utc: String
         
         private enum CodingKeys: String, CodingKey {
             case ticker = "ticker"
             case name = "name"
             case market = "market"
             case locale = "locale"
-            case currency = "currency"
+            case primaryExch = "primary_exchange"
+            case type = "type"
             case active = "active"
-            case primaryExch = "primaryExch"
-            case updated = "updated"
-            case codes = "codes"
-            case attrs = "attrs"
-            case url = "url"
+            case currency = "currency_name"
+            case cik = "cik"
+            case composite_figi = "composite_figi"
+            case share_class_figi = "share_class_figi"
+            case last_updated_utc = "last_updated_utc"
         }
     }
-    
-    // only shown for Stock Symbols
-    public struct Codes : Codable {
-        public var figiuid: String
-        public var scfigi: String
-        public var cfigi: String
-        public var figi: String
-        
-        private enum CodingKeys: String, CodingKey {
-            case figiuid = "figiuid"
-            case scfigi = "scfigi"
-            case cfigi = "cfigi"
-            case figi = "figi"
-        }
-    }
-    
-    // Shown for Crypto, Forex and Indices
-    public struct Attributes : Codable {
-        // crypto & Forex variables
-        public var currencyName: String?
-        public var currency: String?
-        public var baseName: String?
-        public var base: String?
-        
-        // Indices variables
-        public var holiday: Bool?
-        public var assettype: String?
-        public var entitlement: String?
-        public var disseminationfreq: String?
-        public var dataset: String?
-        public var schedule: String?
-        public var brand: String?
-        public var series: String?
-        
-        
-        private enum CodingKeys: String, CodingKey {
-            // crypto & Forex variables
-            case currencyName = "currencyName"
-            case currency = "currency"
-            case baseName = "baseName"
-            case base = "base"
-            // Indices variables
-            case holiday = "holiday"
-            case assettype = "assettype"
-            case entitlement = "entitlement"
-            case disseminationfreq = "disseminationfreq"
-            case dataset = "dataset"
-            case schedule = "schedule"
-            case brand = "brand"
-            case series = "series"
-        }
-    }
-    
 }

@@ -15,9 +15,11 @@ class ViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         let polygon = PolygonioSwift.Client(key: "YOUR_API_KEY")
-
+        
+        polygon.setDebug(enable: true)
+        
         // Market Status
-        /*polygon.marketStatus { (result: MarketStatusResponse?, err) in
+        polygon.marketStatus { (result: MarketStatusResponse?, err) in
             // check if we got any errors
             if let err = err {
                 print(err)
@@ -28,7 +30,7 @@ class ViewController: UIViewController {
         }
         
         // Ticker News
-        polygon.tickerNews(symbol: "AAPL") { (result:[TickerNewsResponse?], err) in
+        polygon.tickerNews(ticker: "AAPL",limit: 5, order: .ascending, publishedLessEqualThan: nil, publishedGreaterEqualThan: nil) { (result:TickerNewsResponse?, err) in
             // check if we got any errors
             if let err = err {
                 print(err)
@@ -38,7 +40,7 @@ class ViewController: UIViewController {
         }
         
         // Market Holidays
-        polygon.marketHolidays { (result: [MarketHolidaysResponse?], err) in
+       polygon.marketHolidays { (result: [MarketHolidaysResponse?], err) in
             // check if we got any errors
             if let err = err {
                 print(err)
@@ -58,18 +60,30 @@ class ViewController: UIViewController {
         }
         
         // Tickers Query
-        polygon.tickers(sort: .type, type: nil, market: .Stocks, locale: nil, search: "AAPL", active: true) { (result:TickersQueryResponse?, err) in
+        polygon.tickers(sort: .ticker, order: nil, type: nil, market: .Stocks, locale: nil, ticker: "AAPL", limit: 100, active: true) { (result:TickersQueryResponse?, err) in
             // check if we got any errors
             if let err = err {
                 print(err)
             } else {
                 print(result)
-                print(result?.tickers)
+                print(result?.results)
+            }
+        }
+        
+        // Ticker Search
+        polygon.searchTickers(search: "Apple") {
+            (result:TickerSearchResponse?, err) in
+            // check if we got any errors
+            if let err = err {
+                print(err)
+            } else {
+                print(result)
+                print(result?.results)
             }
         }
         
         // Stock Financials
-        polygon.stockFinancials(symbol: "AAPL", limit: 2) { (result: StockFinancialsResponse?, err) in
+        polygon.stockFinancials(symbol: "AAPL", limit: 5, type: .Year) { (result: StockFinancialsResponse?, err) in
             if let err = err {
                 print(err)
             } else {
@@ -96,7 +110,7 @@ class ViewController: UIViewController {
                 print(result)
                 print(result?.results)
             }
-        }*/
+        }
     }
 }
 

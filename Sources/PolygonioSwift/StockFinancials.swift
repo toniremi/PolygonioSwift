@@ -10,15 +10,37 @@ import Foundation
 public struct StockFinancialsRequest : ApiRequest {
     typealias Response = StockFinancialsResponse
     
+    
+    public enum FinancialType: String {
+        case Year = "Y"
+        case YearAnnualized = "YA"
+        case Quarter = "Q"
+        case QuarterAnnualied = "QA"
+        case Trailing12Months = "T"
+        case Trailing12MonthsAnnualized = "TA"
+    }
+    
     var symbol:String
     var limit: Int
+    var type: FinancialType?
     
     var path: String {
         return "/v2/reference/financials/\(symbol)"
     }
     
     var queryItems: [URLQueryItem] {
-        return [ URLQueryItem(name: "limit", value: String(limit)) ]
+        // add here the parameters if we have a value
+        var parameters: [URLQueryItem] = []
+        
+        // always will have limit otherwise the response is huge
+        parameters.append(URLQueryItem(name: "limit", value: String(limit)))
+        
+        // if a type is passed include it in the query
+        if type != nil {
+            parameters.append(URLQueryItem(name: "type", value: type?.rawValue))
+        }
+        
+        return parameters
     }
 }
 
