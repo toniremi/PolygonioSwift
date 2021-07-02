@@ -9,9 +9,14 @@ import Foundation
 
 fileprivate let baseURLString = "https://api.polygon.io"
 
+
+
 public class Client {
     let session: URLSession
     let builder: URLBuilder
+    
+    // debug so we can see extra info
+    var debug = false
     
     public init(key: String) {
         let components = URLComponents(string: baseURLString)!
@@ -36,21 +41,31 @@ public class Client {
         }
     }
     
+    // to allow setting a debug to print extra info or not
+    public func setDebug(enable: Bool) {
+        self.debug = enable
+    }
     
-    /// Query all ticker symbols which are supported by Polygon.io. This API includes Indices, Crypto, FX, and Stocks/Equities.
+    //MARK: - Stocks Endpoints
+    
+    /// Query all or a specific ticker symbol which are supported by Polygon.io. This API includes Indices, Crypto, FX, and Stocks/Equities.
     /// - Parameters:
+    ///   - ticker: Specify a ticker symbol. Defaults to empty string which queries all tickers.
     ///   - sort: Which field to sort by.
     ///   - type: If you want the results to only container a certain type.
     ///   - market: Get tickers for a specific market
     ///   - locale: Get tickers for a specific region/locale
-    ///   - search: Search the name of tickers
-    ///   - perpage: How many items to be on each page during pagination. Max 50
-    ///   - page: Which page of results to return
+    ///   - limit: Limit the size of the response, default is 100 and max is 1000.
     ///   - active: Filter for only active or inactive symbols
     ///   - completion: The completion to receive the response which is an TickersQueryResponse object.Tickers data will be inside the tickers property.
-    public func tickers(sort: TickersQueryRequest.Sorting?, type: TickersQueryRequest.TickerTypes?, market: TickersQueryRequest.MarketOptions?, locale: TickersQueryRequest.Locale?, search: String, perpage: Int = 50, page: Int = 1, active: Bool?, completion: @escaping (_ response: TickersQueryResponse?, _ error: PolygonSwiftError?) -> Void) {
-        let rq = TickersQueryRequest(sort: sort, type: type, market: market, locale: locale, search: search, perpage: perpage, page: page, active: active)
+    public func tickers(sort: TickersQueryRequest.Sorting? = nil, order: TickersQueryRequest.Order? = nil, type: TickersQueryRequest.TickerTypes? = nil, market: TickersQueryRequest.MarketOptions? = nil, locale: TickersQueryRequest.Locale? = nil, ticker: String, limit: Int? = nil, active: Bool? = nil, completion: @escaping (_ response: TickersQueryResponse?, _ error: PolygonSwiftError?) -> Void) {
+        let rq = TickersQueryRequest(ticker: ticker, sort: sort, order: order, type: type, market: market, locale: locale, limit: limit, active: active)
         let url = builder.buildURL(rq)
+        
+        // debug url
+        if self.debug {
+            print(url.absoluteURL)
+        }
         
         let task = session.dataTask(with: url, completionHandler: { data, response, error in
             
@@ -72,6 +87,70 @@ public class Client {
                     completion(rs, nil)
                 }
             } catch {
+                if self.debug {
+                    // get better error description
+                    print(String(describing: error))
+                }
+                // lets handle the type of error here
+                // try to see if we got an error from the api in the response
+                guard let responseError = try? JSONDecoder().decode(PolygonErrorResponse.self, from: data) else {
+                    // just send normal error
+                    DispatchQueue.main.async {
+                        completion(nil, PolygonSwiftError(error.localizedDescription))
+                    }
+                    return
+                }
+                
+                // if we have an error from the api send that error instead as it may give more info.
+                DispatchQueue.main.async {
+                    completion(nil, PolygonSwiftError(responseError.error))
+                }
+            }
+        })
+        task.resume()
+    }
+    
+    /// Search a ticker by ticker or company name. This is based of the tickers query request but focusing only on search.
+    /// It provides a more simplified tool if you want to just search tickers.
+    /// - Parameters:
+    ///   - search: Search for terms within the ticker and/or company name.
+    ///   - limit: Limit the size of the response, default is 100 and max is 1000.
+    ///   - active: Filter for only active or inactive symbols
+    ///   - order: The order to sort the results on. Default is asc (ascending).
+    ///   - completion: The completion to receive the response which is an TickersQueryResponse object.Tickers data will be inside the tickers property.
+    public func searchTickers(search: String, limit: Int? = nil, active: Bool? = nil, order: TickerSearchRequest.Order? = nil, completion: @escaping (_ response: TickerSearchResponse?, _ error: PolygonSwiftError?) -> Void) {
+        let rq = TickerSearchRequest(search: search, limit: limit, active: active, order: order)
+        let url = builder.buildURL(rq)
+        
+        // debug url
+        if self.debug {
+            print(url.absoluteURL)
+        }
+        
+        let task = session.dataTask(with: url, completionHandler: { data, response, error in
+            
+            // Unwrap the data and make sure that an error wasn't returned
+            guard let data = data, error == nil else {
+                // If an error was returned set the value in the completion as nil and print the error
+                DispatchQueue.main.async {
+                    completion(nil, PolygonSwiftError(error?.localizedDescription ?? "Data is empty at tickers()."))
+                }
+                return
+            }
+            
+            // add a try/catch so we can fetch any possible errors when decoding response or from the api call
+            do {
+                // you can debug the raw json reply by using the line below
+                //let response = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
+                let rs = try JSONDecoder().decode(TickerSearchResponse.self, from: data)
+                DispatchQueue.main.async {
+                    completion(rs, nil)
+                }
+            } catch {
+                if self.debug {
+                    // get better error description
+                    print(String(describing: error))
+                }
                 // lets handle the type of error here
                 // try to see if we got an error from the api in the response
                 guard let responseError = try? JSONDecoder().decode(PolygonErrorResponse.self, from: data) else {
@@ -98,6 +177,11 @@ public class Client {
         let rq = TickerTypesRequest()
         let url = builder.buildURL(rq)
         
+        // debug url
+        if self.debug {
+            print(url.absoluteURL)
+        }
+        
         let task = session.dataTask(with: url, completionHandler: { data, response, error in
             
             // Unwrap the data and make sure that an error wasn't returned
@@ -118,6 +202,10 @@ public class Client {
                     completion(rs, nil)
                 }
             } catch {
+                if self.debug {
+                    // get better error description
+                    print(String(describing: error))
+                }
                 // lets handle the type of error here
                 // try to see if we got an error from the api in the response
                 guard let responseError = try? JSONDecoder().decode(PolygonErrorResponse.self, from: data) else {
@@ -145,6 +233,11 @@ public class Client {
         let rq = TickerDetailsRequest(symbol: symbol)
         let url = builder.buildURL(rq)
         
+        // debug url
+        if self.debug {
+            print(url.absoluteURL)
+        }
+        
         let task = session.dataTask(with: url, completionHandler: { data, response, error in
             
             // Unwrap the data and make sure that an error wasn't returned
@@ -165,6 +258,10 @@ public class Client {
                     completion(rs, nil)
                 }
             } catch {
+                if self.debug {
+                    // get better error description
+                    print(String(describing: error))
+                }
                 // lets handle the type of error here
                 // try to see if we got an error from the api in the response
                 guard let responseError = try? JSONDecoder().decode(PolygonErrorResponse.self, from: data) else {
@@ -185,15 +282,22 @@ public class Client {
     }
     
     
-    /// Get news articles for this ticker.
+    /// Get news articles  in general or for a specific ticker.
     /// - Parameters:
-    ///   - symbol: Ticker we want to search news for
-    ///   - perpage: How many items to be on each page during pagination. Max 50
-    ///   - page: Which page of results to return
+    ///   - ticker: Ticker we want to search news for. If nil then we search for news in general
+    ///   - limit: Limit the size of the response, default is 100 and max is 1000.
+    ///   - order: The order to sort the results on. Default is asc (ascending).
+    ///   - publishedLessEqualThan: Return results where this field is less than or equal to the date. Ex: 2021-06-17
+    ///   - publishedGreaterEqualThan: Return results where this field is greater than or equal to the date. Ex: 2021-06-17
     ///   - completion: The completion to receive the response which is an TickerNewsResponse object.
-    public func tickerNews(symbol: String, perpage: Int = 50, page: Int = 1, completion: @escaping (_ response: [TickerNewsResponse?], _ error: PolygonSwiftError?) -> Void) {
-        let rq = TickerNewsRequest(symbol: symbol, perpage: perpage, page: page)
+    public func tickerNews(ticker: String? = nil, limit: Int? = nil, order: TickerNewsRequest.Order? = nil, publishedLessEqualThan: String? = nil, publishedGreaterEqualThan: String? = nil, completion: @escaping (_ response: TickerNewsResponse?, _ error: PolygonSwiftError?) -> Void) {
+        let rq = TickerNewsRequest(ticker: ticker, limit: limit, order: order, publishedLessEqualThan: publishedLessEqualThan, publishedGreaterEqualThan: publishedGreaterEqualThan)
         let url = builder.buildURL(rq)
+        
+        // debug url
+        if self.debug {
+            print(url.absoluteURL)
+        }
         
         let task = session.dataTask(with: url, completionHandler: { data, response, error in
             
@@ -201,7 +305,7 @@ public class Client {
             guard let data = data, error == nil else {
                 // If an error was returned set the value in the completion as nil and print the error
                 DispatchQueue.main.async {
-                    completion([], PolygonSwiftError(error?.localizedDescription ?? "Data is empty at tickerNews()."))
+                    completion(nil, PolygonSwiftError(error?.localizedDescription ?? "Data is empty at tickerNews()."))
                 }
                 return
             }
@@ -210,24 +314,28 @@ public class Client {
             do {
                 // you can debug the raw json reply by using the line below
                 //let response = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
-                let rs = try JSONDecoder().decode([TickerNewsResponse].self, from: data)
+                let rs = try JSONDecoder().decode(TickerNewsResponse.self, from: data)
                 DispatchQueue.main.async {
                     completion(rs, nil)
                 }
             } catch {
+                if self.debug {
+                    // get better error description
+                    print(String(describing: error))
+                }
                 // lets handle the type of error here
                 // try to see if we got an error from the api in the response
                 guard let responseError = try? JSONDecoder().decode(PolygonErrorResponse.self, from: data) else {
                     // just send normal error
                     DispatchQueue.main.async {
-                        completion([], PolygonSwiftError(error.localizedDescription))
+                        completion(nil, PolygonSwiftError(error.localizedDescription))
                     }
                     return
                 }
                 
                 // if we have an error from the api send that error instead as it may give more info.
                 DispatchQueue.main.async {
-                    completion([], PolygonSwiftError(responseError.error))
+                    completion(nil, PolygonSwiftError(responseError.error))
                 }
             }
         })
@@ -240,6 +348,11 @@ public class Client {
     public func markets( completion: @escaping (_ response: MarketsResponse?, _ error: PolygonSwiftError?) -> Void) {
         let rq = MarketsRequest()
         let url = builder.buildURL(rq)
+        
+        // debug url
+        if self.debug {
+            print(url.absoluteURL)
+        }
         
         let task = session.dataTask(with: url, completionHandler: { data, response, error in
             
@@ -261,6 +374,10 @@ public class Client {
                     completion(rs, nil)
                 }
             } catch {
+                if self.debug {
+                    // get better error description
+                    print(String(describing: error))
+                }
                 // lets handle the type of error here
                 // try to see if we got an error from the api in the response
                 guard let responseError = try? JSONDecoder().decode(PolygonErrorResponse.self, from: data) else {
@@ -286,6 +403,11 @@ public class Client {
         let rq = LocalesRequest()
         let url = builder.buildURL(rq)
         
+        // debug url
+        if self.debug {
+            print(url.absoluteURL)
+        }
+        
         let task = session.dataTask(with: url, completionHandler: { data, response, error in
             
             // Unwrap the data and make sure that an error wasn't returned
@@ -306,6 +428,10 @@ public class Client {
                     completion(rs, nil)
                 }
             } catch {
+                if self.debug {
+                    // get better error description
+                    print(String(describing: error))
+                }
                 // lets handle the type of error here
                 // try to see if we got an error from the api in the response
                 guard let responseError = try? JSONDecoder().decode(PolygonErrorResponse.self, from: data) else {
@@ -333,6 +459,11 @@ public class Client {
         let rq = StockSplitsRequest(symbol: symbol)
         let url = builder.buildURL(rq)
         
+        // debug url
+        if self.debug {
+            print(url.absoluteURL)
+        }
+        
         let task = session.dataTask(with: url, completionHandler: { data, response, error in
             
             // Unwrap the data and make sure that an error wasn't returned
@@ -353,6 +484,10 @@ public class Client {
                     completion(rs, nil)
                 }
             } catch {
+                if self.debug {
+                    // get better error description
+                    print(String(describing: error))
+                }
                 // lets handle the type of error here
                 // try to see if we got an error from the api in the response
                 guard let responseError = try? JSONDecoder().decode(PolygonErrorResponse.self, from: data) else {
@@ -380,6 +515,11 @@ public class Client {
         let rq = StockDividendsRequest(symbol: symbol)
         let url = builder.buildURL(rq)
         
+        // debug url
+        if self.debug {
+            print(url.absoluteURL)
+        }
+        
         let task = session.dataTask(with: url, completionHandler: { data, response, error in
             
             // Unwrap the data and make sure that an error wasn't returned
@@ -400,6 +540,10 @@ public class Client {
                     completion(rs, nil)
                 }
             } catch {
+                if self.debug {
+                    // get better error description
+                    print(String(describing: error))
+                }
                 // lets handle the type of error here
                 // try to see if we got an error from the api in the response
                 guard let responseError = try? JSONDecoder().decode(PolygonErrorResponse.self, from: data) else {
@@ -423,10 +567,16 @@ public class Client {
     /// - Parameters:
     ///   - symbol: Symbol we want financials data for
     ///   - limit: Limit the number of results
+    ///   - type : Specify a type of report to return. Y = Year YA = Year annualized Q = Quarter QA = Quarter Annualized T = Trailing twelve months TA = trailing twelve months annualized
     ///   - completion: The completion to receive the response which is an StockFinancialsResponse object.
-    public func stockFinancials(symbol: String, limit: Int, completion: @escaping (_ response: StockFinancialsResponse?, _ error: PolygonSwiftError?) -> Void) {
-        let rq = StockFinancialsRequest(symbol: symbol, limit: limit)
+    public func stockFinancials(symbol: String, limit: Int = 5, type: StockFinancialsRequest.FinancialType? = nil, completion: @escaping (_ response: StockFinancialsResponse?, _ error: PolygonSwiftError?) -> Void) {
+        let rq = StockFinancialsRequest(symbol: symbol, limit: limit, type: type)
         let url = builder.buildURL(rq)
+        
+        // debug url
+        if self.debug {
+            print(url.absoluteURL)
+        }
         
         let task = session.dataTask(with: url, completionHandler: { data, response, error in
             
@@ -448,6 +598,10 @@ public class Client {
                     completion(rs, nil)
                 }
             } catch {
+                if self.debug {
+                    // get better error description
+                    print(String(describing: error))
+                }
                 // lets handle the type of error here
                 // try to see if we got an error from the api in the response
                 guard let responseError = try? JSONDecoder().decode(PolygonErrorResponse.self, from: data) else {
@@ -473,6 +627,11 @@ public class Client {
         let rq = MarketStatusRequest()
         let url = builder.buildURL(rq)
         
+        // debug url
+        if self.debug {
+            print(url.absoluteURL)
+        }
+        
         let task = session.dataTask(with: url, completionHandler: { data, response, error in
             
             // Unwrap the data and make sure that an error wasn't returned
@@ -493,6 +652,10 @@ public class Client {
                     completion(rs, nil)
                 }
             } catch {
+                if self.debug {
+                    // get better error description
+                    print(String(describing: error))
+                }
                 // lets handle the type of error here
                 // try to see if we got an error from the api in the response
                 guard let responseError = try? JSONDecoder().decode(PolygonErrorResponse.self, from: data) else {
@@ -518,6 +681,11 @@ public class Client {
         let rq = MarketHolidaysRequest()
         let url = builder.buildURL(rq)
         
+        // debug url
+        if self.debug {
+            print(url.absoluteURL)
+        }
+        
         let task = session.dataTask(with: url, completionHandler: { data, response, error in
             
             // Unwrap the data and make sure that an error wasn't returned
@@ -538,6 +706,10 @@ public class Client {
                     completion(rs, nil)
                 }
             } catch {
+                if self.debug {
+                    // get better error description
+                    print(String(describing: error))
+                }
                 // lets handle the type of error here
                 // try to see if we got an error from the api in the response
                 guard let responseError = try? JSONDecoder().decode(PolygonErrorResponse.self, from: data) else {
@@ -566,6 +738,11 @@ public class Client {
         let rq = PreviousCloseRequest(symbol: symbol, unadjusted: unadjusted)
         let url = builder.buildURL(rq)
         
+        // debug url
+        if self.debug {
+            print(url.absoluteURL)
+        }
+        
         let task = session.dataTask(with: url, completionHandler: { data, response, error in
             
             // Unwrap the data and make sure that an error wasn't returned
@@ -586,6 +763,10 @@ public class Client {
                     completion(rs, nil)
                 }
             } catch {
+                if self.debug {
+                    // get better error description
+                    print(String(describing: error))
+                }
                 // lets handle the type of error here
                 // try to see if we got an error from the api in the response
                 guard let responseError = try? JSONDecoder().decode(PolygonErrorResponse.self, from: data) else {
@@ -619,6 +800,11 @@ public class Client {
         let rq = AggregatesRequest(ticker: ticker, multiplier: multiplier, timespan: timespan, from: from, to: to, unadjusted: unadjusted, sort: sorting)
         let url = builder.buildURL(rq)
         
+        // debug url
+        if self.debug {
+            print(url.absoluteURL)
+        }
+        
         let task = session.dataTask(with: url, completionHandler: { data, response, error in
             
             // Unwrap the data and make sure that an error wasn't returned
@@ -639,6 +825,10 @@ public class Client {
                     completion(rs, nil)
                 }
             } catch {
+                if self.debug {
+                    // get better error description
+                    print(String(describing: error))
+                }
                 // lets handle the type of error here
                 // try to see if we got an error from the api in the response
                 guard let responseError = try? JSONDecoder().decode(PolygonErrorResponse.self, from: data) else {
@@ -668,6 +858,11 @@ public class Client {
         let rq = DailyOpenCloseRequest(symbol: symbol, date: date)
         let url = builder.buildURL(rq)
         
+        // debug url
+        if self.debug {
+            print(url.absoluteURL)
+        }
+        
         let task = session.dataTask(with: url, completionHandler: { data, response, error in
             
             // Unwrap the data and make sure that an error wasn't returned
@@ -688,6 +883,10 @@ public class Client {
                     completion(rs, nil)
                 }
             } catch {
+                if self.debug {
+                    // get better error description
+                    print(String(describing: error))
+                }
                 // lets handle the type of error here
                 // try to see if we got an error from the api in the response
                 guard let responseError = try? JSONDecoder().decode(PolygonErrorResponse.self, from: data) else {
@@ -715,6 +914,11 @@ public class Client {
         let rq = TickerSnapshotRequest(symbol: symbol)
         let url = builder.buildURL(rq)
         
+        // debug url
+        if self.debug {
+            print(url.absoluteURL)
+        }
+        
         let task = session.dataTask(with: url, completionHandler: { data, response, error in
             
             // Unwrap the data and make sure that an error wasn't returned
@@ -735,6 +939,10 @@ public class Client {
                     completion(rs, nil)
                 }
             } catch {
+                if self.debug {
+                    // get better error description
+                    print(String(describing: error))
+                }
                 // lets handle the type of error here
                 // try to see if we got an error from the api in the response
                 guard let responseError = try? JSONDecoder().decode(PolygonErrorResponse.self, from: data) else {
@@ -762,6 +970,11 @@ public class Client {
         let rq = AllTickersSnapshotRequest()
         let url = builder.buildURL(rq)
         
+        // debug url
+        if self.debug {
+            print(url.absoluteURL)
+        }
+        
         let task = session.dataTask(with: url, completionHandler: { data, response, error in
             
             // Unwrap the data and make sure that an error wasn't returned
@@ -782,6 +995,10 @@ public class Client {
                     completion(rs, nil)
                 }
             } catch {
+                if self.debug {
+                    // get better error description
+                    print(String(describing: error))
+                }
                 // lets handle the type of error here
                 // try to see if we got an error from the api in the response
                 guard let responseError = try? JSONDecoder().decode(PolygonErrorResponse.self, from: data) else {
@@ -800,5 +1017,7 @@ public class Client {
         })
         task.resume()
     }
+    
+    //MARK: - Crypto Endpoints
     
 }

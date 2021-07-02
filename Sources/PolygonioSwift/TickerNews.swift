@@ -10,35 +10,56 @@ import Foundation
 public struct TickerNewsRequest : ApiRequest {
     typealias Response = TickerNewsResponse
     
-    let symbol: String
-    var perpage: Int // how many results per page. Default is 50
-    var page: Int // for pagination if not assigned. Default is 1
-
+    public enum Order: String {
+        case ascending = "asc"
+        case descending = "desc"
+    }
+    
+    
+    let ticker: String? // if we do not get a ticker then we will get news in general
+    var limit: Int? //Limit the size of the response, default is 100 and max is 1000.
+    var order: Order?
+    var publishedLessEqualThan: String? // to filter news published less than or equal to a date
+    var publishedGreaterEqualThan: String? // to filter news published greater than or equal to a date
+    
     var path: String {
-        return "/v1/meta/symbols/\(symbol)/news"
+        return "/v2/reference/news"
     }
     
     var queryItems: [URLQueryItem] {
         
         var parameters: [URLQueryItem] = []
         
-        // make sure perPage is between 0 and 50
-        var perPageString = String(perpage)
-        // just make sure its not bigger than 50 or smaller than 0
-        if (perpage < 0 || perpage > 50) {
-            perPageString =  String(50) // max is 50 per page
+        // ticker is optional in case we want news in general
+        if ticker != nil {
+            parameters.append(URLQueryItem(name: "ticker", value: ticker))
         }
-        // add it to the parameters array
-        parameters.append(URLQueryItem(name: "perpage", value: perPageString))
         
-        // make sure page is between bigger than 0
-        var pageString = String(page)
-        // just make sure page is not less than 1
-        if (page < 1) {
-            pageString = String(1) // page cant be negative
+        // append limit if we have one
+        if limit != nil {
+            // add it to the parameters array
+            parameters.append(URLQueryItem(name: "limit", value: String(limit!)))
         }
-        // add it to the parameters array
-        parameters.append(URLQueryItem(name: "page", value: pageString))
+        
+        // append sort if we have one
+        if order != nil {
+            parameters.append(URLQueryItem(name: "order", value: order?.rawValue))
+        }
+        
+        // append this in order to search by date
+        if publishedLessEqualThan != nil {
+            // add it to the parameters array
+            parameters.append(URLQueryItem(name: "published_utc.lte", value: publishedLessEqualThan))
+        }
+        
+        // append this in order to search by date
+        if publishedGreaterEqualThan != nil {
+            // add it to the parameters array
+            parameters.append(URLQueryItem(name: "published_utc.gte", value: publishedGreaterEqualThan))
+        }
+        
+        // always sorted by published date
+        parameters.append(URLQueryItem(name: "sort", value: "published_utc"))
         
         return parameters
     }
@@ -46,24 +67,60 @@ public struct TickerNewsRequest : ApiRequest {
 
 public struct TickerNewsResponse : Decodable {
     
-    public var symbols: [String]?
-    public var timestamp: String?
-    public var title: String?
-    public var url: String?
-    public var source: String?
-    public var summary: String?
-    public var image: String
-    public var keywords: [String]?
-
+    public var request_id: String
+    public var count: Int
+    public var status: String
+    public var results: [Result]
+    public var next_url: String?
+    
     private enum CodingKeys: String, CodingKey {
-        case symbols = "symbols"
-        case timestamp = "timestamp"
-        case title = "title"
-        case url = "url"
-        case source = "source"
-        case summary = "summary"
-        case image = "image"
-        case keywords = "keywords"
+        case request_id = "request_id"
+        case count = "count"
+        case status = "status"
+        case results = "results"
+        case next_url = "next_url"
     }
+    
+    public struct Result: Codable {
+        public var id: String
+        public var publisher: Publisher
+        public var title: String
+        public var author: String
+        public var published_utc: String
+        public var article_url: String
+        public var tickers: [String]
+        // optionals
+        public var amp_url: String?
+        public var image_url: String?
+        public var description: String?
+        public var keywords: [String]?
         
+        private enum CodingKeys: String, CodingKey {
+            case id = "id"
+            case publisher = "publisher"
+            case title = "title"
+            case author = "author"
+            case published_utc = "published_utc"
+            case article_url = "article_url"
+            case tickers = "tickers"
+            case amp_url = "amp_url"
+            case image_url = "image_url"
+            case description = "description"
+            case keywords = "keywords"
+        }
+    }
+    
+    public struct Publisher : Codable {
+        public var name: String
+        public var homepage_url: String
+        public var logo_url: String
+        public var favicon_url: String
+        
+        private enum CodingKeys: String, CodingKey {
+            case name = "name"
+            case homepage_url = "homepage_url"
+            case logo_url = "logo_url"
+            case favicon_url = "favicon_url"
+        }
+    }
 }
