@@ -10,22 +10,6 @@ import Foundation
 public struct AggregatesRequest : ApiRequest {
     typealias Response = AggregatesResponse
     
-    // time span enum
-    public enum TimeSpan: String {
-        case minute = "minute"
-        case hour = "hour"
-        case day = "day"
-        case week = "week"
-        case month = "month"
-        case quarter = "quarter"
-        case year = "year"
-    }
-    
-    public enum Sorting: String {
-        case ascending = "asc"
-        case descending = "desc"
-    }
-    
     // path variables
     let ticker: String
     let multiplier: Int

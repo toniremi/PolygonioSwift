@@ -12,16 +12,12 @@ import Foundation
 // This way we can make a more simplified endpoint only focused on searching a ticker by ticker name or company name.
 public struct TickerSearchRequest : ApiRequest {
     typealias Response = TickersQueryResponse
-    
-    public enum Order: String {
-        case ascending = "asc"
-        case descending = "desc"
-    }
-    
+        
     let search: String
     var limit: Int? // how many results per page. Default is 100
     let active: Bool?
     let order: Order?
+    let type: TickerTypes?
     
     var path: String {
         return "/v3/reference/tickers"
@@ -34,9 +30,14 @@ public struct TickerSearchRequest : ApiRequest {
         // always append the search as there has to be something in this field
         parameters.append(URLQueryItem(name: "search", value: search))
         
-        // append sort if we have one
+        // append order if we have one
         if order != nil {
             parameters.append(URLQueryItem(name: "order", value: order?.rawValue))
+        }
+        
+        // append type if we have one
+        if type != nil {
+            parameters.append(URLQueryItem(name: "type", value: type?.rawValue))
         }
 
         // append limit if we have one
@@ -81,9 +82,9 @@ public struct TickerSearchResponse : Decodable {
         public var currency: String
         public var active: Bool
         
-        public var cik: String
-        public var composite_figi: String
-        public var share_class_figi: String
+        public var cik: String?
+        public var composite_figi: String?
+        public var share_class_figi: String?
         public var last_updated_utc: String
         
         private enum CodingKeys: String, CodingKey {

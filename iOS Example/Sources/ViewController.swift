@@ -71,7 +71,7 @@ class ViewController: UIViewController {
         }
         
         // Ticker Search
-        polygon.searchTickers(search: "Apple") {
+        polygon.searchTickers(search: "Vis", type: .CommonStock) {
             (result:TickerSearchResponse?, err) in
             // check if we got any errors
             if let err = err {

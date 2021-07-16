@@ -10,12 +10,6 @@ import Foundation
 public struct TickerNewsRequest : ApiRequest {
     typealias Response = TickerNewsResponse
     
-    public enum Order: String {
-        case ascending = "asc"
-        case descending = "desc"
-    }
-    
-    
     let ticker: String? // if we do not get a ticker then we will get news in general
     var limit: Int? //Limit the size of the response, default is 100 and max is 1000.
     var order: Order?

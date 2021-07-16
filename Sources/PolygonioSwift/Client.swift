@@ -58,7 +58,7 @@ public class Client {
     ///   - limit: Limit the size of the response, default is 100 and max is 1000.
     ///   - active: Filter for only active or inactive symbols
     ///   - completion: The completion to receive the response which is an TickersQueryResponse object.Tickers data will be inside the tickers property.
-    public func tickers(sort: TickersQueryRequest.Sorting? = nil, order: TickersQueryRequest.Order? = nil, type: TickersQueryRequest.TickerTypes? = nil, market: TickersQueryRequest.MarketOptions? = nil, locale: TickersQueryRequest.Locale? = nil, ticker: String, limit: Int? = nil, active: Bool? = nil, completion: @escaping (_ response: TickersQueryResponse?, _ error: PolygonSwiftError?) -> Void) {
+    public func tickers(sort: TickerSorting? = nil, order: Order? = nil, type: TickerTypes? = nil, market: MarketOptions? = nil, locale: Locale? = nil, ticker: String, limit: Int? = nil, active: Bool? = nil, completion: @escaping (_ response: TickersQueryResponse?, _ error: PolygonSwiftError?) -> Void) {
         let rq = TickersQueryRequest(ticker: ticker, sort: sort, order: order, type: type, market: market, locale: locale, limit: limit, active: active)
         let url = builder.buildURL(rq)
         
@@ -118,8 +118,8 @@ public class Client {
     ///   - active: Filter for only active or inactive symbols
     ///   - order: The order to sort the results on. Default is asc (ascending).
     ///   - completion: The completion to receive the response which is an TickersQueryResponse object.Tickers data will be inside the tickers property.
-    public func searchTickers(search: String, limit: Int? = nil, active: Bool? = nil, order: TickerSearchRequest.Order? = nil, completion: @escaping (_ response: TickerSearchResponse?, _ error: PolygonSwiftError?) -> Void) {
-        let rq = TickerSearchRequest(search: search, limit: limit, active: active, order: order)
+    public func searchTickers(search: String, limit: Int? = nil, active: Bool? = nil, order: Order? = nil, type: TickerTypes? = nil, completion: @escaping (_ response: TickerSearchResponse?, _ error: PolygonSwiftError?) -> Void) {
+        let rq = TickerSearchRequest(search: search, limit: limit, active: active, order: order, type: type)
         let url = builder.buildURL(rq)
         
         // debug url
@@ -290,7 +290,7 @@ public class Client {
     ///   - publishedLessEqualThan: Return results where this field is less than or equal to the date. Ex: 2021-06-17
     ///   - publishedGreaterEqualThan: Return results where this field is greater than or equal to the date. Ex: 2021-06-17
     ///   - completion: The completion to receive the response which is an TickerNewsResponse object.
-    public func tickerNews(ticker: String? = nil, limit: Int? = nil, order: TickerNewsRequest.Order? = nil, publishedLessEqualThan: String? = nil, publishedGreaterEqualThan: String? = nil, completion: @escaping (_ response: TickerNewsResponse?, _ error: PolygonSwiftError?) -> Void) {
+    public func tickerNews(ticker: String? = nil, limit: Int? = nil, order: Order? = nil, publishedLessEqualThan: String? = nil, publishedGreaterEqualThan: String? = nil, completion: @escaping (_ response: TickerNewsResponse?, _ error: PolygonSwiftError?) -> Void) {
         let rq = TickerNewsRequest(ticker: ticker, limit: limit, order: order, publishedLessEqualThan: publishedLessEqualThan, publishedGreaterEqualThan: publishedGreaterEqualThan)
         let url = builder.buildURL(rq)
         
@@ -569,7 +569,7 @@ public class Client {
     ///   - limit: Limit the number of results
     ///   - type : Specify a type of report to return. Y = Year YA = Year annualized Q = Quarter QA = Quarter Annualized T = Trailing twelve months TA = trailing twelve months annualized
     ///   - completion: The completion to receive the response which is an StockFinancialsResponse object.
-    public func stockFinancials(symbol: String, limit: Int = 5, type: StockFinancialsRequest.FinancialType? = nil, completion: @escaping (_ response: StockFinancialsResponse?, _ error: PolygonSwiftError?) -> Void) {
+    public func stockFinancials(symbol: String, limit: Int = 5, type: FinancialType? = nil, completion: @escaping (_ response: StockFinancialsResponse?, _ error: PolygonSwiftError?) -> Void) {
         let rq = StockFinancialsRequest(symbol: symbol, limit: limit, type: type)
         let url = builder.buildURL(rq)
         
@@ -796,7 +796,7 @@ public class Client {
     ///   - unadjusted: Set to true if the results should NOT be adjusted for splits. Default is false.
     ///   - sorting: Sort by timestamp. Default is ascending.
     ///   - completion: The completion to receive the response which is an AggregateResponse object. Candle data will be inside the results property..
-    public func aggregates(ticker:String, multiplier:Int, timespan:AggregatesRequest.TimeSpan, from:String, to:String, unadjusted:Bool = false, sorting:AggregatesRequest.Sorting = .ascending, completion: @escaping (_ response: AggregatesResponse?, _ error: PolygonSwiftError?) -> Void) {
+    public func aggregates(ticker:String, multiplier:Int, timespan:TimeSpan, from:String, to:String, unadjusted:Bool = false, sorting: Sorting = .ascending, completion: @escaping (_ response: AggregatesResponse?, _ error: PolygonSwiftError?) -> Void) {
         let rq = AggregatesRequest(ticker: ticker, multiplier: multiplier, timespan: timespan, from: from, to: to, unadjusted: unadjusted, sort: sorting)
         let url = builder.buildURL(rq)
         
