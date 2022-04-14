@@ -48,8 +48,13 @@ You need to have a valid and working Polygon API Key. Please create an account a
 ## Installation
 
 
-Add this to your project as a dependency using Swift Package Manager. In Xcode go to: File > Add Packages...  There introduce this github repository URL on the search bar. Select PolygonSwift and click Add Package and you're done. Alternative installations options are shown below for legacy projects.
+### Swift Package Manager
+Add this to your project as a dependency using Swift Package Manager. 
+- In Xcode go to: `File > Add Packages...`
+- There introduce this github repository URL (https://github.com/toniremi/PolygonioSwift) on the search bar. 
+- Select PolygonSwift and click `Add Package` and you're done. 
 
+Alternative installations options are shown below for legacy projects.
 
 ### CocoaPods
 
