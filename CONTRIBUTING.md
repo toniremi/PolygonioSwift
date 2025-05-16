@@ -23,9 +23,5 @@ When you commit a change, please add a note to [CHANGELOG.md](CHANGELOG.md).
 3. Create a GitHub release
    1. Tag the release (like `1.0.5`)
    2. Paste notes from [CHANGELOG.md](CHANGELOG.md)
-3. Push the Podspec to CocoaPods
+4. Push the Podspec to CocoaPods
    1. `pod trunk push`
-4. Create Carthage binaries
-   1. `carthage build --no-skip-current`
-   2. `carthage archive PolygonioSwift`
-   3. Add to the GitHub release
