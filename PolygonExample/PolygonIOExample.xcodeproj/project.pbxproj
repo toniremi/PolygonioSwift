@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 90;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -33,10 +33,12 @@
 /* Begin PBXFrameworksBuildPhase section */
 		D9A1276F235699C600D136A5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 				D9A1278B2356A25E00D136A5 /* PolygonioSwift in Frameworks */,
 				2A9F57282DD6F24E008FF9E4 /* PolygonioSwift in Frameworks */,
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
@@ -93,6 +95,8 @@
 			);
 			buildRules = (
 			);
+			dependencies = (
+			);
 			name = PolygonIOExample;
 			packageProductDependencies = (
 				D9A1278A2356A25E00D136A5 /* PolygonioSwift */,
@@ -118,6 +122,7 @@
 				};
 			};
 			buildConfigurationList = D9A1276D235699C600D136A5 /* Build configuration list for PBXProject "PolygonIOExample" */;
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -128,7 +133,6 @@
 			packageReferences = (
 				2A9F57262DD6F24E008FF9E4 /* XCLocalSwiftPackageReference "../../PolygonioSwift" */,
 			);
-			preferredProjectObjectVersion = 90;
 			productRefGroup = D9A12773235699C600D136A5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -141,23 +145,27 @@
 /* Begin PBXResourcesBuildPhase section */
 		D9A12770235699C600D136A5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 				D9A12782235699C700D136A5 /* LaunchScreen.storyboard in Resources */,
 				D9A1277F235699C700D136A5 /* Assets.xcassets in Resources */,
 				2A7236442DD6CB900082F363 /* Development.xcconfig in Resources */,
 				D9A1277D235699C600D136A5 /* Main.storyboard in Resources */,
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D9A1276E235699C600D136A5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 				D9A1277A235699C600D136A5 /* ViewController.swift in Sources */,
 				D9A12776235699C600D136A5 /* AppDelegate.swift in Sources */,
 				D9A12778235699C600D136A5 /* SceneDelegate.swift in Sources */,
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
@@ -181,7 +189,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		D9A12784235699C700D136A5 /* Debug configuration for PBXProject "PolygonIOExample" */ = {
+		D9A12784235699C700D136A5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2A7236432DD6CB900082F363 /* Development.xcconfig */;
 			buildSettings = {
@@ -242,7 +250,7 @@
 			};
 			name = Debug;
 		};
-		D9A12785235699C700D136A5 /* Release configuration for PBXProject "PolygonIOExample" */ = {
+		D9A12785235699C700D136A5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2A7236432DD6CB900082F363 /* Development.xcconfig */;
 			buildSettings = {
@@ -297,7 +305,7 @@
 			};
 			name = Release;
 		};
-		D9A12787235699C700D136A5 /* Debug configuration for PBXNativeTarget "PolygonIOExample" */ = {
+		D9A12787235699C700D136A5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2A7236432DD6CB900082F363 /* Development.xcconfig */;
 			buildSettings = {
@@ -316,7 +324,7 @@
 			};
 			name = Debug;
 		};
-		D9A12788235699C700D136A5 /* Release configuration for PBXNativeTarget "PolygonIOExample" */ = {
+		D9A12788235699C700D136A5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2A7236432DD6CB900082F363 /* Development.xcconfig */;
 			buildSettings = {
@@ -341,17 +349,19 @@
 		D9A1276D235699C600D136A5 /* Build configuration list for PBXProject "PolygonIOExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D9A12784235699C700D136A5 /* Debug configuration for PBXProject "PolygonIOExample" */,
-				D9A12785235699C700D136A5 /* Release configuration for PBXProject "PolygonIOExample" */,
+				D9A12784235699C700D136A5 /* Debug */,
+				D9A12785235699C700D136A5 /* Release */,
 			);
+			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
 		D9A12786235699C700D136A5 /* Build configuration list for PBXNativeTarget "PolygonIOExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D9A12787235699C700D136A5 /* Debug configuration for PBXNativeTarget "PolygonIOExample" */,
-				D9A12788235699C700D136A5 /* Release configuration for PBXNativeTarget "PolygonIOExample" */,
+				D9A12787235699C700D136A5 /* Debug */,
+				D9A12788235699C700D136A5 /* Release */,
 			);
+			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
