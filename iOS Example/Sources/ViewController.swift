@@ -30,7 +30,7 @@ class ViewController: UIViewController {
         }
         
         // Ticker News
-        polygon.tickerNews(ticker: "AAPL",limit: 5, order: .ascending, publishedLessEqualThan: nil, publishedGreaterEqualThan: nil) { (result:TickerNewsResponse?, err) in
+        polygon.tickerNews(ticker: "AAPL",limit: 5, order: .descending, publishedLessEqualThan: nil, publishedGreaterEqualThan: nil) { (result:TickerNewsResponse?, err) in
             // check if we got any errors
             if let err = err {
                 print(err)
