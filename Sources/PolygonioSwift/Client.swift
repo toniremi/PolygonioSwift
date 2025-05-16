@@ -229,6 +229,7 @@ public class Client {
     /// - Parameters:
     ///   - symbol: Symbol we want details for
     ///   - completion: The completion to receive the response which is an TickerResponse object.
+    @available(*, deprecated, message: "Use tickerOverview(symbol:) instead")
     public func tickerDetails(symbol: String, completion: @escaping (_ response: TickerDetailsResponse?, _ error: PolygonSwiftError?) -> Void) {
         let rq = TickerDetailsRequest(symbol: symbol)
         let url = builder.buildURL(rq)
