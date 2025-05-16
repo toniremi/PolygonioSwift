@@ -24,4 +24,4 @@ jobs:
         run: xcodebuild clean build -project PolygonExample/PolygonIOExample.xcodeproj -scheme "PolygonIOExample" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
 
       - name: Run tests
-        run: xcodebuild test -project PolygonExample/PolygonIOExample.xcodeproj -scheme "PolygonioSwiftTests" -destination 'platform=iOS Simulator,name=iPhone 15'
+        run: xcodebuild test -project PolygonExample/PolygonIOExample.xcodeproj -scheme "PolygonioSwiftTests" -destination 'generic/platform=iOS'
