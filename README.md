@@ -1,8 +1,7 @@
 # PolygonioSwift
 
-  
 
-[![CI Status](http://img.shields.io/travis/toniremi/PolygonioSwift.svg?style=flat)](https://travis-ci.org/toniremi/PolygonioSwift)
+[![PolygonioSwift CI](https://github.com/toniremi/PolygonioSwift/actions/workflows/PolygonioSwift.yaml/badge.svg)](https://github.com/toniremi/PolygonioSwift/actions/workflows/PolygonioSwift.yaml)
 
 ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/toniremi/PolygonioSwift)
 
