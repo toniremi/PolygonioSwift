@@ -23,8 +23,5 @@ jobs:
       - name: Build
         run: xcodebuild clean build -project PolygonExample/PolygonIOExample.xcodeproj -scheme "PolygonIOExample" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
 
-      - name: List available simulators
-        run: xcrun simctl list devices
-
       - name: Run tests
-        run: xcodebuild test -project PolygonExample/PolygonIOExample.xcodeproj -scheme "PolygonioSwiftTests" -destination "platform=iOS Simulator,name=iPhone 16,OS=18.4"
+        run: xcodebuild test -scheme "PolygonioSwiftTests" -destination "platform=iOS Simulator,OS=18.4,name=iPhone 16"
