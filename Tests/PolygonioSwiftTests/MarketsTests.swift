@@ -12,12 +12,12 @@ import TestResources
 final class MarketsTests: XCTestCase {
   let loader = Loader()
     
-  func testDecodingAgregates() {
+  func testDecodingResponse() {
     let rs = try? loader.loadJSON(MarketsResponse.self, path: "markets.json")
     XCTAssertNotNil(rs)
   }
 
   static var allTests = [
-      ("testDecoding", testDecodingAgregates),
+      ("testDecoding", testDecodingResponse),
   ]
 }

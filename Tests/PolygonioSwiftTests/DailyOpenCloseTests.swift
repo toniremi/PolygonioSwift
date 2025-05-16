@@ -12,12 +12,12 @@ import TestResources
 final class DailyOpenCloseTests: XCTestCase {
   let loader = Loader()
     
-  func testDecodingAgregates() {
+  func testDecodingResponse() {
     let rs = try? loader.loadJSON(DailyOpenCloseResponse.self, path: "daily_open_close_AAPL.json")
     XCTAssertNotNil(rs)
   }
 
   static var allTests = [
-      ("testDecoding", testDecodingAgregates),
+      ("testDecoding", testDecodingResponse),
   ]
 }

@@ -100,14 +100,25 @@ class ViewController: UIViewController {
             }
         }
         
-        // Ticker Details
+        // Ticker Details @deprecated use
         polygon.tickerDetails(symbol: "AAPL") { (result:TickerDetailsResponse?, err) in
             // check if we got any errors
             if let err = err {
                 print(err)
             } else {
+                print("Old ticker Details. Please use polygon.tickerOverview(symbol:) instead")
                 print(result)
-                print("Old ticker Details")
+                
+            }
+        }
+        
+        // Ticker Overview (new ticker details)
+        polygon.tickerOverview(symbol: "AAPL") { (result:TickerOverviewResponse?, err) in
+            // check if we got any errors
+            if let err = err {
+                print(err)
+            } else {
+                print(result)
             }
         }
         
