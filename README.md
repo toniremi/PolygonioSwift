@@ -61,22 +61,6 @@ Alternative installations options are shown below for legacy projects.
 If you are already using [CocoaPods](http://cocoapods.org), just add the following line to your  `Podfile`  then run `pod install`.
 
     pod 'PolygonioSwift'
-    
-
-### Carthage
-
-
-If you are already using [Carthage](https://github.com/Carthage/Carthage), just add to your `Cartfile`:
-
-  
-```ogdl
-
-github "toniremi/PolygonioSwift" ~> 0.1
-
-```
-
-
-Then run `carthage update` to build the framework and drag the built `PolygonioSwift`.framework into your Xcode project.
   
 
 ## Author
