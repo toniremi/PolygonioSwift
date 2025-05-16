@@ -3,6 +3,7 @@
     "status": "OK",
     "queryCount": 10,
     "resultsCount": 10,
+    "count": 10,
     "adjusted": true,
     "results": [
         {

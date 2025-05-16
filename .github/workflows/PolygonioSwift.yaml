@@ -17,8 +17,11 @@ jobs:
       - name: Select Xcode
         run: sudo xcode-select -switch /Applications/Xcode_16.2.app
 
+      - name: Xcode version
+        run: /usr/bin/xcodebuild -version
+
       - name: Build
-        run: swift build -v
+        run: xcodebuild clean build -project PolygonExample/PolygonIOExample.xcodeproj -scheme "PolygonIOExample" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
 
       - name: Run tests
-        run: swift test -v
+        run: xcodebuild test -project PolygonExample/PolygonIOExample.xcodeproj -scheme "PolygonioSwiftTests" -destination 'platform=iOS Simulator,name=iPhone 15'

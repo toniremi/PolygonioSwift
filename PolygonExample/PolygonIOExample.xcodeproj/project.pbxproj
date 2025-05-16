@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2A7236442DD6CB900082F363 /* Development.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2A7236432DD6CB900082F363 /* Development.xcconfig */; };
+		2A9F57282DD6F24E008FF9E4 /* PolygonioSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2A9F57272DD6F24E008FF9E4 /* PolygonioSwift */; };
 		D9A12776235699C600D136A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A12775235699C600D136A5 /* AppDelegate.swift */; };
 		D9A12778235699C600D136A5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A12777235699C600D136A5 /* SceneDelegate.swift */; };
 		D9A1277A235699C600D136A5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A12779235699C600D136A5 /* ViewController.swift */; };
@@ -19,7 +20,7 @@
 
 /* Begin PBXFileReference section */
 		2A7236432DD6CB900082F363 /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
-		D9A12772235699C600D136A5 /* Polygonio iOS Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Polygonio iOS Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9A12772235699C600D136A5 /* Polygonio PolygonIOExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Polygonio PolygonIOExample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9A12775235699C600D136A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D9A12777235699C600D136A5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		D9A12779235699C600D136A5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -34,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			files = (
 				D9A1278B2356A25E00D136A5 /* PolygonioSwift in Frameworks */,
+				2A9F57282DD6F24E008FF9E4 /* PolygonioSwift in Frameworks */,
 			);
 		};
 /* End PBXFrameworksBuildPhase section */
@@ -51,7 +53,7 @@
 		D9A12773235699C600D136A5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D9A12772235699C600D136A5 /* Polygonio iOS Example.app */,
+				D9A12772235699C600D136A5 /* Polygonio PolygonIOExample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -81,9 +83,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D9A12771235699C600D136A5 /* iOS Example */ = {
+		D9A12771235699C600D136A5 /* PolygonIOExample */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D9A12786235699C700D136A5 /* Build configuration list for PBXNativeTarget "iOS Example" */;
+			buildConfigurationList = D9A12786235699C700D136A5 /* Build configuration list for PBXNativeTarget "PolygonIOExample" */;
 			buildPhases = (
 				D9A1276E235699C600D136A5 /* Sources */,
 				D9A1276F235699C600D136A5 /* Frameworks */,
@@ -91,12 +93,13 @@
 			);
 			buildRules = (
 			);
-			name = "iOS Example";
+			name = PolygonIOExample;
 			packageProductDependencies = (
 				D9A1278A2356A25E00D136A5 /* PolygonioSwift */,
+				2A9F57272DD6F24E008FF9E4 /* PolygonioSwift */,
 			);
 			productName = "iOS Example";
-			productReference = D9A12772235699C600D136A5 /* Polygonio iOS Example.app */;
+			productReference = D9A12772235699C600D136A5 /* Polygonio PolygonIOExample.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -114,7 +117,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D9A1276D235699C600D136A5 /* Build configuration list for PBXProject "iOS Example" */;
+			buildConfigurationList = D9A1276D235699C600D136A5 /* Build configuration list for PBXProject "PolygonIOExample" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -122,12 +125,15 @@
 				Base,
 			);
 			mainGroup = D9A12769235699C600D136A5;
+			packageReferences = (
+				2A9F57262DD6F24E008FF9E4 /* XCLocalSwiftPackageReference "../../PolygonioSwift" */,
+			);
 			preferredProjectObjectVersion = 90;
 			productRefGroup = D9A12773235699C600D136A5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D9A12771235699C600D136A5 /* iOS Example */,
+				D9A12771235699C600D136A5 /* PolygonIOExample */,
 			);
 		};
 /* End PBXProject section */
@@ -175,7 +181,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		D9A12784235699C700D136A5 /* Debug configuration for PBXProject "iOS Example" */ = {
+		D9A12784235699C700D136A5 /* Debug configuration for PBXProject "PolygonIOExample" */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2A7236432DD6CB900082F363 /* Development.xcconfig */;
 			buildSettings = {
@@ -236,7 +242,7 @@
 			};
 			name = Debug;
 		};
-		D9A12785235699C700D136A5 /* Release configuration for PBXProject "iOS Example" */ = {
+		D9A12785235699C700D136A5 /* Release configuration for PBXProject "PolygonIOExample" */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2A7236432DD6CB900082F363 /* Development.xcconfig */;
 			buildSettings = {
@@ -291,7 +297,7 @@
 			};
 			name = Release;
 		};
-		D9A12787235699C700D136A5 /* Debug configuration for PBXNativeTarget "iOS Example" */ = {
+		D9A12787235699C700D136A5 /* Debug configuration for PBXNativeTarget "PolygonIOExample" */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2A7236432DD6CB900082F363 /* Development.xcconfig */;
 			buildSettings = {
@@ -303,14 +309,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.polygonio.iOS-Example";
-				PRODUCT_NAME = "Polygonio iOS Example";
+				PRODUCT_BUNDLE_IDENTIFIER = com.polygonio.io.example;
+				PRODUCT_NAME = "Polygonio PolygonIOExample";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		D9A12788235699C700D136A5 /* Release configuration for PBXNativeTarget "iOS Example" */ = {
+		D9A12788235699C700D136A5 /* Release configuration for PBXNativeTarget "PolygonIOExample" */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2A7236432DD6CB900082F363 /* Development.xcconfig */;
 			buildSettings = {
@@ -322,8 +328,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.polygonio.iOS-Example";
-				PRODUCT_NAME = "Polygonio iOS Example";
+				PRODUCT_BUNDLE_IDENTIFIER = com.polygonio.io.example;
+				PRODUCT_NAME = "Polygonio PolygonIOExample";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -332,25 +338,36 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D9A1276D235699C600D136A5 /* Build configuration list for PBXProject "iOS Example" */ = {
+		D9A1276D235699C600D136A5 /* Build configuration list for PBXProject "PolygonIOExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D9A12784235699C700D136A5 /* Debug configuration for PBXProject "iOS Example" */,
-				D9A12785235699C700D136A5 /* Release configuration for PBXProject "iOS Example" */,
+				D9A12784235699C700D136A5 /* Debug configuration for PBXProject "PolygonIOExample" */,
+				D9A12785235699C700D136A5 /* Release configuration for PBXProject "PolygonIOExample" */,
 			);
 			defaultConfigurationName = Debug;
 		};
-		D9A12786235699C700D136A5 /* Build configuration list for PBXNativeTarget "iOS Example" */ = {
+		D9A12786235699C700D136A5 /* Build configuration list for PBXNativeTarget "PolygonIOExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D9A12787235699C700D136A5 /* Debug configuration for PBXNativeTarget "iOS Example" */,
-				D9A12788235699C700D136A5 /* Release configuration for PBXNativeTarget "iOS Example" */,
+				D9A12787235699C700D136A5 /* Debug configuration for PBXNativeTarget "PolygonIOExample" */,
+				D9A12788235699C700D136A5 /* Release configuration for PBXNativeTarget "PolygonIOExample" */,
 			);
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		2A9F57262DD6F24E008FF9E4 /* XCLocalSwiftPackageReference "../../PolygonioSwift" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../PolygonioSwift;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		2A9F57272DD6F24E008FF9E4 /* PolygonioSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PolygonioSwift;
+		};
 		D9A1278A2356A25E00D136A5 /* PolygonioSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = PolygonioSwift;
