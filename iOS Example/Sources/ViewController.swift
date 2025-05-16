@@ -13,8 +13,17 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let apiKey = Bundle.main.infoDictionary?["POLYGON_KEY"] as? String
+
+        guard let apiKey = apiKey else {
+            print("Polygon.IO API Key not found in Info.plist. Please set 'API_KEY'.")
+            return
+        }
+        
+        print("Polygon.IO API Key: \(apiKey)")
+        
         // Do any additional setup after loading the view.
-        let polygon = PolygonioSwift.Client(key: "YOUR_API_KEY")
+        let polygon = PolygonioSwift.Client(key: apiKey)
         
         polygon.setDebug(enable: true)
         
@@ -98,6 +107,7 @@ class ViewController: UIViewController {
                 print(err)
             } else {
                 print(result)
+                print("Old ticker Details")
             }
         }
         

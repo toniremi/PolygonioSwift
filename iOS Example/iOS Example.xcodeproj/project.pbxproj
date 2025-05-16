@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 90;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A7236442DD6CB900082F363 /* Development.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2A7236432DD6CB900082F363 /* Development.xcconfig */; };
 		D9A12776235699C600D136A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A12775235699C600D136A5 /* AppDelegate.swift */; };
 		D9A12778235699C600D136A5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A12777235699C600D136A5 /* SceneDelegate.swift */; };
 		D9A1277A235699C600D136A5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A12779235699C600D136A5 /* ViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2A7236432DD6CB900082F363 /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		D9A12772235699C600D136A5 /* Polygonio iOS Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Polygonio iOS Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9A12775235699C600D136A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D9A12777235699C600D136A5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -30,11 +32,9 @@
 /* Begin PBXFrameworksBuildPhase section */
 		D9A1276F235699C600D136A5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				D9A1278B2356A25E00D136A5 /* PolygonioSwift in Frameworks */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
@@ -62,6 +62,7 @@
 				D9A12775235699C600D136A5 /* AppDelegate.swift */,
 				D9A12777235699C600D136A5 /* SceneDelegate.swift */,
 				D9A12779235699C600D136A5 /* ViewController.swift */,
+				2A7236432DD6CB900082F363 /* Development.xcconfig */,
 				D9A1277B235699C600D136A5 /* Main.storyboard */,
 				D9A1277E235699C700D136A5 /* Assets.xcassets */,
 				D9A12780235699C700D136A5 /* LaunchScreen.storyboard */,
@@ -90,8 +91,6 @@
 			);
 			buildRules = (
 			);
-			dependencies = (
-			);
 			name = "iOS Example";
 			packageProductDependencies = (
 				D9A1278A2356A25E00D136A5 /* PolygonioSwift */,
@@ -116,7 +115,6 @@
 				};
 			};
 			buildConfigurationList = D9A1276D235699C600D136A5 /* Build configuration list for PBXProject "iOS Example" */;
-			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -124,6 +122,7 @@
 				Base,
 			);
 			mainGroup = D9A12769235699C600D136A5;
+			preferredProjectObjectVersion = 90;
 			productRefGroup = D9A12773235699C600D136A5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -136,26 +135,23 @@
 /* Begin PBXResourcesBuildPhase section */
 		D9A12770235699C600D136A5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				D9A12782235699C700D136A5 /* LaunchScreen.storyboard in Resources */,
 				D9A1277F235699C700D136A5 /* Assets.xcassets in Resources */,
+				2A7236442DD6CB900082F363 /* Development.xcconfig in Resources */,
 				D9A1277D235699C600D136A5 /* Main.storyboard in Resources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D9A1276E235699C600D136A5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				D9A1277A235699C600D136A5 /* ViewController.swift in Sources */,
 				D9A12776235699C600D136A5 /* AppDelegate.swift in Sources */,
 				D9A12778235699C600D136A5 /* SceneDelegate.swift in Sources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
@@ -179,8 +175,9 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		D9A12784235699C700D136A5 /* Debug */ = {
+		D9A12784235699C700D136A5 /* Debug configuration for PBXProject "iOS Example" */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A7236432DD6CB900082F363 /* Development.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -239,8 +236,9 @@
 			};
 			name = Debug;
 		};
-		D9A12785235699C700D136A5 /* Release */ = {
+		D9A12785235699C700D136A5 /* Release configuration for PBXProject "iOS Example" */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A7236432DD6CB900082F363 /* Development.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -293,12 +291,14 @@
 			};
 			name = Release;
 		};
-		D9A12787235699C700D136A5 /* Debug */ = {
+		D9A12787235699C700D136A5 /* Debug configuration for PBXNativeTarget "iOS Example" */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A7236432DD6CB900082F363 /* Development.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Sources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -310,12 +310,14 @@
 			};
 			name = Debug;
 		};
-		D9A12788235699C700D136A5 /* Release */ = {
+		D9A12788235699C700D136A5 /* Release configuration for PBXNativeTarget "iOS Example" */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A7236432DD6CB900082F363 /* Development.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Sources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -333,20 +335,18 @@
 		D9A1276D235699C600D136A5 /* Build configuration list for PBXProject "iOS Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D9A12784235699C700D136A5 /* Debug */,
-				D9A12785235699C700D136A5 /* Release */,
+				D9A12784235699C700D136A5 /* Debug configuration for PBXProject "iOS Example" */,
+				D9A12785235699C700D136A5 /* Release configuration for PBXProject "iOS Example" */,
 			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		D9A12786235699C700D136A5 /* Build configuration list for PBXNativeTarget "iOS Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D9A12787235699C700D136A5 /* Debug */,
-				D9A12788235699C700D136A5 /* Release */,
+				D9A12787235699C700D136A5 /* Debug configuration for PBXNativeTarget "iOS Example" */,
+				D9A12788235699C700D136A5 /* Release configuration for PBXNativeTarget "iOS Example" */,
 			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 
