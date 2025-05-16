@@ -88,6 +88,7 @@ public struct TickerNewsResponse : Decodable {
         public var image_url: String?
         public var description: String?
         public var keywords: [String]?
+        public var insights: [Insights]?
         
         private enum CodingKeys: String, CodingKey {
             case id = "id"
@@ -101,6 +102,7 @@ public struct TickerNewsResponse : Decodable {
             case image_url = "image_url"
             case description = "description"
             case keywords = "keywords"
+            case insights = "insights"
         }
     }
     
@@ -115,6 +117,18 @@ public struct TickerNewsResponse : Decodable {
             case homepage_url = "homepage_url"
             case logo_url = "logo_url"
             case favicon_url = "favicon_url"
+        }
+    }
+    
+    public struct Insights : Codable {
+        public var sentiment: String
+        public var sentiment_reasoning: String
+        public var ticker: String
+        
+        private enum CodingKeys: String, CodingKey {
+            case sentiment = "sentiment"
+            case sentiment_reasoning = "sentiment_reasoning"
+            case ticker = "ticker"
         }
     }
 }

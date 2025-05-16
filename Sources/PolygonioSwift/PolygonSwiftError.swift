@@ -13,7 +13,7 @@ public struct PolygonSwiftError: LocalizedError
 
     init(_ message: String)
     {
-        self.message = message
+        self.message = "PolygonSwiftError =>" + message
     }
 
     public var errorDescription: String?
