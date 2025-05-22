@@ -22,10 +22,38 @@ class ViewController: UIViewController {
         
         print("Polygon.IO API Key: \(apiKey)")
         
-        // Do any additional setup after loading the view.
-        let polygon = PolygonioSwift.Client(key: apiKey)
         
+        // Do any additional setup after loading the view.
+        PolygonioSwift.shared.configure(apiKey: apiKey)
+        
+        // set debug if needed
+        PolygonioSwift.shared.setDebug(enable: true)
+        
+        // set a symbol to test
+        let symbol = "AAPL"
+        
+        // Example accessing stocks
+        PolygonioSwift.shared.stocks.tickerSnapshot(symbol: symbol) { result in
+            switch result {
+            case .success(let snapshot):
+                print("Successfully fetched snapshot for \(symbol):")
+                print(snapshot)
+            case .failure(let error):
+                // An error occurred
+                print("Error fetching snapshot for \(symbol): \(error.localizedDescription)")
+                if let requestId = error.requestId {
+                    print("  Request ID: \(requestId)")
+                }
+                if let status = error.status {
+                    print("  Status: \(status)")
+                }
+            }
+        }
+       
+        //let polygon = PolygonioSwift.Client(key: apiKey)
+        /*
         polygon.setDebug(enable: true)
+        
         
         // Market Status
         polygon.marketStatus { (result: MarketStatusResponse?, err) in
@@ -132,6 +160,7 @@ class ViewController: UIViewController {
                 print(result?.results)
             }
         }
+         */
     }
 }
 

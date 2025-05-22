@@ -1,0 +1,78 @@
+PolygonSwift/
+├── Sources/
+│   ├── PolygonSwift/
+│   │   ├── Core/                 # Core client logic and protocols
+│   │   │   ├── PolygonSwift.swift  # Main client facade (renamed from Client.swift)
+│   │   │   ├── ApiRequest.swift    # Your existing ApiRequest protocol
+│   │   │   └── URLBuilder.swift    # Extracted from Client.swift if preferred, or kept internal
+│   │   │
+│   │   ├── Services/             # Asset-specific client services
+│   │   │   ├── StocksClient.swift
+│   │   │   ├── CryptoClient.swift
+│   │   │   ├── ForexClient.swift
+│   │   │   ├── OptionsClient.swift
+│   │   │   ├── IndicesClient.swift
+│   │   │   └── ReferenceClient.swift # For general reference data like markets, locales
+│   │   │
+│   │   ├── Requests/             # API request definitions
+│   │   │   ├── Common/             # Common request parameters or base requests if any
+│   │   │   ├── Stocks/
+│   │   │   │   ├── AggregatesRequest.swift (from your Aggregates.swift)
+│   │   │   │   ├── AllTickersSnapshotRequest.swift (from AllTickersSnapshot.swift)
+│   │   │   │   ├── DailyOpenCloseRequest.swift
+│   │   │   │   └── ... (other stock-specific requests)
+│   │   │   ├── Crypto/
+│   │   │   │   ├── CryptoAggregatesRequest.swift
+│   │   │   │   └── ...
+│   │   │   ├── Forex/
+│   │   │   │   ├── ForexQuotesRequest.swift
+│   │   │   │   └── ...
+│   │   │   ├── Options/
+│   │   │   │   ├── OptionsChainRequest.swift
+│   │   │   │   └── ...
+│   │   │   ├── Indices/
+│   │   │   │   ├── IndexAggregatesRequest.swift
+│   │   │   │   └── ...
+│   │   │   └── Reference/
+│   │   │       ├── LocalesRequest.swift
+│   │   │       ├── MarketsRequest.swift
+│   │   │       ├── MarketHolidaysRequest.swift
+│   │   │       └── MarketStatusRequest.swift
+│   │   │
+│   │   ├── Models/               # Decodable response structures
+│   │   │   ├── Common/
+│   │   │   │   ├── PolygonErrorResponse.swift
+│   │   │   │   ├── TimeSpan.swift (enum if not already there)
+│   │   │   │   └── Sorting.swift (enum if not already there)
+│   │   │   ├── Stocks/
+│   │   │   │   ├── AggregatesResponse.swift (from your Aggregates.swift)
+│   │   │   │   ├── AllTickersSnapshotResponse.swift (from AllTickersSnapshot.swift)
+│   │   │   │   ├── DailyOpenCloseResponse.swift
+│   │   │   │   └── ... (other stock-specific responses)
+│   │   │   ├── Crypto/
+│   │   │   │   ├── CryptoAggregatesResponse.swift
+│   │   │   │   └── ...
+│   │   │   ├── Forex/
+│   │   │   │   ├── ForexQuotesResponse.swift
+│   │   │   │   └── ...
+│   │   │   ├── Options/
+│   │   │   │   ├── OptionsChainResponse.swift
+│   │   │   │   └── ...
+│   │   │   ├── Indices/
+│   │   │   │   ├── IndexAggregatesResponse.swift
+│   │   │   │   └── ...
+│   │   │   └── Reference/
+│   │   │       ├── LocalesResponse.swift
+│   │   │       ├── MarketsResponse.swift
+│   │   │       ├── MarketHolidaysResponse.swift
+│   │   │       └── MarketStatusResponse.swift
+│   │   │
+│   │   ├── Utilities/            # Helper files
+│   │   │   ├── DynamicKey.swift
+│   │   │   └── PolygonSwiftError.swift
+│   │
+│   └── Tests/
+│       └── PolygonSwiftTests/
+│           └── ...
+├── Package.swift
+└── ... (README.md, LICENSE, etc.)
