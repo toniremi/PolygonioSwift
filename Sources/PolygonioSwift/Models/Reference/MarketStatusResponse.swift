@@ -1,23 +1,11 @@
 //
-//  Markets.swift
+//  MarketStatusResponse.swift
 //
 //
 //  Created by Antoni Remeseiro Alfonso on 9/11/20.
 //
 
 import Foundation
-
-public struct MarketStatusRequest : ApiRequest {
-    typealias Response = MarketStatusResponse
-    
-    var path: String {
-        return "/v1/marketstatus/now"
-    }
-    
-    var queryItems: [URLQueryItem] {
-        return []
-    }
-}
 
 public struct MarketStatusResponse : Decodable {
     

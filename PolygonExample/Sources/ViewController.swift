@@ -33,6 +33,8 @@ class ViewController: UIViewController {
         let symbol = "AAPL"
         
         // Example accessing stocks
+        
+        // Ticker Snapshot
         PolygonioSwift.shared.stocks.tickerSnapshot(symbol: symbol) { result in
             switch result {
             case .success(let snapshot):
@@ -41,6 +43,24 @@ class ViewController: UIViewController {
             case .failure(let error):
                 // An error occurred
                 print("Error fetching snapshot for \(symbol): \(error.localizedDescription)")
+                if let requestId = error.requestId {
+                    print("  Request ID: \(requestId)")
+                }
+                if let status = error.status {
+                    print("  Status: \(status)")
+                }
+            }
+        }
+        
+        // Conditions
+        PolygonioSwift.shared.stocks.conditions(asset_class: .stocks, order: .ascending, limit: 10) { result in
+            switch result {
+            case .success(let snapshot):
+                print("Successfully fetched conditions")
+                print(snapshot)
+            case .failure(let error):
+                // An error occurred
+                print("Error fetching conditions: \(error.localizedDescription)")
                 if let requestId = error.requestId {
                     print("  Request ID: \(requestId)")
                 }

@@ -1,23 +1,11 @@
 //
-//  Markets.swift
+//  MarketHolidaysResponse.swift
 //
 //
 //  Created by Antoni Remeseiro Alfonso on 9/11/20.
 //
 
 import Foundation
-
-public struct MarketHolidaysRequest : ApiRequest {
-    typealias Response = MarketHolidaysResponse
-    
-    var path: String {
-        return "/v1/marketstatus/upcoming"
-    }
-    
-    var queryItems: [URLQueryItem] {
-        return []
-    }
-}
 
 public struct MarketHolidaysResponse : Decodable {
     
