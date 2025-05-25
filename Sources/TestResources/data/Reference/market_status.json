@@ -1,0 +1,13 @@
+{
+    "market": "closed",
+    "serverTime": "2020-09-14T03:47:49-04:00",
+    "exchanges": {
+        "nyse": "closed",
+        "nasdaq": "closed",
+        "otc": "closed"
+    },
+    "currencies": {
+        "fx": "open",
+        "crypto": "open"
+    }
+}

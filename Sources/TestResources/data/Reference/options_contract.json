@@ -1,0 +1,15 @@
+{
+    "results": {
+        "cfi": "OCASPS",
+        "contract_type": "call",
+        "exercise_style": "american",
+        "expiration_date": "2025-12-19",
+        "primary_exchange": "BATO",
+        "shares_per_contract": 100,
+        "strike_price": 650,
+        "ticker": "O:SPY251219C00650000",
+        "underlying_ticker": "SPY"
+    },
+    "status": "OK",
+    "request_id": "a0bff04be5a119a46c6f36d54c57b8b5"
+}
