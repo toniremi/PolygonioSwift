@@ -5,6 +5,8 @@
 //  Created by Antoni Remeseiro Alfonso on 2025/05/25.
 //
 
+import Foundation
+
 public struct OptionsContractResponse: Decodable {
     public let requestId: String?
     public let results: OptionsContractResults?

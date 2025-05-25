@@ -14,26 +14,9 @@ public class StocksClient {
         set { polygonswift?.debug = newValue } // Allows setting if needed, or make it read-only
     }
 
-
     init(polygonswift: PolygonioSwift) {
         self.polygonswift = polygonswift
-    }
-    
-    /// Query all or a specific ticker symbol which are supported by Polygon.io. This API includes Indices, Crypto, FX, and Stocks/Equities.
-    /// - Parameters:
-    ///   - ticker: Specify a ticker symbol. Defaults to empty string which queries all tickers.
-    ///   - sort: Which field to sort by.
-    ///   - type: If you want the results to only container a certain type.
-    ///   - market: Get tickers for a specific market
-    ///   - locale: Get tickers for a specific region/locale
-    ///   - limit: Limit the size of the response, default is 100 and max is 1000.
-    ///   - active: Filter for only active or inactive symbols
-    ///   - completion: The completion to receive the response which is an TickersQueryResponse object.Tickers data will be inside the tickers property.
-    public func tickers(sort: TickerSorting? = nil, order: Order? = nil, type: TickerTypes? = nil, market: MarketOptions? = nil, locale: Locale? = nil, ticker: String, limit: Int? = nil, active: Bool? = nil, completion: @escaping (Result<TickersQueryResponse, PolygonSwiftError>) -> Void) {
-        let request = TickersQueryRequest(ticker: ticker, sort: sort, order: order, type: type, market: market, locale: locale, limit: limit, active: active)
-        polygonswift?.dispatch(request: request, completion: completion)
-    }
-    
+    } 
     
     /// Search a ticker by ticker or company name. This is based of the tickers query request but focusing only on search.
     /// It provides a more simplified tool if you want to just search tickers.
@@ -48,106 +31,6 @@ public class StocksClient {
         polygonswift?.dispatch(request: request, completion: completion)
     }
     
-    /// Get the mapping of ticker types to descriptions / long names
-    /// - Parameter completion: The completion to receive the response which is an TickerTypesResponse object.
-    public func tickerTypes(completion: @escaping (Result<TickerTypesResponse, PolygonSwiftError>) -> Void) {
-        let request = TickerTypesRequest()
-        polygonswift?.dispatch(request: request, completion: completion)
-    }
-    
-    /// Get the details of the symbol company/entity. These are important details which offer an overview of the entity. Things like name, sector, description, logo and similar companies.
-    /// - Parameters:
-    ///   - symbol: Symbol we want details for
-    ///   - completion: The completion to receive the response which is an TickerResponse object.
-    @available(*, deprecated, message: "Use tickerOverview(symbol:) instead")
-    public func tickerDetails(symbol: String, completion: @escaping (Result<TickerDetailsResponse, PolygonSwiftError>) -> Void) {
-        let request = TickerDetailsRequest(symbol: symbol)
-        polygonswift?.dispatch(request: request, completion: completion)
-    }
-    
-    /// Get comprehensive details for a single ticker supported by Polygon.io. These are important details which offer an overview of the entity. Things like name, sector, description, logo and similar companies.
-    /// - Parameters:
-    ///   - symbol: Symbol we want details for
-    ///   - completion: The completion to receive the response which is an TickerOverviewResponse object.
-    public func tickerOverview(symbol: String, completion: @escaping (Result<TickerOverviewResponse, PolygonSwiftError>) -> Void) {
-        let request = TickerOverviewRequest(symbol: symbol)
-        polygonswift?.dispatch(request: request, completion: completion)
-    }
-    
-    
-    /// Get news articles  in general or for a specific ticker.
-    /// - Parameters:
-    ///   - ticker: Ticker we want to search news for. If nil then we search for news in general
-    ///   - limit: Limit the size of the response, default is 100 and max is 1000.
-    ///   - order: The order to sort the results on. Default is asc (ascending).
-    ///   - publishedLessEqualThan: Return results where this field is less than or equal to the date. Ex: 2021-06-17
-    ///   - publishedGreaterEqualThan: Return results where this field is greater than or equal to the date. Ex: 2021-06-17
-    ///   - completion: The completion to receive the response which is an TickerNewsResponse object.
-    public func tickerNews(ticker: String? = nil, limit: Int? = nil, order: Order? = nil, publishedLessEqualThan: String? = nil, publishedGreaterEqualThan: String? = nil, completion: @escaping (Result<TickerNewsResponse, PolygonSwiftError>) -> Void) {
-        let request = TickerNewsRequest(ticker: ticker, limit: limit, order: order, publishedLessEqualThan: publishedLessEqualThan, publishedGreaterEqualThan: publishedGreaterEqualThan)
-        polygonswift?.dispatch(request: request, completion: completion)
-    }
-    
-    /// Get the list of currently supported markets by Polygon.io API
-    /// - Parameter completion: The completion to receive the response which is an MarketsResponse object.
-    public func markets(completion: @escaping (Result<MarketsResponse, PolygonSwiftError>) -> Void) {
-        let request = MarketsRequest()
-        polygonswift?.dispatch(request: request, completion: completion)
-    }
-    
-    /// Get the list of currently supported locales by Polygon.io API
-    /// - Parameter completion: The completion to receive the response which is an LocalesResponse object.
-    public func locales(completion: @escaping (Result<LocalesResponse, PolygonSwiftError>) -> Void) {
-        let request = LocalesRequest()
-        polygonswift?.dispatch(request: request, completion: completion)
-    }
-    
-    /// Get the historical splits for this symbol.
-    /// - Parameters:
-    ///   - symbol: Symbol we want historical splits data for
-    ///   - completion: The completion to receive the response which is an StockSplitsResponse object.
-    public func stockSplits(symbol: String, completion: @escaping (Result<StockSplitsResponse, PolygonSwiftError>) -> Void) {
-        let request = StockSplitsRequest(symbol: symbol)
-        polygonswift?.dispatch(request: request, completion: completion)
-    }
-    
-    
-    /// Get the historical divdends for this ticker.
-    /// - Parameters:
-    ///   - symbol: Symbol we want historical dividends data for
-    ///   - completion: The completion to receive the response which is an StockDividendsResponse object.
-    public func stockDividends(symbol: String, completion: @escaping (Result<StockDividendsResponse, PolygonSwiftError>) -> Void) {
-        let request = StockDividendsRequest(symbol: symbol)
-        polygonswift?.dispatch(request: request, completion: completion)
-    }
-    
-    /// Get the historical financials for this ticker.
-    /// - Parameters:
-    ///   - symbol: Symbol we want financials data for
-    ///   - limit: Limit the number of results
-    ///   - type : Specify a type of report to return. Y = Year YA = Year annualized Q = Quarter QA = Quarter Annualized T = Trailing twelve months TA = trailing twelve months annualized
-    ///   - completion: The completion to receive the response which is an StockFinancialsResponse object.
-    public func stockFinancials(symbol: String, limit: Int = 5, type: FinancialType? = nil, completion: @escaping (Result<StockFinancialsResponse, PolygonSwiftError>) -> Void) {
-        let request = StockFinancialsRequest(symbol: symbol, limit: limit, type: type)
-        polygonswift?.dispatch(request: request, completion: completion)
-    }
-    
-    
-    /// Current status of each market
-    /// - Parameter completion: The completion to receive the response which is an MarketStatusResponse object.
-    public func marketStatus(completion: @escaping (Result<MarketStatusResponse, PolygonSwiftError>) -> Void) {
-        let request = MarketStatusRequest()
-        polygonswift?.dispatch(request: request, completion: completion)
-    }
-    
-    
-    /// Get upcoming market holidays and their open/close times
-    /// - Parameter completion: The completion to receive the response which is an  array of MarketHolidaysResponse object.
-    public func marketHolidays(completion: @escaping (Result<MarketHolidaysResponse, PolygonSwiftError>) -> Void) {
-        let request = MarketHolidaysRequest()
-        polygonswift?.dispatch(request: request, completion: completion)
-    }
-    
     /// Get the previous day close for the specified ticker
     /// - Parameters:
     ///   - symbol: Symbol we want historical dividends data for
@@ -158,7 +41,6 @@ public class StocksClient {
         polygonswift?.dispatch(request: request, completion: completion)
     }
     
-
     /// Get aggregates for a date range, in custom time window sizes.
     /// - Parameters:
     ///   - ticker: Ticker symbol of the request
@@ -194,7 +76,7 @@ public class StocksClient {
         let request = TickerSnapshotRequest(symbol: symbol)
         polygonswift?.dispatch(request: request, completion: completion)
     }
-
+    
     /// Snapshot allows you to see all tickers current minute aggregate, daily aggregate and last trade. As well as previous days aggregate and calculated change for today.
     /// WARNING: The response size is large use this at your own discretion.
     /// - Parameters:
@@ -203,9 +85,4 @@ public class StocksClient {
         let request = AllTickersSnapshotRequest()
         polygonswift?.dispatch(request: request, completion: completion)
     }
-    
-    
-    
-    
-    
 }
