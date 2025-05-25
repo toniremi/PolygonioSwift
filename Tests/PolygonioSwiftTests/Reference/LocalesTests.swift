@@ -13,7 +13,7 @@ final class LocalesTests: XCTestCase {
   let loader = Loader()
     
   func testDecodingResponse() {
-    let rs = try? loader.loadJSON(LocalesResponse.self, path: "locales.json")
+    let rs = try? loader.loadJSON(LocalesResponse.self, path: "Reference/locales.json")
     XCTAssertNotNil(rs)
   }
 

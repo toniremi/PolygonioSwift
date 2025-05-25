@@ -21,7 +21,7 @@ public struct ExchangesResponse: Decodable {
     }
     
     public struct ExchangesResults: Decodable {
-        public let acronym: String? // Assuming 'acronymstring' in TypeScript was meant to be 'acronym' as the property name
+        public let acronym: String?
         public let assetClass: String
         public let id: Int
         public let locale: String
@@ -33,7 +33,7 @@ public struct ExchangesResponse: Decodable {
         public let url: String?
 
         private enum CodingKeys: String, CodingKey {
-            case acronym = "acronymstring" // Maps from JSON key "acronymstring"
+            case acronym = "acronymstring"
             case assetClass = "asset_class"
             case id
             case locale

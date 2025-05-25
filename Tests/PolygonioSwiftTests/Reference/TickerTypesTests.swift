@@ -1,19 +1,19 @@
 //
-//  TickerSnapshot.swift
+//  TickerTypesTests.swift
 //  
 //
-//  Created by Antoni Remeseiro Alfonso on 9/16/20.
+//  Created by Antoni Remeseiro Alfonso on 9/13/20.
 //
 
 import XCTest
 import TestResources
 @testable import PolygonioSwift
 
-final class TickerSnapshotTests: XCTestCase {
+final class TickerTypesTests: XCTestCase {
   let loader = Loader()
     
   func testDecodingResponse() {
-    let rs = try? loader.loadJSON(TickerSnapshotResponse.self, path: "ticker_snapshot_AAPL.json")
+    let rs = try? loader.loadJSON(TickerTypesResponse.self, path: "Reference/ticker_types.json")
     XCTAssertNotNil(rs)
   }
 

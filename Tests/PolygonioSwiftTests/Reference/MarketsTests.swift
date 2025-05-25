@@ -1,19 +1,19 @@
 //
-//  ConditionsTest.swift
-//  PolygonioSwift
+//  MarketsTests.swift
+//  
 //
-//  Created by Antoni Remeseiro Alfonso on 2025/05/24.
+//  Created by Antoni Remeseiro Alfonso on 9/14/20.
 //
 
 import XCTest
 import TestResources
 @testable import PolygonioSwift
 
-final class ConditionsTest: XCTestCase {
+final class MarketsTests: XCTestCase {
   let loader = Loader()
     
   func testDecodingResponse() {
-    let rs = try? loader.loadJSON(ConditionsResponse.self, path: "Reference/conditions.json")
+    let rs = try? loader.loadJSON(MarketsResponse.self, path: "Reference/markets.json")
     XCTAssertNotNil(rs)
   }
 

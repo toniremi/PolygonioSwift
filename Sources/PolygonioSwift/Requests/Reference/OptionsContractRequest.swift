@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct OptionContractRequest : ApiRequest {
+public struct OptionsContractRequest : ApiRequest {
     typealias Response = OptionsContractResponse
     
     let optionTicker: String

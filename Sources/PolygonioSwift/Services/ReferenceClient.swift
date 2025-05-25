@@ -42,4 +42,14 @@ public class ReferenceClient {
         let request = ExchangesRequest(asset_class: asset_class, locale: locale)
         polygonswift?.dispatch(request: request, completion: completion)
     }
+    
+    /// Retrieve detailed information about a specific options contract, including its contract type (call or put),
+    /// exercise style, expiration date, strike price, shares per contract, underlying ticker, and primary exchange.
+    /// - Parameters:
+    ///   - ticker: Query for a contract by options ticker.
+    ///   - locale: Specify a point in time for the contract as of this date with format YYYY-MM-DD. Defaults to today's date.
+    public func optionsContract(ticker: String, as_of: String? = nil, completion: @escaping (Result<OptionsContractResponse, PolygonSwiftError>) -> Void) {
+        let request = OptionsContractRequest(optionTicker: ticker, as_of: as_of)
+        polygonswift?.dispatch(request: request, completion: completion)
+    }
 }

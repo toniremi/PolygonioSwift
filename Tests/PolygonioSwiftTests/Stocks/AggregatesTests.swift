@@ -13,7 +13,7 @@ final class AggregatesTests: XCTestCase {
   let loader = Loader()
     
   func testDecodingResponse() {
-    let rs = try? loader.loadJSON(AggregatesResponse.self, path: "aggregates_AAPL_daily.json")
+    let rs = try? loader.loadJSON(AggregatesResponse.self, path: "Stocks/aggregates_AAPL_daily.json")
     XCTAssertNotNil(rs)
   }
 

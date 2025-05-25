@@ -13,7 +13,7 @@ final class DailyOpenCloseTests: XCTestCase {
   let loader = Loader()
     
   func testDecodingResponse() {
-    let rs = try? loader.loadJSON(DailyOpenCloseResponse.self, path: "daily_open_close_AAPL.json")
+    let rs = try? loader.loadJSON(DailyOpenCloseResponse.self, path: "Stocks/daily_open_close_AAPL.json")
     XCTAssertNotNil(rs)
   }
 

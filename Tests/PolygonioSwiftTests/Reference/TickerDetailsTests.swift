@@ -13,7 +13,7 @@ final class TickerDetailsTests: XCTestCase {
   let loader = Loader()
     
   func testDecodingResponse() {
-    let rs = try? loader.loadJSON(TickerDetailsResponse.self, path: "ticker_details_AAPL.json")
+    let rs = try? loader.loadJSON(TickerDetailsResponse.self, path: "Reference/ticker_details_AAPL.json")
     XCTAssertNotNil(rs)
   }
 

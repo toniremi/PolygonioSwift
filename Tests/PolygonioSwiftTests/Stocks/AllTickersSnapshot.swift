@@ -1,19 +1,19 @@
 //
-//  ConditionsTest.swift
-//  PolygonioSwift
+//  AllTickersSnapshot.swift
+//  
 //
-//  Created by Antoni Remeseiro Alfonso on 2025/05/24.
+//  Created by Antoni Remeseiro Alfonso on 9/16/20.
 //
 
 import XCTest
 import TestResources
 @testable import PolygonioSwift
 
-final class ConditionsTest: XCTestCase {
+final class AllTickersSnapshotTests: XCTestCase {
   let loader = Loader()
     
   func testDecodingResponse() {
-    let rs = try? loader.loadJSON(ConditionsResponse.self, path: "Reference/conditions.json")
+    let rs = try? loader.loadJSON(AllTickersSnapshotResponse.self, path: "Stocks/all_tickers_snapshot.json")
     XCTAssertNotNil(rs)
   }
 

@@ -13,7 +13,7 @@ final class ExchangesTests: XCTestCase {
   let loader = Loader()
     
   func testDecodingResponse() {
-    let rs = try? loader.loadJSON(ExchangesResponse.self, path: "exchanges.json")
+    let rs = try? loader.loadJSON(ExchangesResponse.self, path: "Reference/exchanges.json")
     XCTAssertNotNil(rs)
   }
 
