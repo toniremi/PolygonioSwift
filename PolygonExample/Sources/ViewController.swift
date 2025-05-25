@@ -53,10 +53,28 @@ class ViewController: UIViewController {
         }
         
         // Conditions
-        PolygonioSwift.shared.stocks.conditions(asset_class: .stocks, order: .ascending, limit: 10) { result in
+        PolygonioSwift.shared.reference.conditions(asset_class: .stocks, order: .ascending, limit: 10) { result in
             switch result {
             case .success(let snapshot):
                 print("Successfully fetched conditions")
+                print(snapshot)
+            case .failure(let error):
+                // An error occurred
+                print("Error fetching conditions: \(error.localizedDescription)")
+                if let requestId = error.requestId {
+                    print("  Request ID: \(requestId)")
+                }
+                if let status = error.status {
+                    print("  Status: \(status)")
+                }
+            }
+        }
+        
+        // Exchanges
+        PolygonioSwift.shared.reference.exchanges { result in
+            switch result {
+            case .success(let snapshot):
+                print("Successfully fetched exchanges")
                 print(snapshot)
             case .failure(let error):
                 // An error occurred

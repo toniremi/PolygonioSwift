@@ -85,10 +85,11 @@ public class PolygonioSwift {
     
     // MARK: - Service Clients
     public lazy var stocks: StocksClient = StocksClient(polygonswift: self)
+    public lazy var reference: ReferenceClient = ReferenceClient(polygonswift: self)
     // public lazy var crypto: CryptoClient = CryptoClient(polygonswift: self)
     // public lazy var forex: ForexClient = ForexClient(polygonswift: self)
     // public lazy var options: OptionsClient = OptionsClient(polygonswift: self)
     // public lazy var indices: IndicesClient = IndicesClient(polygonswift: self)
-    // public lazy var reference: ReferenceClient = ReferenceClient(polygonswift: self)
+    
     
 }
