@@ -70,6 +70,24 @@ class ViewController: UIViewController {
             }
         }
         
+        // Last Trade
+        PolygonioSwift.shared.stocks.lastTrade(ticker: symbol) { result in
+            switch result {
+            case .success(let snapshot):
+                print("Successfully fetched last trade for \(symbol)")
+                print(snapshot)
+            case .failure(let error):
+                // An error occurred
+                print("Error fetching conditions: \(error.localizedDescription)")
+                if let requestId = error.requestId {
+                    print("  Request ID: \(requestId)")
+                }
+                if let status = error.status {
+                    print("  Status: \(status)")
+                }
+            }
+        }
+        
         // Conditions
         PolygonioSwift.shared.reference.conditions(asset_class: .stocks, order: .ascending, limit: 10) { result in
             switch result {

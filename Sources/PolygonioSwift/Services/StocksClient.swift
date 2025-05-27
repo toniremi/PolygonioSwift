@@ -70,9 +70,20 @@ public class StocksClient {
     /// Retrieve a list of tickers related to a specified ticker, identified through an analysis of news coverage and returns data.
     /// - Parameters:
     ///   - ticker: The ticker symbol to search.
-    ///   - completion: The completion to receive the response which is an TickerSnapshotResponse object.
+    ///   - completion: The completion to receive the response which is an RelatedTickersResponse object.
     public func relatedTickers(ticker:String, completion: @escaping (Result<RelatedTickersResponse, PolygonSwiftError>) -> Void) {
         let request = RelatedTickersRequest(ticker: ticker)
+        polygonswift?.dispatch(request: request, completion: completion)
+    }
+    
+    /// Retrieve the latest available trade for a specified stock ticker, including details such as price, size, exchange, and timestamp.
+    /// This endpoint supports monitoring recent trading activity and updating dashboards or applications with the most
+    /// current trade information, providing timely insights into ongoing market conditions.
+    /// - Parameters:
+    ///   - ticker: Specify a case-sensitive ticker symbol. For example, AAPL represents Apple Inc.
+    ///   - completion: The completion to receive the response which is an LastTradeResponse object.
+    public func lastTrade(ticker:String, completion: @escaping (Result<LastTradeResponse, PolygonSwiftError>) -> Void) {
+        let request = LastTradeRequest(ticker: ticker)
         polygonswift?.dispatch(request: request, completion: completion)
     }
     
