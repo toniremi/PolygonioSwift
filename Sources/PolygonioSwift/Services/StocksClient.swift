@@ -67,6 +67,15 @@ public class StocksClient {
         polygonswift?.dispatch(request: request, completion: completion)
     }
     
+    /// Retrieve a list of tickers related to a specified ticker, identified through an analysis of news coverage and returns data.
+    /// - Parameters:
+    ///   - ticker: The ticker symbol to search.
+    ///   - completion: The completion to receive the response which is an TickerSnapshotResponse object.
+    public func relatedTickers(ticker:String, completion: @escaping (Result<RelatedTickersResponse, PolygonSwiftError>) -> Void) {
+        let request = RelatedTickersRequest(ticker: ticker)
+        polygonswift?.dispatch(request: request, completion: completion)
+    }
+    
     
     /// See the current snapshot of a single ticker
     /// - Parameters:

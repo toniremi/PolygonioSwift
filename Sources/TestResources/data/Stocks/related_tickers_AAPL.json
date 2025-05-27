@@ -1,0 +1,37 @@
+{
+    "request_id": "1801aa2a2d0ef69a8d8361896b5b481d",
+    "results": [
+        {
+            "ticker": "MSFT"
+        },
+        {
+            "ticker": "GOOGL"
+        },
+        {
+            "ticker": "AMZN"
+        },
+        {
+            "ticker": "GOOG"
+        },
+        {
+            "ticker": "NVDA"
+        },
+        {
+            "ticker": "TSLA"
+        },
+        {
+            "ticker": "META"
+        },
+        {
+            "ticker": "NFLX"
+        },
+        {
+            "ticker": "DIS"
+        },
+        {
+            "ticker": "BRK.B"
+        }
+    ],
+    "status": "OK",
+    "ticker": "AAPL"
+}
