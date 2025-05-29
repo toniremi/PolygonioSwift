@@ -191,6 +191,7 @@
 /* Begin XCBuildConfiguration section */
 		D9A12784235699C700D136A5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A40AEAD2DE7E43800EB8139 /* Development.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -251,6 +252,7 @@
 		};
 		D9A12785235699C700D136A5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A40AEAD2DE7E43800EB8139 /* Development.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -305,6 +307,7 @@
 		};
 		D9A12787235699C700D136A5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A40AEAD2DE7E43800EB8139 /* Development.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -325,6 +328,7 @@
 		};
 		D9A12788235699C700D136A5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A40AEAD2DE7E43800EB8139 /* Development.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

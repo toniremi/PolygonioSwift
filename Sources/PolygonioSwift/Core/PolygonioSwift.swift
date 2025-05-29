@@ -1,95 +1,55 @@
 //
-//  StockClient.swift
+//  PolygonClient.swift
+//  PolygonioSwift
 //
-//
-//  Created by Antoni Remeseiro Alfonso on 9/9/20.
+//  Created by Antoni Remeseiro Alfonso on 2025/05/28.
 //
 
 import Foundation
+import OpenAPIRuntime
+import OpenAPIURLSession
 
-fileprivate let baseURLString = "https://api.polygon.io"
+// MARK: - PolygonioSwift (Main Singleton Client)
 
 public class PolygonioSwift {
-    let session: URLSession
-    var builder: URLBuilder
-    
-    // debug so we can see extra info
-    var debug = false
-    
+    // The generated client from Swift OpenAPI Generator
+    public let client: Client
+    internal let apiKey: String // Keep API key here
+    internal let serverURL: URL
+
+    // Debug flag for extra info
+    public var debug = false
+
     // Static shared instance for easy access
-    public static var shared = PolygonioSwift(key: "")
-    
-    public init(key: String) {
-        let components = URLComponents(string: baseURLString)!
-        session = URLSession(configuration: .default)
-        builder = URLBuilder(components: components, secret: key)
+    // IMPORTANT: You MUST call `PolygonioSwift.configure(apiKey: "YOUR_KEY")`
+    // before using the shared instance for the first time.
+    public static var shared = PolygonioSwift() // Initialize without API Key initially
+
+    // Private initializer to enforce configuration via 'configure'
+    private init() {
+        // Dummy client for initial setup, will be replaced by configure
+        self.apiKey = ""
+        self.serverURL = URL(string: "https://api.polygon.io")!
+        self.client = Client(serverURL: self.serverURL, transport: URLSessionTransport())
     }
-    
-    // If you want to set the API key after initialization
-    public func configure(apiKey: String) {
-        // Re-initialize builder or update its secret.
-        // For simplicity, assuming it's set at init or this recreates the builder.
-        let components = URLComponents(string: baseURLString)!
-        self.builder = URLBuilder(components: components, secret: apiKey)
+
+    /// Configure the shared instance of PolygonioSwift with your API Key and optional server URL.
+    /// This MUST be called once at your app's startup before accessing `PolygonioSwift.shared`.
+    public static func configure(apiKey: String, serverURL: URL = URL(string: "https://api.polygon.io")!) {
+        // Re-assign the shared instance with proper configuration
+        PolygonioSwift.shared = PolygonioSwift(apiKey: apiKey, serverURL: serverURL)
     }
-    
-    // to allow setting a debug to print extra info or not
+
+    // Actual initializer called by configure
+    private init(apiKey: String, serverURL: URL) {
+        self.apiKey = apiKey
+        self.serverURL = serverURL
+        self.client = Client(serverURL: serverURL, transport: URLSessionTransport(), middlewares: [APIKeyInterceptor(apiKey: apiKey)])
+    }
+
+    // Allows setting a debug flag to print extra info or not
     public func setDebug(enable: Bool) {
         self.debug = enable
     }
-    
-    // Generic network dispatch method
-    // This significantly reduces boilerplate in sub-clients
-    internal func dispatch<Request: ApiRequest>(
-        request: Request,
-        completion: @escaping (Result<Request.Response, PolygonSwiftError>) -> Void
-    ) {
-        let url = builder.buildURL(request)
-        
-        if self.debug {
-            print("Request URL: \(url.absoluteURL)")
-        }
-        
-        let task = session.dataTask(with: url) { data, response, error in
-            guard let data = data, error == nil else {
-                completion(.failure(PolygonSwiftError(message: error?.localizedDescription ?? "No data received.")))
-                return
-            }
-            
-            // Debug raw JSON
-            if self.debug {
-                if let jsonString = String(data: data, encoding: .utf8) {
-                    print("Raw JSON Response: \(jsonString)")
-                }
-            }
-            
-            do {
-                let decodedResponse = try JSONDecoder().decode(Request.Response.self, from: data)
-                completion(.success(decodedResponse))
-            } catch {
-                if self.debug {
-                    print("Decoding error: \(String(describing: error)) for URL: \(url.absoluteString)")
-                    if let jsonString = String(data: data, encoding: .utf8) {
-                        print("Failed to decode JSON: \(jsonString)")
-                    }
-                }
-                if let polygonError = try? JSONDecoder().decode(PolygonErrorResponse.self, from: data) {
-                    completion(.failure(PolygonSwiftError(message: polygonError.error, requestId: polygonError.request_id, status: polygonError.status)))
-                } else {
-                    completion(.failure(PolygonSwiftError(message: "Decoding error: \(error.localizedDescription)")))
-                }
-            }
-        }
-        task.resume()
-    }
-    
-    // MARK: - Service Clients
-    public lazy var stocks: StocksClient = StocksClient(polygonswift: self)
-    public lazy var reference: ReferenceClient = ReferenceClient(polygonswift: self)
-    // public lazy var crypto: CryptoClient = CryptoClient(polygonswift: self)
-    // public lazy var forex: ForexClient = ForexClient(polygonswift: self)
-    // public lazy var options: OptionsClient = OptionsClient(polygonswift: self)
-    // public lazy var indices: IndicesClient = IndicesClient(polygonswift: self)
-    
-    
 }
+
