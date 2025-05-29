@@ -91,3 +91,5 @@ iOSInjectionProject/
 AlphaVantageKit.framework.zip
 
 iOS Example/Sources/Development.xcconfig
+*.xcconfig
+PolygonExample/Sources/Development.xcconfig
