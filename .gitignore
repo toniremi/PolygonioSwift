@@ -90,6 +90,6 @@ fastlane/test_output
 iOSInjectionProject/
 AlphaVantageKit.framework.zip
 
-#iOS Example/Sources/Development.xcconfig
-#*.xcconfig
-#PolygonExample/Sources/Development.xcconfig
+iOS Example/Sources/Development.xcconfig
+*.xcconfig
+PolygonExample/Sources/Development.xcconfig
