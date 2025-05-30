@@ -1,0 +1,11 @@
+generate:
+  - types
+  - client
+accessModifier: public
+filter:
+  tags:
+    - crypto:aggregates
+    - crypto:last:trade
+    - crypto:open-close
+    - crypto:snapshot
+    - crypto:trades

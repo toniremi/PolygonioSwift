@@ -7,6 +7,7 @@
 
 import UIKit
 import PolygonioSwift
+import PolygonioStocksClient
 
 class ViewController: UIViewController {
     
@@ -14,7 +15,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         let apiKey = Bundle.main.infoDictionary?["POLYGON_KEY"] as? String
-        
+
         guard let apiKey = apiKey else {
             print("Polygon.IO API Key not found in Info.plist. Please set 'API_KEY'.")
             return
@@ -37,7 +38,7 @@ class ViewController: UIViewController {
     }
     
     func makeRequests() async throws -> Operations.GetStocksAggregates.Output.Ok.Body.jsonPayload {
-        let response = try await PolygonioSwift.shared.client.GetStocksAggregates(.init(path: Operations.GetStocksAggregates.Input.Path.init(stocksTicker: "AAPL", multiplier: 1, timespan: Operations.GetStocksAggregates.Input.Path.timespanPayload.day, from: "2024-05-29", to: "2025-05-29")))
+        let response = try await PolygonioSwift.shared.stockClient.GetStocksAggregates(.init(path: Operations.GetStocksAggregates.Input.Path.init(stocksTicker: "AAPL", multiplier: 1, timespan: Operations.GetStocksAggregates.Input.Path.timespanPayload.day, from: "2024-05-30", to: "2025-05-30")))
         return try response.ok.body.json
     }
 }

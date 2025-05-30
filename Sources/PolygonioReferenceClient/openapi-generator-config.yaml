@@ -1,0 +1,19 @@
+generate:
+  - types
+  - client
+accessModifier: public
+filter:
+  tags:
+    - reference:stocks
+    - reference:stocks:ipos
+    - reference:stocks:market
+    - reference:tickers:list
+    - reference:tickers:get
+    - reference:tickers:types
+    - reference:related:companies
+    - reference:news
+    - reference:exchanges
+    - reference:conditions
+    - reference:dividends
+    - reference:options:contracts:list
+    - reference:options:contract

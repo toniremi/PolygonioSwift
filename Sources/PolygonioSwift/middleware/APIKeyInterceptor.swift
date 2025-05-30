@@ -56,9 +56,6 @@ struct APIKeyInterceptor: ClientMiddleware {
         // 7. Update the path of the HTTPRequest
         modifiedRequest.path = modifiedPathWithQuery
         
-        print("Original Path: \(request.path)")
-        print("Modified Path: \(modifiedRequest.path)") // This will now include the query string
-
         // 8. Pass the modified request to the next middleware or the client
         return try await next(modifiedRequest, body, baseURL)
     }

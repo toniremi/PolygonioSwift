@@ -1,0 +1,8 @@
+generate:
+  - types
+  - client
+accessModifier: public
+filter:
+  tags:
+    - indices:aggregates
+    - indices:snapshot

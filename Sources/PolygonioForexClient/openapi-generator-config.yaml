@@ -1,0 +1,12 @@
+generate:
+  - types
+  - client
+accessModifier: public
+filter:
+  tags:
+    - fx:aggregates
+    - fx:conversion
+    - fx:last:quote
+    - fx:quotes
+    - fx:snapshot
+    - fx:trades

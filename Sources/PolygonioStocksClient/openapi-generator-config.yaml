@@ -1,0 +1,13 @@
+generate:
+  - types
+  - client
+accessModifier: public
+filter:
+  tags:
+    - stocks:aggregates
+    - stocks:last:quote
+    - stocks:last:trade
+    - stocks:open-close
+    - stocks:snapshot
+    - stocks:quotes
+    - stocks:trades

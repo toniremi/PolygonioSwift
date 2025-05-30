@@ -1,0 +1,12 @@
+generate:
+  - types
+  - client
+accessModifier: public
+filter:
+  tags:
+    - options:aggregates
+    - options:open-close
+    - options:snapshot
+    - options:trades
+    - options:quotes
+    - options:last:trade
