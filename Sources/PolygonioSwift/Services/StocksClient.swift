@@ -55,7 +55,16 @@ public class StocksClient {
         let request = AggregatesRequest(ticker: ticker, multiplier: multiplier, timespan: timespan, from: from, to: to, unadjusted: unadjusted, sort: sorting)
         polygonswift?.dispatch(request: request, completion: completion)
     }
-
+    
+    /// Retrieve daily OHLC (open, high, low, close), volume, and volume-weighted average price (VWAP) data for all U.S. stocks on a specified trading date.
+    /// - Parameters:
+    ///   - date: The beginning date for the aggregate window.Fformat for date is YYYY-MM-DD Ex: 2020-09-10 ;
+    ///   - adjusted: Set to true if the results should NOT be adjusted for splits. Default is true.
+    ///   - completion: The completion to receive the response which is an AggregateResponse object. Candle data will be inside the results property..
+    public func aggregatesGrouopedDaily(date:String, adjusted:Bool = true, completion: @escaping (Result<AggsGroupedDailyResponse, PolygonSwiftError>) -> Void) {
+        let request = AggsGroupedDailyRequest(date: date, adjusted: adjusted)
+        polygonswift?.dispatch(request: request, completion: completion)
+    }
     
     /// Get the open, close and afterhours prices of a symbol on a certain date.
     /// - Parameters:

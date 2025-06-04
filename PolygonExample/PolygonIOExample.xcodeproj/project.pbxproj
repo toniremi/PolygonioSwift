@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2A40AEAE2DE7E43800EB8139 /* Development.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2A40AEAD2DE7E43800EB8139 /* Development.xcconfig */; };
+		2A3367582DEFFD0A00705FAD /* Development.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2A3367572DEFFD0A00705FAD /* Development.xcconfig */; };
 		2A9F57282DD6F24E008FF9E4 /* PolygonioSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2A9F57272DD6F24E008FF9E4 /* PolygonioSwift */; };
 		D9A12776235699C600D136A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A12775235699C600D136A5 /* AppDelegate.swift */; };
 		D9A12778235699C600D136A5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A12777235699C600D136A5 /* SceneDelegate.swift */; };
@@ -19,7 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2A40AEAD2DE7E43800EB8139 /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
+		2A3367572DEFFD0A00705FAD /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		D9A12772235699C600D136A5 /* Polygonio PolygonIOExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Polygonio PolygonIOExample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9A12775235699C600D136A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D9A12777235699C600D136A5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,7 +66,7 @@
 				D9A12775235699C600D136A5 /* AppDelegate.swift */,
 				D9A12777235699C600D136A5 /* SceneDelegate.swift */,
 				D9A12779235699C600D136A5 /* ViewController.swift */,
-				2A40AEAD2DE7E43800EB8139 /* Development.xcconfig */,
+				2A3367572DEFFD0A00705FAD /* Development.xcconfig */,
 				D9A1277B235699C600D136A5 /* Main.storyboard */,
 				D9A1277E235699C700D136A5 /* Assets.xcassets */,
 				D9A12780235699C700D136A5 /* LaunchScreen.storyboard */,
@@ -149,7 +149,7 @@
 			files = (
 				D9A12782235699C700D136A5 /* LaunchScreen.storyboard in Resources */,
 				D9A1277F235699C700D136A5 /* Assets.xcassets in Resources */,
-				2A40AEAE2DE7E43800EB8139 /* Development.xcconfig in Resources */,
+				2A3367582DEFFD0A00705FAD /* Development.xcconfig in Resources */,
 				D9A1277D235699C600D136A5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -191,6 +191,7 @@
 /* Begin XCBuildConfiguration section */
 		D9A12784235699C700D136A5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A3367572DEFFD0A00705FAD /* Development.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -251,6 +252,7 @@
 		};
 		D9A12785235699C700D136A5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A3367572DEFFD0A00705FAD /* Development.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -305,6 +307,7 @@
 		};
 		D9A12787235699C700D136A5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A3367572DEFFD0A00705FAD /* Development.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -325,6 +328,7 @@
 		};
 		D9A12788235699C700D136A5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A3367572DEFFD0A00705FAD /* Development.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
