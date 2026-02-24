@@ -58,7 +58,7 @@ public struct AggregatesResponse : Decodable {
     }
     
     public struct Candle : Codable {
-        public var volume: Int
+        public var volume: Decimal
         public var VWAP: Decimal //VWAP (Volume Weighted Average Price)
         public var open: Decimal
         public var close: Decimal

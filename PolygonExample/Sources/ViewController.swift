@@ -123,7 +123,7 @@ class ViewController: UIViewController {
         }
         
         // Fetch Aggregates (Candle Data)
-        polygon.aggregates(ticker: "AAPL", multiplier: 1, timespan: .day, from: "2020-06-01", to: "2020-12-01") { (result:AggregatesResponse?, err) in
+        polygon.aggregates(ticker: "AAPL", multiplier: 1, timespan: .day, from: "2025-02-01", to: "2026-02-24") { (result:AggregatesResponse?, err) in
             // check if we got any errors
             if let err = err {
                 print(err)
